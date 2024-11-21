@@ -4,6 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="csrf-token" content="{{ csrf_token() }}"/>
   <title>AdminLTE 3 | Dashboard 2</title>
 
   <!-- Google Font: Source Sans Pro -->
@@ -41,8 +42,7 @@
   <!-- /.control-sidebar -->
 
   <!-- Main Footer -->
-@include('admin.layout.footer')
-</div>
+
 <!-- ./wrapper -->
 
 <!-- REQUIRED SCRIPTS -->
@@ -63,6 +63,7 @@
 <script src="{{ url('admin/plugins/jquery-mapael/maps/usa_states.min.js') }}"></script>
 <!-- ChartJS -->
 <script src="{{ url('admin/plugins/chart.js/Chart.min.js') }}"></script>
+<script src="{{ url('admin/js/custom.js') }}"></script>
 
 <!-- AdminLTE for demo purposes -->
 <script src="{{ url('admin/js/demo.js') }}"></script>
