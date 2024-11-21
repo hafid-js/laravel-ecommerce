@@ -13,8 +13,15 @@
   <link rel="stylesheet" href="{{ url('admin/plugins/fontawesome-free/css/all.min.css') }}">
   <!-- overlayScrollbars -->
   <link rel="stylesheet" href="{{ url('admin/plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
+
+   <!-- DataTables -->
+   <link rel="stylesheet" href="{{ url('admin/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
+   <link rel="stylesheet" href="{{ url('admin/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
+   <link rel="stylesheet" href="{{ url('admin/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
+
   <!-- Theme style -->
   <link rel="stylesheet" href="{{ url('admin/css/adminlte.min.css') }}">
+
 </head>
 <body class="hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
 <div class="wrapper">
@@ -69,5 +76,15 @@
 <script src="{{ url('admin/js/demo.js') }}"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="{{ url('admin/js/pages/dashboard2.js') }}"></script>
+
+<!-- DataTables  & Plugins -->
+<script src="{{ url('admin/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+<script src="{{ url('admin/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
+<script src="{{ url('admin/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
+<script>
+    $(function () {
+      $("#cmspages").DataTable();
+    });
+  </script>
 </body>
 </html>
