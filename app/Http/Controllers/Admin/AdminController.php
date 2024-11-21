@@ -9,10 +9,12 @@ use Validator;
 use Hash;
 use App\Models\Admin;
 use Image;
+use Session;
 
 class AdminController extends Controller
 {
     public function dashboard() {
+        Session::put('page','dashboard');
         return view('admin.layout.dashboard');
     }
 
@@ -52,6 +54,7 @@ class AdminController extends Controller
     }
 
     public function updatePassword(Request $request) {
+        Session::put('page','update-password');
         if ($request->isMethod('post')) {
             $data = $request->all();
             if(Hash::check($data['current_pwd'], Auth::guard('admin')->user()->password)){
@@ -78,6 +81,7 @@ class AdminController extends Controller
     }
 
     public function updateDetails(Request $request) {
+        Session::put('page','update-details');
         if($request->isMethod('post')) {
             $data = $request->all();
             // echo "<pre></pre>"; print_r($data);
