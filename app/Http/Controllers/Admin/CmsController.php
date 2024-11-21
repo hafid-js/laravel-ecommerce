@@ -55,7 +55,16 @@ class CmsController extends Controller
      */
     public function update(Request $request, CmsPage $cmsPage)
     {
-        //
+        if ($request->ajax()) {
+            $data = $request->all();
+            if($data['status'] == "Active") {
+                $status = 0;
+            } else {
+                $status = 1;
+            }
+            CmsPage::where('id', $data['page_id'])->update(['status' => $status]);
+            return response()->json(['status' => $status,'page_id' => $data['page_id']]);
+        }
     }
 
     /**
