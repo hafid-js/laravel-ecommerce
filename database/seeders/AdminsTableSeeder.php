@@ -23,6 +23,22 @@ class AdminsTableSeeder extends Seeder
             'email' => 'admin@gmail.com',
             'password' => $password,
             'image' => '',
+            'status' => 1],
+            ['id' => 2,
+            'name' =>'Amit',
+            'type' => 'subadmin',
+            'mobile' => 9700000000,
+            'email' => 'amit@gmail.com',
+            'password' => $password,
+            'image' => '',
+            'status' => 1],
+            ['id' => 3,
+            'name' =>'Widya Nursita',
+            'type' => 'subadmin',
+            'mobile' => 9900000000,
+            'email' => 'widya@gmail.com',
+            'password' => $password,
+            'image' => '',
             'status' => 1]
         ];
         Admin::insert($adminRecords);
