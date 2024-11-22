@@ -19,6 +19,9 @@
    <link rel="stylesheet" href="{{ url('admin/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
    <link rel="stylesheet" href="{{ url('admin/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
 
+     <!-- BS Stepper -->
+  <link rel="stylesheet" href="{{ url('admin/plugins/bs-stepper/css/bs-stepper.min.css') }}">
+
   <!-- Theme style -->
   <link rel="stylesheet" href="{{ url('admin/css/adminlte.min.css') }}">
 
@@ -77,6 +80,9 @@
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="{{ url('admin/js/pages/dashboard2.js') }}"></script>
 
+<!-- BS-Stepper -->
+<script src="{{ url('admin/plugins/bs-stepper/js/bs-stepper.min.js') }}"></script>
+
 <!-- DataTables  & Plugins -->
 <script src="{{ url('admin/plugins/datatables/jquery.dataTables.min.js') }}"></script>
 <script src="{{ url('admin/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
@@ -84,7 +90,13 @@
 <script>
     $(function () {
       $("#cmspages").DataTable();
+
+        // BS-Stepper Init
+  document.addEventListener('DOMContentLoaded', function () {
+    window.stepper = new Stepper(document.querySelector('.bs-stepper'))
+  })
     });
+
   </script>
 </body>
 </html>

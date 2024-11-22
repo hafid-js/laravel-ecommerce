@@ -29,6 +29,7 @@ Route::prefix('/admin')->namespace('App\Http\Controllers\Admin')->group(function
         // Display CMS Page (CRUD - READ)
         Route::get('cms-pages', 'CmsController@index');
         Route::post('update-cms-page-status', 'CmsController@update');
+        Route::match(['get', 'post'],'add-edit-cms-page','CmsController@edit');
     });
 
 });
