@@ -53,42 +53,45 @@
                     @endif
 
                     <!-- /.card-header -->
-                    <form action="{{ url('admin/add-edit-cms-page') }}" name="cmsForm" id="cmsForm" method="post">@csrf
+                    <form @if(empty($cmspage['id'])) action="{{ url('admin/add-edit-cms-page') }}"
+                    @else action="{{ url('admin/add-edit-cms-page/'.$cmspage['id']) }}"
+                    @endif
+                    name="cmsForm" id="cmsForm" method="post">@csrf
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label>Title*</label>
                                         <input type="text" placeholder="Enter Page Title" class="form-control"
-                                            id="title" name="title">
+                                            id="title" name="title" @if(!empty($cmspage['title'])) value="{{ $cmspage['title'] }}" @endif>
                                     </div>
                                     <!-- /.form-group -->
                                     <div class="form-group">
                                         <div class="form-group">
                                             <label>URL*</label>
                                             <input type="text" placeholder="Enter Page URL" class="form-control"
-                                                id="url" name="url">
+                                                id="url" name="url" @if(!empty($cmspage['url'])) value="{{ $cmspage['url'] }}" @endif>
                                         </div>
                                         </select>
                                     </div>
                                     <div class="form-group">
                                         <label>Description</label>
-                                        <textarea class="form-control" rows="3" placeholder="Enter Description" id="description" name="description"></textarea>
+                                        <textarea class="form-control" rows="3" placeholder="Enter Description" id="description" name="description">@if(!empty($cmspage['description'])) {{ $cmspage['description'] }} @endif</textarea>
                                     </div>
                                     <div class="form-group">
                                         <label>Meta Title*</label>
                                         <input type="text" placeholder="Enter Meta Title" class="form-control"
-                                            id="meta_title" name="meta_title">
+                                            id="meta_title" name="meta_title" @if(!empty($cmspage['meta_title'])) value="{{ $cmspage['meta_title'] }}" @endif>
                                     </div>
                                     <div class="form-group">
                                         <label>Meta Description*</label>
                                         <input type="text" placeholder="Enter Meta Desctiption" class="form-control"
-                                            id="meta_description" name="meta_description">
+                                            id="meta_description" name="meta_description" @if(!empty($cmspage['meta_description'])) value="{{ $cmspage['meta_description'] }}" @endif>
                                     </div>
                                     <div class="form-group">
                                         <label>Meta Keywords*</label>
                                         <input type="text" placeholder="Enter Meta Keywords" class="form-control"
-                                            id="meta_keywords" name="meta_keywords">
+                                            id="meta_keywords" name="meta_keywords" @if(!empty($cmspage['meta_keywords'])) value="{{ $cmspage['meta_keywords'] }}" @endif>
                                     </div>
                                 </div>
                                 <!-- /.form-group -->

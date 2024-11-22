@@ -63,6 +63,8 @@
                         @else
                         <a class="updateCmsPageStatus" id="page-{{ $page['id'] }}" page_id={{ $page['id'] }} style="color: grey" href="javascript:void(0)"><i class="fas fa-toggle-off" status="Inactive"></i></a>
                         @endif
+                        &nbsp; &nbsp;
+                        <a href="{{ url('admin/add-edit-cms-page/'.$page['id']) }}"><i class="fas fa-edit"></i></a>
                       </td>
                     </tr>
                     @endforeach
