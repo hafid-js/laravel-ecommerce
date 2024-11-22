@@ -53,10 +53,7 @@
                     @endif
 
                     <!-- /.card-header -->
-                    <form @if(empty($cmspage['id'])) action="{{ url('admin/add-edit-cms-page') }}"
-                    @else action="{{ url('admin/add-edit-cms-page/'.$cmspage['id']) }}"
-                    @endif
-                    name="cmsForm" id="cmsForm" method="post">@csrf
+                    <form @if(empty($cmspage['id'])) action="{{ url('admin/add-edit-cms-page') }}" @else action="{{ url('admin/add-edit-cms-page/'.$cmspage['id']) }}" @endif name="cmsForm" id="cmsForm"  method="post">@csrf
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-12">

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\CmsPage;
 use Illuminate\Http\Request;
+use Session;
 
 class CmsController extends Controller
 {
@@ -13,6 +14,7 @@ class CmsController extends Controller
      */
     public function index()
     {
+        Session::put('page','cms-pages');
         $CmsPages = CmsPage::get()->toArray();
         // dd($CmsPages);
         return view('admin.pages.cms_pages')->with(compact('CmsPages'));
@@ -47,6 +49,7 @@ class CmsController extends Controller
      */
     public function edit(Request $request, $id=null)
     {
+        Session::put('page','cms-pages');
         if ($id == "") {
             $title = "Add CMS Page";
             $cmspage = new CmsPage();
@@ -74,14 +77,14 @@ class CmsController extends Controller
 
             $this->validate($request, $rules, $customMessages);
 
-            $cmsPage->title = $data['title'];
-            $cmsPage->url = $data['url'];
-            $cmsPage->description = $data['description'];
-            $cmsPage->meta_title = $data['meta_title'];
-            $cmsPage->meta_description = $data['meta_description'];
-            $cmsPage->meta_keywords = $data['meta_keywords'];
-            $cmsPage->status = 1;
-            $cmsPage->save();
+            $cmspage->title = $data['title'];
+            $cmspage->url = $data['url'];
+            $cmspage->description = $data['description'];
+            $cmspage->meta_title = $data['meta_title'];
+            $cmspage->meta_description = $data['meta_description'];
+            $cmspage->meta_keywords = $data['meta_keywords'];
+            $cmspage->status = 1;
+            $cmspage->save();
             return redirect('admin/cms-pages')->with('success_message', $message);
         }
         return view('admin.pages.add_edit_cmspage')->with(compact('title','cmspage'));
@@ -107,8 +110,9 @@ class CmsController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(CmsPage $cmsPage)
+    public function destroy($id)
     {
-        //
+        CmsPage::where('id',$id)->delete();
+        return redirect()->back()->with('success_message','CMS Page deleted successfully');
     }
 }
