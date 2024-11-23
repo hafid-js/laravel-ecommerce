@@ -90,5 +90,40 @@ $(document).ready(function () {
         });
     });
 
+    // update subadmin
+
+    $(document).on("click", ".updateSubadminStatus", function () {
+        var status = $(this).children("i").attr("status");
+        var subadmin_id = $(this).attr("subadmin_id");
+        alert(subadmin_id);
+
+        $.ajax({
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+            },
+            type: "post",
+            url: "/admin/update-subadmin-status",
+            data: {
+                status: status,
+                subadmin_id: subadmin_id,
+            },
+            success: function (resp) {
+                if (resp["status"] == 0) {
+                    $("#subadmin-" + subadmin_id).html(
+                        "<i class='fas fa-toggle-off' style='color:grey' status='Inactive'></i>"
+                    );
+                } else if (resp["status"] == 1) {
+                    $("#subadmin-" + subadmin_id).html(
+                        "<i class='fas fa-toggle-on' status='Active'></i>"
+                    );
+                }
+            },
+            error: function () {
+                alert("Error");
+            },
+        });
+    });
+
+
 
 });
