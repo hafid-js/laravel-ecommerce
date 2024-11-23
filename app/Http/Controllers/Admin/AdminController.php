@@ -159,6 +159,25 @@ class AdminController extends Controller
         }
     }
 
+    public function addEditSubadmin(Request $request, $id=null){
+        if ($id == "") {
+            $title = "Add Subadmin";
+            $subadmindata = new Admin;
+            $message = "Subadmin added successfully";
+        } else {
+            $title = "Edit Subadmin";
+            $subadmindata = Admin::find($id);
+            $message = "Subadmin updated successfully";
+        }
+
+        if ($request->isMethod('post')) {
+            $data = $request->all();
+            echo "<pre></pre>"; print_r($data); die();
+        }
+
+        return view('admin.subadmins.add_edit_subadmin')->with(compact('title', 'subadmindata'));
+    }
+
     public function deleteSubadmin($id)
     {
         Admin::where('id',$id)->delete();

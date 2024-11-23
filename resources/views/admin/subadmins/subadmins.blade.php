@@ -58,8 +58,8 @@
                       <td>{{ $subadmin->id }}</td>
                       <td>{{ $subadmin->name }}</td>
                       <td>{{ $subadmin->mobile }}</td>
-                      <td>{{ $subadmin->type }}</td>
                       <td>{{ $subadmin->email }}</td>
+                      <td>{{ $subadmin->type }}</td>
                       <td>{{ date('F j, Y, g:i a', strtotime($subadmin->created_at)); }}</td>
                       <td>
                         @if($subadmin->status == 1)
