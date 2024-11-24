@@ -8,8 +8,10 @@ use Auth;
 use Validator;
 use Hash;
 use App\Models\Admin;
+use App\Models\AdminsRole;
 use Image;
 use Session;
+
 
 class AdminController extends Controller
 {
@@ -232,6 +234,49 @@ class AdminController extends Controller
     {
         Admin::where('id',$id)->delete();
         return redirect()->back()->with('success_message','Subadmin deleted successfully');
+    }
+
+    public function updateRole($id, Request $request) {
+        if ($request->isMethod('post')) {
+            $data = $request->all();
+
+            // delete all earlier roles for subadmin
+            AdminsRole::where('subadmin_id', $id)->delete();
+
+            foreach($data as $key => $value) {
+                if (isset($value['view'])) {
+                    $view = $value['view'];
+                } else {
+                    $view = 0;
+                }
+                if (isset($value['edit'])) {
+                    $edit = $value['edit'];
+                } else {
+                    $edit = 0;
+                }
+                if (isset($value['full'])) {
+                    $full = $value['full'];
+                } else {
+                    $full = 0;
+                }
+            }
+
+            $role = new AdminsRole;
+            $role->subadmin_id = $id;
+            $role->module = 'cms_pages';
+            $role->view_access = $view;
+            $role->edit_access = $edit;
+            $role->full_access = $full;
+            $role->save();
+
+            $message = "Subadmin Roles updated successfully!";
+            return redirect()->back()->with('success_message', $message);
+        }
+        $subadminRoles = AdminsRole::where('subadmin_id', $id)->get()->toArray();
+        $subadminDetails = Admin::where('id', $id)->first()->toArray();
+        $title = "Update ".$subadminDetails['name']." Subadmin Roles/Permissions";
+
+        return view('admin.subadmins.update_roles')->with(compact('title', 'id', 'subadminRoles'));
     }
 
 

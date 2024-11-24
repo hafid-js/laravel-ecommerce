@@ -71,6 +71,8 @@
                         <a href="{{ url('admin/add-edit-subadmin/'.$subadmin->id) }}"><i class="fas fa-edit"></i></a>
                         &nbsp; &nbsp;
                         <a class="confirmDelete" name="Subadmin" title="Delete Subadmin" href="javascript:void(0)" record="subadmin" recordid="{{ $subadmin->id }}"><i class="fas fa-trash"></i></a>
+                        &nbsp; &nbsp;
+                        <a href="{{ url('admin/update-role/'.$subadmin->id) }}"><i class="fas fa-unlock"></i></a>
                       </td>
                     </tr>
                     @endforeach
