@@ -52,6 +52,15 @@
                         </div>
                     @endif
 
+                    @if(Session::has('error_message'))
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <strong>Error:</strong> {{ Session::get('error_message') }}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      @endif
+
                     <!-- /.card-header -->
                     <form @if(empty($subadmindata['id'])) action="{{ url('admin/add-edit-subadmin') }}" @else action="{{ url('admin/add-edit-subadmin/'.$subadmindata['id']) }}" @endif name="subadminForm" id="subadminForm"  method="post" enctype="multipart/form-data">@csrf
                         <div class="card-body">
@@ -60,7 +69,7 @@
                                     <div class="form-group col-md-6">
                                         <label>Name*</label>
                                         <input type="text" placeholder="Enter Name" class="form-control"
-                                            id="name" name="name" @if(!empty($subadmindata['name'])) value="{{ $subadmindata['name'] }}" @endif>
+                                            id="name" name="name" @if(!empty($subadmindata['name'])) value="{{ $subadmindata['name'] }}" @else value ="{{ old('name') }}" @endif>
                                     </div>
                                     <!-- /.form-group -->
                                     <div class="form-group">
@@ -73,13 +82,20 @@
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label>Email*</label>
-                                        <input type="email" placeholder="Enter Email" class="form-control"
-                                            id="email" name="email" @if(!empty($subadmindata['email'])) value="{{ $subadmindata['email'] }}" @endif>
+                                        <input
+                                        @if($subadmindata['id'] != "") disabled style="background-color: #8d8d8d"
+                                        @else required
+                                        @endif
+                                        type="email" placeholder="Enter Email" class="form-control" id="email" name="email"
+                                        @if(!empty($subadmindata['email'])) value="{{ $subadmindata['email'] }}"
+                                        @endif>
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label>Password*</label>
-                                        <input @if($subadmindata['id'] != "") disabled @else required @endif type="password" placeholder="Enter Password" class="form-control"
-                                            id="password" name="password" @if(!empty($subadmindata['password'])) value="{{ $subadmindata['password'] }}" @endif>
+                                        <input
+                                        type="password" placeholder="Enter Password" class="form-control" id="password" name="password"
+                                        @if(!empty($subadmindata['password'])) value="{{ $subadmindata['password'] }}"
+                                        @endif>
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label for="image">Photo</label>

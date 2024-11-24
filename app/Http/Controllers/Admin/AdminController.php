@@ -172,7 +172,57 @@ class AdminController extends Controller
 
         if ($request->isMethod('post')) {
             $data = $request->all();
-            echo "<pre></pre>"; print_r($data); die();
+            // echo "<pre></pre>"; print_r($data); die();
+
+            if ($id == "") {
+                $subadminCount = Admin::where('email', $data['email'])->count();
+                if ($subadminCount > 0) {
+                    return redirect()->back()->with('error_message', 'Subadmin already exists');
+                }
+            }
+
+            $rules = [
+                'name' => 'required',
+                'mobile' => 'required|numeric',
+                'image' => 'image'
+            ];
+
+            $customMessages = [
+                'name.required' => 'Name is required',
+                'mobile.required' => 'Mobile is required',
+                'mobile.numeric' => 'Valid Mobile is required',
+                'image.image' => 'Valid Image is required'
+            ];
+
+            $this->validate($request, $rules, $customMessages);
+
+            if ($request->hasFile('image')) {
+                $image_tmp = $request->file('image');
+                if($image_tmp->isValid()) {
+                    $extension = $image_tmp->getClientOriginalExtension();
+                    $imageName = rand(111,99999).'.'.$extension;
+                    $image_path = public_path('admin/images/photos/'.$imageName);
+                    Image::make($image_tmp)->save($image_path);
+                }
+
+            } else if (!empty($data['current_image'])) {
+                $imageName = $data['current_image'];
+            } else {
+                $imageName == "";
+            }
+
+            $subadmindata->image = $imageName;
+            $subadmindata->name = $data['name'];
+            $subadmindata->mobile = $data['mobile'];
+            if($id == "") {
+                $subadmindata->email = $data['email'];
+                $subadmindata->type = 'subadmin';
+            }
+            if ($data['password'] != "") {
+                $subadmindata->password = bcrypt($data['password']);
+            }
+            $subadmindata->save();
+            return redirect('admin/subadmins')->with('success_message', $message);
         }
 
         return view('admin.subadmins.add_edit_subadmin')->with(compact('title', 'subadmindata'));

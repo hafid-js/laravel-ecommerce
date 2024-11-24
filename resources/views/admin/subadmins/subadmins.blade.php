@@ -65,8 +65,10 @@
                         @if($subadmin->status == 1)
                         <a class="updateSubadminStatus" id="subadmin-{{ $subadmin->id }}" subadmin_id={{ $subadmin->id }} href="javascript:void(0)"><i class="fas fa-toggle-on" status="Active"></i></a>
                         @else
-                        <a class="updateCmsPageStatus" id="subadmin-{{ $subadmin->id }}" subadmin={{ $subadmin->id }} style="color: grey" href="javascript:void(0)"><i class="fas fa-toggle-off" status="Inactive"></i></a>
+                        <a class="updateSubadminStatus" id="subadmin-{{ $subadmin->id }}" subadmin_id={{ $subadmin->id }} style="color: grey" href="javascript:void(0)"><i class="fas fa-toggle-off" status="Inactive"></i></a>
                         @endif
+                        &nbsp; &nbsp;
+                        <a href="{{ url('admin/add-edit-subadmin/'.$subadmin->id) }}"><i class="fas fa-edit"></i></a>
                         &nbsp; &nbsp;
                         <a class="confirmDelete" name="Subadmin" title="Delete Subadmin" href="javascript:void(0)" record="subadmin" recordid="{{ $subadmin->id }}"><i class="fas fa-trash"></i></a>
                       </td>
