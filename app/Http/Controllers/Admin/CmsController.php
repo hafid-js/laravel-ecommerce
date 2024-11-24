@@ -20,8 +20,7 @@ class CmsController extends Controller
         $CmsPages = CmsPage::get()->toArray();
         // dd($CmsPages);
 
-        // $cmspagesModuleCount = AdminsRole::where(['subadmin_id' => Auth::guard('admin')->user()->
-        // id, 'module' => 'cms_pages'])->count();
+        $cmspagesModuleCount = AdminsRole::where(['subadmin_id' => Auth::guard('admin')->user()->id, 'module' => 'cms_pages'])->count();
 
         $cmspagesModuleCount = 0;
         $total = AdminsRole::selectRaw('SUM(view_access + edit_access + full_access) as total')->first();
@@ -32,7 +31,7 @@ class CmsController extends Controller
             $pagesModule['edit_access'] = 1;
             $pagesModule['full_access'] = 1;
         } else if ($cmspagesModuleCount == 0) {
-            $message = "This feature is restrited for you!";
+            $message = "This feature is restricted for you!";
             return redirect('admin/dashboard')->with('error_message', $message);
         } else {
             $pagesModule = AdminsRole::where(['subadmin_id' => Auth::guard('admin')->user()->id, 'module' => 'cms_pages'])->first()->toArray();

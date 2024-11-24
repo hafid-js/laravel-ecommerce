@@ -144,7 +144,12 @@ class AdminController extends Controller
     public function subadmins() {
         Session::put('page','subadmins');
         $subadmins = Admin::where('type','subadmin')->get();
-        return view('admin.subadmins.subadmins')->with(compact('subadmins'));
+        if(Auth::guard('admin')->user()->type == "admin") {
+            return view('admin.subadmins.subadmins')->with(compact('subadmins'));
+        } else {
+            $message = "This feature is restricted for you!";
+            return redirect('admin/dashboard')->with('error_message', $message);
+        }
     }
 
     public function updateSubadminStatus(Request $request)
