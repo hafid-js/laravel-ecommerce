@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\CmsPage;
+use App\Models\AdminsRole;
+use Auth;
 use Illuminate\Http\Request;
 use Session;
 
@@ -17,7 +19,25 @@ class CmsController extends Controller
         Session::put('page','cms-pages');
         $CmsPages = CmsPage::get()->toArray();
         // dd($CmsPages);
-        return view('admin.pages.cms_pages')->with(compact('CmsPages'));
+
+        // $cmspagesModuleCount = AdminsRole::where(['subadmin_id' => Auth::guard('admin')->user()->
+        // id, 'module' => 'cms_pages'])->count();
+
+        $cmspagesModuleCount = 0;
+        $total = AdminsRole::selectRaw('SUM(view_access + edit_access + full_access) as total')->first();
+        $cmspagesModuleCount = $total->total;
+        $pagesModule = array();
+        if(Auth::guard('admin')->user()->type == "admin") {
+            $pagesModule['view_access'] = 1;
+            $pagesModule['edit_access'] = 1;
+            $pagesModule['full_access'] = 1;
+        } else if ($cmspagesModuleCount == 0) {
+            $message = "This feature is restrited for you!";
+            return redirect('admin/dashboard')->with('error_message', $message);
+        } else {
+            $pagesModule = AdminsRole::where(['subadmin_id' => Auth::guard('admin')->user()->id, 'module' => 'cms_pages'])->first()->toArray();
+        }
+        return view('admin.pages.cms_pages')->with(compact('CmsPages', 'pagesModule'));
     }
 
     /**
