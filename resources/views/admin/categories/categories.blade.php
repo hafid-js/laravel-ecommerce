@@ -57,14 +57,27 @@
                                                 <td>{{ $category['id'] }}</td>
                                                 <td>{{ $category['category_name'] }}</td>
                                                 <td>
-                                                    @if(isset($category['parentcategory'] ['category_name']))
-                                                    {{ $category['parentcategory'] ['category_name'] }}
+                                                    @if (isset($category['parentcategory']['category_name']))
+                                                        {{ $category['parentcategory']['category_name'] }}
                                                     @endif
                                                 </td>
                                                 <td>{{ $category['url'] }}</td>
                                                 <td>{{ date('F j, Y, g:i a', strtotime($category['created_at'])) }}</td>
                                                 <td>
-
+                                                    @if ($category['status'] == 1)
+                                                        <a class="updateCategoryStatus" id="category-{{ $category['id'] }}"
+                                                            category_id={{ $category['id'] }} href="javascript:void(0)"><i
+                                                                class="fas fa-toggle-on" status="Active"></i></a>
+                                                    @else
+                                                        <a class="updateCategoryStatus" id="category-{{ $category['id'] }}"
+                                                            category_id={{ $category['id'] }} style="color: grey"
+                                                            href="javascript:void(0)"><i class="fas fa-toggle-off"
+                                                                status="Inactive"></i></a>
+                                                    @endif
+                                                    &nbsp; &nbsp;
+                                                    <a class="confirmDelete" title="Delete Category"
+                                                        href="javascript:void(0)" record="category"
+                                                        recordid="{{ $category['id'] }}"><i class="fas fa-trash"></i></a>
                                                 </td>
                                             </tr>
                                         @endforeach
