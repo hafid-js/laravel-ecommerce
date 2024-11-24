@@ -60,46 +60,46 @@
                                     <div class="form-group">
                                         <label for="category_name">Category Name*</label>
                                         <input type="text" placeholder="Enter Category Name" class="form-control"
-                                            id="category_name" name="category_name">
+                                            id="category_name" name="category_name" value="{{ old('category_name') }}">
                                     </div>
                                     <div class="form-group">
-                                        <label for="category_image">Category Image*</label>
+                                        <label for="category_image">Category Image</label>
                                         <input type="file" class="form-control"
                                             id="category_image" name="category_image">
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="category_discount">Category Discount*</label>
+                                        <label for="category_discount">Category Discount</label>
                                         <input type="text" class="form-control" placeholder="Enter Category Discount"
-                                            id="category_discount" name="category_discount">
+                                            id="category_discount" name="category_discount" value="{{ old('category_discount') }}">
                                     </div>
                                     <!-- /.form-group -->
                                     <div class="form-group">
                                         <div class="form-group">
                                             <label for="url">Category URL*</label>
                                             <input type="text" placeholder="Enter Category URL" class="form-control"
-                                                id="url" name="url" @if(!empty($category['url'])) value="{{ $category['url'] }}" @endif>
+                                                id="url" name="url" value="{{ old('url') }}">
                                         </div>
                                         </select>
                                     </div>
                                     <div class="form-group">
                                         <label>Category Description</label>
-                                        <textarea class="form-control" rows="3" placeholder="Enter Description" id="description" name="description">@if(!empty($category['description'])) {{ $category['description'] }} @endif</textarea>
+                                        <textarea class="form-control" rows="3" placeholder="Enter Description" id="description" name="description">value="{{ old('description') }}"</textarea>
                                     </div>
                                     <div class="form-group">
                                         <label>Meta Title*</label>
                                         <input type="text" placeholder="Enter Meta Title" class="form-control"
-                                            id="meta_title" name="meta_title">
+                                            id="meta_title" name="meta_title" value="{{ old('meta_title') }}">
                                     </div>
                                     <div class="form-group">
                                         <label for="meta_description"> Meta Description*</label>
                                         <input type="text" placeholder="Enter Meta Desctiption" class="form-control"
-                                            id="meta_description" name="meta_description">
+                                            id="meta_description" name="meta_description" value="{{ old('meta_description') }}">
                                     </div>
                                     <div class="form-group">
                                         <label>Meta Keywords*</label>
                                         <input type="text" placeholder="Enter Meta Keywords" class="form-control"
-                                            id="meta_keywords" name="meta_keywords">
+                                            id="meta_keywords" name="meta_keywords" value="{{ old('meta_keywords') }}">
                                     </div>
                                 </div>
                                 <!-- /.form-group -->
