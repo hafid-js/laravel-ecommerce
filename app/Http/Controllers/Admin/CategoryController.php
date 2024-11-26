@@ -35,6 +35,7 @@ class CategoryController extends Controller
     }
 
     public function addEditCategory(Request $request, $id=null){
+        $getCategories = Category::getCategories();
         if ($id == "") {
             $title = "Add Category";
             $category = new Category();
@@ -73,7 +74,12 @@ class CategoryController extends Controller
             $category->category_image == "";
         }
 
+        if(empty($data['category_discount'])) {
+            $data['category_discount'] = 0;
+        }
+
         $category->category_name = $data['category_name'];
+        $category->parent_id = $data['parent_id'];
         $category->category_discount = $data['category_discount'];
         $category->url = $data['url'];
         $category->meta_title = $data['meta_title'];
@@ -83,6 +89,6 @@ class CategoryController extends Controller
         $category->save();
         return redirect('admin/categories')->with('success_message', $message);
         }
-        return view('admin.categories.add_edit_category')->with(compact('title'));
+        return view('admin.categories.add_edit_category')->with(compact('title','getCategories'));
     }
 }
