@@ -28,7 +28,7 @@ $(document).ready(function () {
     $(document).on("click", ".updateCmsPageStatus", function () {
         var status = $(this).children("i").attr("status");
         var page_id = $(this).attr("page_id");
-        alert(page_id);
+        // alert(page_id);
 
         $.ajax({
             headers: {
@@ -60,7 +60,7 @@ $(document).ready(function () {
     $(document).on("click", ".updateCategoryStatus", function () {
         var status = $(this).children("i").attr("status");
         var category_id = $(this).attr("category_id");
-        alert(category_id);
+        // alert(category_id);
 
         $.ajax({
             headers: {
@@ -79,6 +79,38 @@ $(document).ready(function () {
                     );
                 } else if (resp["status"] == 1) {
                     $("#category-" + category_id).html(
+                        "<i class='fas fa-toggle-on' status='Active'></i>"
+                    );
+                }
+            },
+            error: function () {
+                alert("Error");
+            },
+        });
+    });
+
+    $(document).on("click", ".updateProductStatus", function () {
+        var status = $(this).children("i").attr("status");
+        var product_id = $(this).attr("product_id");
+        // alert(product_id);
+
+        $.ajax({
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+            },
+            type: "post",
+            url: "/admin/update-product-status",
+            data: {
+                status: status,
+                product_id: product_id,
+            },
+            success: function (resp) {
+                if (resp["status"] == 0) {
+                    $("#product-" + product_id).html(
+                        "<i class='fas fa-toggle-off' style='color:grey' status='Inactive'></i>"
+                    );
+                } else if (resp["status"] == 1) {
+                    $("#product-" + product_id).html(
                         "<i class='fas fa-toggle-on' status='Active'></i>"
                     );
                 }
@@ -127,7 +159,7 @@ $(document).ready(function () {
     $(document).on("click", ".updateSubadminStatus", function () {
         var status = $(this).children("i").attr("status");
         var subadmin_id = $(this).attr("subadmin_id");
-        alert(subadmin_id);
+        // alert(subadmin_id);
 
         $.ajax({
             headers: {
