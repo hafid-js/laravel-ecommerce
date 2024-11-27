@@ -17,7 +17,7 @@ class ProductsTableSeeder extends Seeder
         [
             [
             'id' => 1,
-            'category_id' => 8,
+            'category_id' => 9,
             'brand_id' => 0,
             'product_name' => 'Blue T-Shirt',
             'product_code' => 'BT001',
@@ -45,7 +45,7 @@ class ProductsTableSeeder extends Seeder
         ],
         [
             'id' => 2,
-            'category_id' => 8,
+            'category_id' => 2,
             'brand_id' => 0,
             'product_name' => 'RED T-Shirt',
             'product_code' => 'RT001',

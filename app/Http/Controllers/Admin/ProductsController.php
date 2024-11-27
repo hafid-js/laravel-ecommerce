@@ -9,7 +9,7 @@ use App\Models\Product;
 class ProductsController extends Controller
 {
     public function products() {
-        $products = Product::get()->toArray();
+        $products = Product::with('category')->get()->toArray();
         return view('admin.products.products')->with(compact('products'));
     }
 

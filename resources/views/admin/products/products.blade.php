@@ -50,6 +50,8 @@
                                             <th>Product Name</th>
                                             <th>Product Code</th>
                                             <th>Product Color</th>
+                                            <th>Category</th>
+                                            <th>Parent Category</th>
                                             <th>Actions</th>
                                         </tr>
                                     </thead>
@@ -60,6 +62,12 @@
                                                 <td>{{ $product['product_name'] }}</td>
                                                 <td>{{ $product['product_code'] }}</td>
                                                 <td>{{ $product['product_color'] }}</td>
+                                                <td>{{ $product['category']['category_name'] }}</td>
+                                                <td>
+                                                    @if(isset($product['category']['parentcategory']['category_name']))
+                                                    {{ $product['category']['parentcategory']['category_name'] }}
+                                                    @endif
+                                                </td>
 
                                                 <td>
                                                     @if ($product['status'] == 1)
