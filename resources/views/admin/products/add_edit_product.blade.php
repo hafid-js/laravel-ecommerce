@@ -140,17 +140,53 @@
                                         <label for="product_video">Product Video</label>
                                         <input type="file" class="form-control" id="product_video" name="product_video">
                                     </div>
-
                                     <div class="form-group">
-                                        <label for="product_discount">product Discount</label>
-                                        <input type="text" class="form-control" placeholder="Enter product Discount"
-                                            id="product_discount" name="product_discount"
-                                            @if(!empty($product['product_discount'])) value="{{ $product['product_discount'] }}"
-                                            @else value="{{ old('product_discount') }}"
-                                            @endif>
+                                        <label for="fabric">Fabric</label>
+                                        <select name="fabric" class="form-control">
+                                            <option value="">Select</option>
+                                            @foreach($productsFilters['fabricArray'] as $fabric)
+                                            <option value="{{ $fabric }}">{{ $fabric }}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                     <div class="form-group">
-                                        <label wash_care>Product Description</label>
+                                        <label for="sleeve">Sleeve</label>
+                                        <select name="sleeve" class="form-control">
+                                            <option value="">Select</option>
+                                            @foreach($productsFilters['sleeveArray'] as $sleeve)
+                                            <option value="{{ $sleeve }}">{{ $sleeve }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="pattern">Pattern</label>
+                                        <select name="pattern" class="form-control">
+                                            <option value="">Select</option>
+                                            @foreach($productsFilters['patternArray'] as $pattern)
+                                            <option value="{{ $pattern }}">{{ $pattern }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="fit">Fit</label>
+                                        <select name="fit" class="form-control">
+                                            <option value="">Select</option>
+                                            @foreach($productsFilters['fitArray'] as $fit)
+                                            <option value="{{ $fit }}">{{ $fit }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="occasion">Occasion</label>
+                                        <select name="occasion" class="form-control">
+                                            <option value="">Select</option>
+                                            @foreach($productsFilters['occasionArray'] as $occasion)
+                                            <option value="{{ $occasion }}">{{ $occasion }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="description">Description</label>
                                         <textarea class="form-control" rows="3" placeholder="Enter Product Description" id="product_description" name="product_description"></textarea>
                                     </div>
                                     <div class="form-group">
