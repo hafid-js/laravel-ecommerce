@@ -103,9 +103,13 @@
                                         <label for="category_image">Category Image</label>
                                         <input type="file" class="form-control" id="category_image"
                                             name="category_image">
-                                            @if($category['category_image'] != null) {
-                                                <a target="_blank" href="{{ url('admin/images/categories/' . $category['category_image']) }}">View Photo</a>
-                                            }
+                                            @if(!empty($category['category_image']))
+                                            <a target="_blank" href="{{ url('admin/images/categories/'.$category['category_image']) }}">
+                                                <img style="width: 50px; margin:10px;" src="{{ asset('admin/images/categories/'.$category['category_image']) }}" alt="">
+                                            </a>
+                                            <a class="confirmDelete" title="Delete Category Image"
+                                            href="javascript:void(0)" record="category-image"
+                                            recordid="{{ $category['id'] }}"><i style="color: white;" class="fas fa-trash"></i></a>
                                             @endif
 
                                     </div>
