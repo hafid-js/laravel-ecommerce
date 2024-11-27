@@ -109,7 +109,7 @@
                                             </a>
                                             <a class="confirmDelete" title="Delete Category Image"
                                             href="javascript:void(0)" record="category-image"
-                                            recordid="{{ $category['id'] }}"><i style="color: white;" class="fas fa-trash"></i></a>
+                                            recordid="{{ $category['id'] }}"><i style="color: white" class="fas fa-trash"></i></a>
                                             @endif
 
                                     </div>

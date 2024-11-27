@@ -36,9 +36,9 @@
                         <div class="card">
                             <div class="card-header">
                                 <h3 class="card-title">Products</h3>
-                                <a href="{{ url('admin/add-edit-category') }}"
+                                <a href="{{ url('admin/add-edit-product') }}"
                                 style="max-width: 150px; float: right; display: inline-block;"
-                                class="btn btn-block btn-primary"><i class="fas fa-plus"></i> Add Category</a>
+                                class="btn btn-block btn-primary"><i class="fas fa-plus"></i> Add Product</a>
                             </div>
 
                             <!-- /.card-header -->

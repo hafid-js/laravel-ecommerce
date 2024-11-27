@@ -27,7 +27,7 @@ return new class extends Migration
             $table->string('product_video');
             $table->text('description');
             $table->text('wash_care');
-            $table->text('keywords');
+            $table->text('search_keywords');
             $table->string('fabric');
             $table->string('pattern');
             $table->string('sleeve');
