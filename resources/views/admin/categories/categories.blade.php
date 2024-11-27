@@ -34,12 +34,14 @@
                             </div>
                         @endif
                         <div class="card">
+                            @if($categoriesModule['edit_access'] == 1 || $categoriesModule['full_access'] == 1)
                             <div class="card-header">
                                 <h3 class="card-title">Categories</h3>
                                 <a href="{{ url('admin/add-edit-category') }}"
                                 style="max-width: 150px; float: right; display: inline-block;"
                                 class="btn btn-block btn-primary"><i class="fas fa-plus"></i> Add Category</a>
                             </div>
+                            @endif
 
                             <!-- /.card-header -->
                             <div class="card-body">
@@ -67,6 +69,7 @@
                                                 <td>{{ $category['url'] }}</td>
                                                 <td>{{ date('F j, Y, g:i a', strtotime($category['created_at'])) }}</td>
                                                 <td>
+                                                    @if($categoriesModule['edit_access'] == 1 || $categoriesModule['full_access'] == 1)
                                                     @if ($category['status'] == 1)
                                                         <a class="updateCategoryStatus" id="category-{{ $category['id'] }}"
                                                             category_id={{ $category['id'] }} href="javascript:void(0)"><i
@@ -77,13 +80,20 @@
                                                             href="javascript:void(0)"><i class="fas fa-toggle-off"
                                                                 status="Inactive"></i></a>
                                                     @endif
+                                                    @endif
+                                                    @if($categoriesModule['edit_access'] == 1 || $categoriesModule['full_access'] == 1)
+                                                    @if ($category['status'] == 1)
                                                     &nbsp; &nbsp;
                                                     <a href="{{ url('admin/add-edit-category/' . $category['id']) }}"><i
                                                         class="fas fa-edit"></i></a>
                                                         &nbsp; &nbsp;
+                                                        @endif
+                                                    @endif
+                                                    @if($pagesModule['full_access'] == 1)
                                                     <a class="confirmDelete" title="Delete Category"
                                                         href="javascript:void(0)" record="category"
                                                         recordid="{{ $category['id'] }}"><i class="fas fa-trash"></i></a>
+                                                        @endif
                                                 </td>
                                             </tr>
                                         @endforeach

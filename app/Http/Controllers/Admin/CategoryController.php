@@ -5,13 +5,33 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Category;
+use App\Models\AdminsRole;
+use Auth;
 use Image;
 
 class CategoryController extends Controller
 {
     public function categories() {
         $categories = Category::with('parentcategory')->get()->toArray();
-        return view('admin.categories.categories')->with(compact('categories'));
+
+        $categoriesModuleCount = AdminsRole::where(['subadmin_id' => Auth::guard('admin')->user()->id, 'module' => 'categories'])->count();
+
+        $categoriesModuleCount = 0;
+        $total = AdminsRole::selectRaw('SUM(view_access + edit_access + full_access) as total')->first();
+        $categoriesModuleCount = $total->total;
+        $categoriesModule = array();
+        if(Auth::guard('admin')->user()->type == "admin") {
+            $categoriesModule['view_access'] = 1;
+            $categoriesModule['edit_access'] = 1;
+            $categoriesModule['full_access'] = 1;
+        } else if ($categoriesModuleCount == 0) {
+            $message = "This feature is restricted for you!";
+            return redirect('admin/dashboard')->with('error_message', $message);
+        } else {
+            $pagesModule = AdminsRole::where(['subadmin_id' => Auth::guard('admin')->user()->id, 'module' => 'categories'])->first()->toArray();
+        }
+
+        return view('admin.categories.categories')->with(compact('categories','categoriesModule'));
     }
 
     public function updateCategoryStatus(Request $request)
