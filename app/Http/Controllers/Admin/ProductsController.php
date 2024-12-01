@@ -40,8 +40,10 @@ class ProductsController extends Controller
             $product = new Product();
             $productData = array();
             $message = 'Product added successfully!';
-        } {
+        } else {
             $title = "Edit Product";
+            $product = Product::find($id);
+            $message = "Product updated successfully";
         }
 
         if($request->isMethod('post')) {
@@ -110,6 +112,7 @@ class ProductsController extends Controller
             $product->sleeve = $data['sleeve'];
             $product->fit = $data['fit'];
             $product->occasion = $data['occasion'];
+            $product->search_keywords = $data['search_keywords'];
             $product->meta_title = $data['meta_title'];
             $product->meta_keywords = $data['meta_keywords'];
             $product->meta_description = $data['meta_description'];
@@ -122,7 +125,7 @@ class ProductsController extends Controller
 
             $product->status = 1;
             $product->save();
-            return redirect('admin/products')->with('success_message', $message);
+            return redirect('admin/products')->with('success_message', $message, $title);
 
         }
 
@@ -130,6 +133,6 @@ class ProductsController extends Controller
         $getCategories = Category::getCategories();
 
         $productsFilters = Product::productsFilters();
-        return view('admin.products.add_edit_product')->with(compact('title','getCategories','productsFilters'));
+        return view('admin.products.add_edit_product')->with(compact('title','getCategories','productsFilters','product'));
     }
 }
