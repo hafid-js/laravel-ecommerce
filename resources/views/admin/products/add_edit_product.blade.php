@@ -81,22 +81,22 @@
                                         </select>
                                     </div>
                                     <div class="form-group">
-                                        <label for="product_name">Product Name</label>
+                                        <label for="product_name">Product Name*</label>
                                         <input type="text" class="form-control" placeholder="Enter Product Name"
                                             id="product_name" name="product_name">
                                     </div>
                                     <div class="form-group">
-                                        <label for="product_code">Product Code</label>
+                                        <label for="product_code">Product Code*</label>
                                         <input type="text" class="form-control" placeholder="Enter Product Code"
                                             id="product_code" name="product_code">
                                     </div>
                                     <div class="form-group">
-                                        <label for="product_color">Product Color</label>
+                                        <label for="product_color">Product Color*</label>
                                         <input type="text" class="form-control" placeholder="Enter Product Color"
                                             id="product_color" name="product_color">
                                     </div>
                                     <div class="form-group">
-                                        <label for="product_code">Family Color</label>
+                                        <label for="family_color">Family Color*</label>
                                         <select name="family_color" class="form-control">
                                             <option value="">Select</option>
                                             <option value="Red">Red</option>
@@ -117,9 +117,9 @@
                                             id="group_code" name="group_code">
                                     </div>
                                     <div class="form-group">
-                                        <label for="product_code">Product Code</label>
-                                        <input type="text" class="form-control" placeholder="Enter Product Code"
-                                            id="product_code" name="product_code">
+                                        <label for="product_price">Product Price*</label>
+                                        <input type="text" class="form-control" placeholder="Enter Product Price"
+                                            id="product_price" name="product_price">
                                     </div>
                                     <div class="form-group">
                                         <label for="product_discount">Product Discount (%)</label>
@@ -127,14 +127,9 @@
                                             id="product_discount" name="product_discount">
                                     </div>
                                     <div class="form-group">
-                                        <label for="product_wight">Product Wight</label>
+                                        <label for="product_weight">Product Wight</label>
                                         <input type="text" class="form-control" placeholder="Enter Product Weight"
-                                            id="product_wight" name="product_wight">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="product_code">Product Code</label>
-                                        <input type="text" class="form-control" placeholder="Enter Product Code"
-                                            id="product_code" name="product_code">
+                                            id="product_weight" name="product_weight">
                                     </div>
                                     <div class="form-group">
                                         <label for="product_video">Product Video</label>
@@ -187,7 +182,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="description">Description</label>
-                                        <textarea class="form-control" rows="3" placeholder="Enter Product Description" id="product_description" name="product_description"></textarea>
+                                        <textarea class="form-control" rows="3" placeholder="Enter Product Description" id="description" name="description"></textarea>
                                     </div>
                                     <div class="form-group">
                                         <label for="wash_care">Wash Care</label>
@@ -214,7 +209,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="is_featured">Featured Item</label>
-                                        <input type="checkbox" name="is_featured" value="Yes">
+                                        <input type="checkbox" id="is_featured" name="is_featured" value="Yes">
                                     </div>
                                 </div>
                                 <!-- /.form-group -->
