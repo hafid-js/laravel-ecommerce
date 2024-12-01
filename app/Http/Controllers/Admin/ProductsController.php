@@ -72,6 +72,28 @@ class ProductsController extends Controller
 
             $this->validate($request, $rules, $customMessages);
 
+            if ($request->hasFile('product_video')) {
+                $video_tmp = $request->file('product_video');
+                if($video_tmp->isValid()) {
+
+                    // $videoName = $video_tmp->getClientOriginalName();
+                    $videoExtension = $video_tmp->getClientOriginalExtension();
+                    $videoName = rand().'.'.$videoExtension;
+                    $videoPath = "admin/videos";
+                    $video_tmp->move($videoPath, $videoName);
+
+                    $product->product_video = $videoName;
+                }
+            }
+
+            if (!isset($data['product_discount'])) {
+                $data['product_discount'] = 0;
+            }
+
+            if (!isset($data['product_weight'])) {
+                $data['product_weight'] = 0;
+            }
+
             $product->category_id = $data['category_id'];
             $product->product_name = $data['product_name'];
             $product->product_code = $data['product_code'];

@@ -64,13 +64,13 @@
                                         <select name="category_id" class="form-control">
                                             <option value="">Select</option>
                                             @foreach ($getCategories as $cat)
-                                                <option value="{{ $cat['id'] }}">{{ $cat['category_name'] }}</option>
+                                                <option @if(!empty(@old('category_id')) && $cat['id'] == @old('category_id')) selected @endif value="{{ $cat['id'] }}">{{ $cat['category_name'] }}</option>
                                                 @if (!empty($cat['subcategories']))
                                                     @foreach ($cat['subcategories'] as $subcat)
-                                                        <option value="{{ $subcat['id'] }}">&nbsp;&nbsp;&raquo;{{ $subcat['category_name'] }}</option>
+                                                        <option @if(!empty(@old('category_id')) && $subcat['id'] == @old('category_id')) selected @endif  value="{{ $subcat['id'] }}">&nbsp;&nbsp;&raquo;{{ $subcat['category_name'] }}</option>
                                                         @if (!empty($subcat['subcategories']))
                                                             @foreach ($subcat['subcategories'] as $subsubcat)
-                                                                <option value="{{ $subcat['id'] }}">
+                                                                <option @if(!empty(@old('category_id')) && $subsubcat['id'] == @old('category_id')) selected @endif  value="{{ $subcat['id'] }}">
                                                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&raquo; {{ $subsubcat['category_name'] }}
                                                                 </option>
                                                             @endforeach
@@ -80,35 +80,48 @@
                                             @endforeach
                                         </select>
                                     </div>
+
                                     <div class="form-group">
                                         <label for="product_name">Product Name*</label>
                                         <input type="text" class="form-control" placeholder="Enter Product Name"
-                                            id="product_name" name="product_name">
+                                            id="product_name" name="product_name"
+                                            @if(!empty(@old('product_name'))) value="{{ @old('product_name') }}" @endif
+                                            >
                                     </div>
                                     <div class="form-group">
                                         <label for="product_code">Product Code*</label>
                                         <input type="text" class="form-control" placeholder="Enter Product Code"
-                                            id="product_code" name="product_code">
+                                            id="product_code" name="product_code" @if(!empty(@old('product_code'))) value="{{ @old('product_code') }}" @endif>
                                     </div>
                                     <div class="form-group">
                                         <label for="product_color">Product Color*</label>
                                         <input type="text" class="form-control" placeholder="Enter Product Color"
-                                            id="product_color" name="product_color">
+                                            id="product_color" name="product_color" @if(!empty(@old('product_color'))) value="{{ @old('product_color') }}" @endif>
                                     </div>
                                     <div class="form-group">
                                         <label for="family_color">Family Color*</label>
                                         <select name="family_color" class="form-control">
                                             <option value="">Select</option>
-                                            <option value="Red">Red</option>
-                                            <option value="Green">Green</option>
-                                            <option value="Yellow">Yellow</option>
-                                            <option value="Black">Black</option>
-                                            <option value="White">White</option>
-                                            <option value="Blue">Blue</option>
-                                            <option value="Orange">Orange</option>
-                                            <option value="Grey">Grey</option>
-                                            <option value="Silver">Silver</option>
-                                            <option value="Golden">Golden</option>
+                                            <option value="Red"
+                                            @if(!empty(@old('family_color')) && @old('family_color') == "Red") selected @endif>Red</option>
+                                            <option value="Green"
+                                            @if(!empty(@old('family_color')) && @old('family_color') == "Green") selected @endif>Green</option>
+                                            <option value="Yellow"
+                                            @if(!empty(@old('family_color')) && @old('family_color') == "Yellow") selected @endif>Yellow</option>
+                                            <option value="Black"
+                                            @if(!empty(@old('family_color')) && @old('family_color') == "Black") selected @endif>Black</option>
+                                            <option value="White"
+                                            @if(!empty(@old('family_color')) && @old('family_color') == "White") selected @endif>White</option>
+                                            <option value="Blue"
+                                            @if(!empty(@old('family_color')) && @old('family_color') == "Blue") selected @endif>Blue</option>
+                                            <option value="Orange"
+                                            @if(!empty(@old('family_color')) && @old('family_color') == "Orange") selected @endif>Orange</option>
+                                            <option value="Grey"
+                                            @if(!empty(@old('family_color')) && @old('family_color') == "Grey") selected @endif>Grey</option>
+                                            <option value="Silver"
+                                            @if(!empty(@old('family_color')) && @old('family_color') == "Silver") selected @endif>Silver</option>
+                                            <option value="Golden"
+                                            @if(!empty(@old('family_color')) && @old('family_color') == "Golden") selected @endif>Golden</option>
                                         </select>
                                     </div>
                                     <div class="form-group">
@@ -119,7 +132,8 @@
                                     <div class="form-group">
                                         <label for="product_price">Product Price*</label>
                                         <input type="text" class="form-control" placeholder="Enter Product Price"
-                                            id="product_price" name="product_price">
+                                            id="product_price" name="product_price"
+                                            @if(!empty(@old('product_price'))) value="{{ @old('product_price') }}" @endif required>
                                     </div>
                                     <div class="form-group">
                                         <label for="product_discount">Product Discount (%)</label>
