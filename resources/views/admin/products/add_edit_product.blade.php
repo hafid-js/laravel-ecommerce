@@ -108,40 +108,16 @@
                                         <input type="text" class="form-control" placeholder="Enter Product Color"
                                             id="product_color" name="product_color" @if(!empty($product['product_color'])) value="{{ $product['product_color'] }}" @else value="{{ @old('product_color') }}" @endif>
                                     </div>
+                                    @php $familyColors = \App\Models\Color::colors() @endphp
                                     <div class="form-group">
                                         <label for="family_color">Family Color*</label>
                                         <select name="family_color" class="form-control">
                                             <option value="">Select</option>
+                                            @foreach ($familyColors as $color)
 
-                                            <option value="Red"
-                                            @if(!empty(@old('family_color')) && @old('family_color') == "Red") selected @elseif(!empty($product['family_color']) && $product['family_color'] == "Red") selected @endif >Red</option>
-
-                                            <option value="Green"
-                                            @if(!empty(@old('family_color')) && @old('family_color') == "Green") selected @elseif(!empty($product['family_color']) && $product['family_color'] == "Green") selected @endif>Green</option>
-
-                                            <option value="Yellow"
-                                            @if(!empty(@old('family_color')) && @old('family_color') == "Yellow") selected @elseif(!empty($product['family_color']) && $product['family_color'] == "Yellow") selected @endif>Yellow</option>
-
-                                            <option value="Black"
-                                            @if(!empty(@old('family_color')) && @old('family_color') == "Black") selected @elseif(!empty($product['family_color']) && $product['family_color'] == "Black") selected @endif>Black</option>
-
-                                            <option value="White"
-                                            @if(!empty(@old('family_color')) && @old('family_color') == "White") selected @elseif(!empty($product['family_color']) && $product['family_color'] == "White") selected @endif>White</option>
-
-                                            <option value="Blue"
-                                            @if(!empty(@old('family_color')) && @old('family_color') == "Blue") selected @elseif(!empty($product['family_color']) && $product['family_color'] == "Blue") selected @endif>Blue</option>
-
-                                            <option value="Orange"
-                                            @if(!empty(@old('family_color')) && @old('family_color') == "Orange") selected @elseif(!empty($product['family_color']) && $product['family_color'] == "Orange") selected @endif>Orange</option>
-
-                                            <option value="Grey"
-                                            @if(!empty(@old('family_color')) && @old('family_color') == "Grey") selected @elseif(!empty($product['family_color']) && $product['family_color'] == "Grey") selected @endif>Grey</option>
-
-                                            <option value="Silver"
-                                            @if(!empty(@old('family_color')) && @old('family_color') == "Silver") selected @elseif(!empty($product['family_color']) && $product['family_color'] == "Silver") selected @endif>Silver</option>
-
-                                            <option value="Golden"
-                                            @if(!empty(@old('family_color')) && @old('family_color') == "Golden") selected @elseif(!empty($product['family_color']) && $product['family_color'] == "Golden") selected @endif>Golden</option>
+                                            <option value="{{ $color['color_name'] }}"
+                                            @if(!empty(@old('family_color')) && @old('family_color') == $color['color_name']) selected @elseif(!empty($product['family_color']) && $product['family_color'] == $color['color_name']) selected @endif >{{ $color['color_name'] }}</option>
+                                            @endforeach
 
                                         </select>
                                     </div>
