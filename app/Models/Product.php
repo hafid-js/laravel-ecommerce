@@ -21,4 +21,8 @@ class Product extends Model
         $productsFilters['occasionArray'] = array('Casual','Formal');
         return $productsFilters;
     }
+
+    public function images() {
+        return $this->hasMany('App\Models\ProductsImage');
+    }
 }

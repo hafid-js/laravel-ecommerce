@@ -45,7 +45,7 @@ class ProductsController extends Controller
             $message = 'Product added successfully!';
         } else {
             $title = "Edit Product";
-            $product = Product::find($id);
+            $product = Product::with('images')->find($id);
             $message = "Product updated successfully";
         }
 
@@ -203,6 +203,32 @@ class ProductsController extends Controller
         Product::where('id', $id)->update(['product_video' => '']);
 
         $message = "Product Video has been deleted successfully!";
+        return redirect()->back()->with('success_message', $message);
+    }
+
+    public function deleteProductImage($id){
+
+        //get product image
+        $productImage = ProductsImage::select('image')->where('id', $id)->first();
+
+        // get product image paths
+        $largeImagePath = 'admin/images/products/large/';
+        $mediumImagePath = 'admin/images/products/medium/';
+        $smallImagePath = 'admin/images/products/small/';
+
+        if (file_exists($largeImagePath.$productImage->image)){
+            unlink($largeImagePath.$productImage->image);
+        }
+        if (file_exists($mediumImagePath.$productImage->image)){
+            unlink($mediumImagePath.$productImage->image);
+        }
+        if (file_exists($smallImagePath.$productImage->image)){
+            unlink($smallImagePath.$productImage->image);
+        }
+
+        ProductsImage::where('id', $id)->delete();
+
+        $message = "Product Image has been deleted successfully!";
         return redirect()->back()->with('success_message', $message);
     }
 }
