@@ -81,7 +81,7 @@ class ProductsController extends Controller
                     // $videoName = $video_tmp->getClientOriginalName();
                     $videoExtension = $video_tmp->getClientOriginalExtension();
                     $videoName = rand().'.'.$videoExtension;
-                    $videoPath = "admin/videos";
+                    $videoPath = "admin/videos/products";
                     $video_tmp->move($videoPath, $videoName);
 
                     $product->product_video = $videoName;
@@ -104,6 +104,18 @@ class ProductsController extends Controller
             $product->group_code = $data['group_code'];
             $product->product_price = $data['product_price'];
             $product->product_discount = $data['product_discount'];
+
+            if(!empty($data['product_discount']) && $data['product_discount'] > 0) {
+                $product->discount_type = 'product';
+                $product->final_price = $data['product_price'] - ($data['product_price'] * $data['product_discount']) / 100;
+            } else {
+                $getCategoryDiscount = Category::select('category_discount')->where('id', $data['category_id'])->first();
+                if($getCategoryDiscount->category_discount == 0) {
+                    $product->discount_type = "";
+                    $product->final_price = $data['product_price'];
+                }
+            }
+
             $product->product_weight = $data['product_weight'];
             $product->description = $data['description'];
             $product->wash_care = $data['wash_care'];
@@ -134,5 +146,20 @@ class ProductsController extends Controller
 
         $productsFilters = Product::productsFilters();
         return view('admin.products.add_edit_product')->with(compact('title','getCategories','productsFilters','product'));
+    }
+
+    public function deleteProductVideo($id) {
+        $productVideo = Product::select('product_video')->where('id', $id)->first();
+
+        $product_video_path = 'admin/video/products/';
+
+        if (file_exists($product_video_path.$productVideo->product_video)) {
+            unlink ($product_video_path.$productVideo->product_video);
+        }
+
+        Product::where('id', $id)->update(['product_video' => '']);
+
+        $message = "Product Video has been deleted successfully!";
+        return redirect()->back()->with('success_message', $message);
     }
 }

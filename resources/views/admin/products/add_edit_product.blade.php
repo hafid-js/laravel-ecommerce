@@ -52,6 +52,16 @@
                         </div>
                     @endif
 
+
+                  @if(Session::has('success_message'))
+                  <div class="alert alert-success alert-dismissible fade show" role="alert">
+                      <strong>Success</strong> {{ Session::get('success_message') }}
+                      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    @endif
+
                     <!-- /.card-header -->
                     <form
                         @if (empty($product['id'])) action="{{ url('admin/add-edit-product') }}" @else action="{{ url('admin/add-edit-product/' . $product['id']) }}" @endif
@@ -161,6 +171,12 @@
                                     <div class="form-group">
                                         <label for="product_video">Product Video</label>
                                         <input type="file" class="form-control" id="product_video" name="product_video">
+                                        @if(!empty($product['product_video']))
+                                        <a target="_blank" href="{{ url('admin/videos/products/'. $product['product_video'] ) }}" style="color: #ccc;">View</a>&nbsp;|
+                                        <a class="confirmDelete" title="Delete Product Video"
+                                        href="javascript:void(0)" record="product-video"
+                                        recordid="{{ $product['id'] }}" style="color: #ccc;">Delete</a>
+                                        @endif
                                     </div>
                                     <div class="form-group">
                                         <label for="fabric">Fabric</label>
