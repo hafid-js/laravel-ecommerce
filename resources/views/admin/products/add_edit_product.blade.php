@@ -153,6 +153,8 @@
                                             <td style="background-color:#f9f9f9">
                                                 <a target="_blank" href="{{ url('admin/images/products/small/'.$image['image']) }}">
                                                     <img style="width: 60px;" src="{{ asset('admin/images/products/small/'.$image['image']) }}" alt=""></a>&nbsp;
+                                                    <input type="hidden" name="image[]" value="{{ $image['image'] }}">
+                                                    <input style="width: 40px;" type="text" name="image_sort[]" value="{{ $image['image_sort'] }}">
                                                 <a class="confirmDelete" title="Delete Product Image" href="javascript:void(0)" record="product-image"
                                                     recordid="{{ $image['id'] }}" style="color: #3f6ed3;"><i class="fas fa-trash"></i></a>
                                             </td>

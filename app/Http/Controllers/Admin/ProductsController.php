@@ -179,6 +179,19 @@ class ProductsController extends Controller
                 }
             }
 
+            if ($id !="") {
+                if (isset($data['image'])) {
+                    foreach ($data['image'] as $key => $image) {
+                        ProductsImage::where(
+                            [
+                            'product_id' => $id,
+                            'image' => $image]
+                            )->update([
+                                'image_sort' => $data['image_sort'][$key]]);
+                    }
+                }
+            }
+
 
             return redirect('admin/products')->with('success_message', $message, $title);
 
