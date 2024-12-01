@@ -174,6 +174,20 @@
                                         recordid="{{ $product['id'] }}" style="color: #ccc;">Delete</a>
                                         @endif
                                     </div>
+
+                                    <div class="form-group">
+                                        <label>Product Attributes</label>
+                                        <div class="field_wrapper">
+                                            <div>
+                                                <input type="text" name="size[]" id="size" placeholder="Size" style="width: 120px;"/>
+                                                <input type="text" name="sku[]" id="sku" placeholder="SKU" style="width: 120px;"/>
+                                                <input type="text" name="price[]" id="price" placeholder="Price" style="width: 120px;"/>
+                                                <input type="text" name="stock[]" id="stock" placeholder="Stock" style="width: 120px;"/>
+                                                <a href="javascript:void(0);" class="add_button" title="Add field">Add</a>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                     <div class="form-group">
                                         <label for="fabric">Fabric</label>
                                         <select name="fabric" class="form-control">
