@@ -145,6 +145,10 @@
                                             @if(!empty($product['product_weight'])) value="{{ $product['product_weight'] }}" @else value="{{ @old('product_weight') }}" @endif>
                                     </div>
                                     <div class="form-group">
+                                        <label for="product_images">Product Image's (Recommend Size: 1040 x 1200)</label>
+                                    </div>
+                                    <input type="file" class="form-control" id="product_images" name="product_images[]" multiple>
+                                    <div class="form-group">
                                         <label for="product_video">Product Video</label>
                                         <input type="file" class="form-control" id="product_video" name="product_video">
                                         @if(!empty($product['product_video']))

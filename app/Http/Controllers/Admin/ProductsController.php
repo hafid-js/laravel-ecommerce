@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Category;
+use App\Models\ProductsImage;
+use DB;
+use Image;
 
 class ProductsController extends Controller
 {
@@ -137,6 +140,46 @@ class ProductsController extends Controller
 
             $product->status = 1;
             $product->save();
+
+            if ($id == "") {
+                $product_id = DB::getPdo()->lastInsert();
+            } else {
+                $product_id = $id;
+            }
+
+            if($request->hasFile('product_images')) {
+                $images = $request->file('product_images');
+
+                foreach($images as $key => $image) {
+                    // generate temp image
+                    $image_temp = Image::make($image);
+
+                    //get image extension
+                    $extension = $image->getClientOriginalExtension();
+
+                    // generate new image name
+                    $imageName = 'product-'.rand(1111,9999999).'.'.$extension;
+
+                    // image path for small, medium and large images
+                    $largeImagePath = 'admin/images/products/large/'.$imageName;
+                    $mediumImagePath = 'admin/images/products/medium/'.$imageName;
+                    $smallImagePath = 'admin/images/products/small/'.$imageName;
+
+                    // upload the large, medium and small images after resize
+                    Image::make($image_temp)->resize(1040,1200)->save($largeImagePath);
+                    Image::make($image_temp)->resize(520,600)->save($mediumImagePath);
+                    Image::make($image_temp)->resize(260,300)->save($smallImagePath);
+
+                    // insert image name in products_images table
+                    $image = new ProductsImage();
+                    $image->image = $imageName;
+                    $image->product_id = $product_id;
+                    $image->status = 1;
+                    $image->save();
+                }
+            }
+
+
             return redirect('admin/products')->with('success_message', $message, $title);
 
         }
