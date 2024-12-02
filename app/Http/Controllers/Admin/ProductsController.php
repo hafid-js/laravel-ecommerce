@@ -46,7 +46,7 @@ class ProductsController extends Controller
             $message = 'Product added successfully!';
         } else {
             $title = "Edit Product";
-            $product = Product::with('images')->find($id);
+            $product = Product::with(['images','attributes'])->find($id);
             $message = "Product updated successfully";
         }
 
@@ -193,8 +193,9 @@ class ProductsController extends Controller
                 }
             }
 
-
+            // Add product attributes
             foreach($data['sku'] as $key => $value){
+                if (!empty($value)){
                 // SKU already exists check
                 $countSKU = ProductsAttribute::where('sku', $value)->count();
                 if($countSKU > 0) {
@@ -220,6 +221,19 @@ class ProductsController extends Controller
                 $attribute->status = 1;
                 $attribute->save();
             }
+        }
+
+            foreach($data['attributeId'] as $akey => $attribute) {
+                if(!empty($attribute)) {
+                    ProductsAttribute::where(['id' => $data['attributeId'][$akey]])
+                        ->update([
+                            'price' => $data['price'][$akey],
+                            'stock' => $data['stock'][$akey]
+                        ]);
+                }
+            }
+
+
             return redirect('admin/products')->with('success_message', $message, $title);
 
         }

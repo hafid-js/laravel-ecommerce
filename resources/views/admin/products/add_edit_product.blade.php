@@ -174,7 +174,34 @@
                                         recordid="{{ $product['id'] }}" style="color: #ccc;">Delete</a>
                                         @endif
                                     </div>
-
+                                    <div class="form-group">
+                                        <label>Added Attributes</label>
+                                        <table style="background-color: #4f4040; width: 50%;" cellpading="5">
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Size</th>
+                                                <th>SKU</th>
+                                                <th>Price</th>
+                                                <th>Stock</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                            @foreach($product['attributes'] as $attribute)
+                                            <input type="hidden" name="attributeId[]" value={{ $attribute['id'] }}>
+                                            <tr>
+                                                <td>{{ $attribute['id'] }}</td>
+                                                <td>{{ $attribute['size'] }}</td>
+                                                <td>{{ $attribute['sku'] }}</td>
+                                                <td>
+                                                    <input type="number" style="width:100px;" name="price[]" value="{{ $attribute['price'] }}">
+                                                </td>
+                                                <td>
+                                                    <input type="number" style="width:100px;" name="stock[]" value="{{ $attribute['stock'] }}">
+                                                </td>
+                                                <td></td>
+                                            </tr>
+                                            @endforeach
+                                        </table>
+                                    </div>
                                     <div class="form-group">
                                         <label>Product Attributes</label>
                                         <div class="field_wrapper">
