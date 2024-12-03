@@ -50,9 +50,17 @@ Route::prefix('/admin')->namespace('App\Http\Controllers\Admin')->group(function
         Route::get('products','ProductsController@products');
         Route::post('update-product-status', 'ProductsController@updateProductStatus');
         Route::get('delete-product/{id?}','ProductsController@deleteProduct');
-        Route::get('delete-product-video/{id?}','ProductsController@deleteProductVideo');
-        Route::get('delete-product-image/{id?}','ProductsController@deleteProductImage');
         Route::match(['get','post'],'add-edit-product/{id?}', 'ProductsController@addEditProduct');
+
+        // product images
+        Route::get('delete-product-image/{id?}','ProductsController@deleteProductImage');
+
+        // product video
+        Route::get('delete-product-video/{id?}','ProductsController@deleteProductVideo');
+
+        // product attributes
+        Route::post('update-attribute-status','ProductsController@updateAttributeStatus');
+        Route::get('delete-attribute/{id?}','ProductsController@deleteAttribute');
     });
 
 });

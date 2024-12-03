@@ -192,12 +192,27 @@
                                                 <td>{{ $attribute['size'] }}</td>
                                                 <td>{{ $attribute['sku'] }}</td>
                                                 <td>
-                                                    <input type="number" style="width:100px;" name="price[]" value="{{ $attribute['price'] }}">
+                                                    <input type="text" style="width:100px;" name="price[]" value="{{ $attribute['price'] }}">
                                                 </td>
                                                 <td>
-                                                    <input type="number" style="width:100px;" name="stock[]" value="{{ $attribute['stock'] }}">
+                                                    <input type="text" style="width:100px;" name="stock[]" value="{{ $attribute['stock'] }}">
                                                 </td>
-                                                <td></td>
+                                                <td>
+                                                    @if ($attribute['status'] == 1)
+                                                        <a class="updateAttributeStatus" id="attribute-{{ $attribute['id'] }}"
+                                                            attribute_id={{ $attribute['id'] }} href="javascript:void(0)"><i
+                                                                class="fas fa-toggle-on" status="Active"></i></a>
+                                                    @else
+                                                        <a class="updateAttributeStatus" id="attribute-{{ $attribute['id'] }}"
+                                                            attribute_id={{ $attribute['id'] }} style="color: grey"
+                                                            href="javascript:void(0)"><i class="fas fa-toggle-off"
+                                                                status="Inactive"></i></a>
+                                                    @endif
+                                                        &nbsp; &nbsp;
+                                                    <a class="confirmDelete" title="Delete Attribute"
+                                                        href="javascript:void(0)" record="attribute"
+                                                        recordid="{{ $attribute['id'] }}"><i class="fas fa-trash"></i></a>
+                                                </td>
                                             </tr>
                                             @endforeach
                                         </table>
