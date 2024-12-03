@@ -8,14 +8,59 @@ use App\Models\Product;
 use App\Models\Category;
 use App\Models\ProductsImage;
 use App\Models\ProductsAttribute;
+use App\Models\AdminsRole;
+use Auth;
 use DB;
 use Image;
+use Session;
 
 class ProductsController extends Controller
 {
     public function products() {
+        Session::put('page','products');
         $products = Product::with('category')->get()->toArray();
-        return view('admin.products.products')->with(compact('products'));
+
+        // set admin/subadmin permission for products
+        $productsModuleCount = AdminsRole::where(['subadmin_id' => Auth::guard('admin')->user()->id, 'module' => 'products'])->count();
+
+        // $productsModuleCount = 0;
+        // $total = AdminsRole::selectRaw('SUM(view_access + edit_access + full_access) as total')->first();
+        // $productsModuleCount = $total->total;
+        $productsModule = array();
+        if(Auth::guard('admin')->user()->type == "admin") {
+            $productsModule['view_access'] = 1;
+            $productsModule['edit_access'] = 1;
+            $productsModule['full_access'] = 1;
+        } else if ($productsModuleCount == 0) {
+            $message = "This feature is restricted for you!";
+            return redirect('admin/dashboard')->with('error_message', $message);
+        } else {
+            $productsModule = AdminsRole::where(['subadmin_id' => Auth::guard('admin')->user()->id, 'module' => 'products'])->first()->toArray();
+        }
+
+        return view('admin.products.products')->with(compact('products', 'productsModule'));
+
+        // Session::put('page','cms-pages');
+        // $CmsPages = CmsPage::get()->toArray();
+        // // dd($CmsPages);
+
+        // $cmspagesModuleCount = AdminsRole::where(['subadmin_id' => Auth::guard('admin')->user()->id, 'module' => 'cms_pages'])->count();
+
+        // $cmspagesModuleCount = 0;
+        // $total = AdminsRole::selectRaw('SUM(view_access + edit_access + full_access) as total')->first();
+        // $cmspagesModuleCount = $total->total;
+        // $pagesModule = array();
+        // if(Auth::guard('admin')->user()->type == "admin") {
+        //     $pagesModule['view_access'] = 1;
+        //     $pagesModule['edit_access'] = 1;
+        //     $pagesModule['full_access'] = 1;
+        // } else if ($cmspagesModuleCount == 0) {
+        //     $message = "This feature is restricted for you!";
+        //     return redirect('admin/dashboard')->with('error_message', $message);
+        // } else {
+        //     $pagesModule = AdminsRole::where(['subadmin_id' => Auth::guard('admin')->user()->id, 'module' => 'cms_pages'])->first()->toArray();
+        // }
+        // return view('admin.pages.cms_pages')->with(compact('CmsPages', 'pagesModule'));
     }
 
     public function updateProductStatus(Request $request)
@@ -39,6 +84,7 @@ class ProductsController extends Controller
     }
 
     public function addEditProduct(Request $request, $id=null) {
+        Session::put('page','products');
         if($id == "") {
             $title = "Add Product";
             $product = new Product();

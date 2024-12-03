@@ -34,12 +34,14 @@
                             </div>
                         @endif
                         <div class="card">
+                            @if($productsModule['edit_access'] == 1 || $productsModule['full_access'] == 1)
                             <div class="card-header">
                                 <h3 class="card-title">Products</h3>
                                 <a href="{{ url('admin/add-edit-product') }}"
                                 style="max-width: 150px; float: right; display: inline-block;"
                                 class="btn btn-block btn-primary"><i class="fas fa-plus"></i> Add Product</a>
                             </div>
+                            @endif
 
                             <!-- /.card-header -->
                             <div class="card-body">
@@ -70,6 +72,7 @@
                                                 </td>
 
                                                 <td>
+                                                    @if($productsModule['edit_access'] == 1 || $productsModule['full_access'] == 1)
                                                     @if ($product['status'] == 1)
                                                         <a class="updateProductStatus" id="product-{{ $product['id'] }}"
                                                             product_id={{ $product['id'] }} href="javascript:void(0)"><i
@@ -80,13 +83,18 @@
                                                             href="javascript:void(0)"><i class="fas fa-toggle-off"
                                                                 status="Inactive"></i></a>
                                                     @endif
+                                                    @endif
+                                                    @if($productsModule['edit_access'] == 1 || $productsModule['full_access'] == 1)
                                                     &nbsp; &nbsp;
                                                     <a href="{{ url('admin/add-edit-product/' . $product['id']) }}"><i
                                                         class="fas fa-edit"></i></a>
                                                         &nbsp; &nbsp;
+                                                        @if($pagesModule['full_access'] == 1)
                                                     <a class="confirmDelete" title="Delete Product"
                                                         href="javascript:void(0)" record="product"
                                                         recordid="{{ $product['id'] }}"><i class="fas fa-trash"></i></a>
+                                                        @endif
+                                                        @endif
                                                 </td>
                                             </tr>
                                         @endforeach

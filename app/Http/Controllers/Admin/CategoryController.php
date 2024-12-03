@@ -8,17 +8,19 @@ use App\Models\Category;
 use App\Models\AdminsRole;
 use Auth;
 use Image;
+use Session;
 
 class CategoryController extends Controller
 {
     public function categories() {
+        Session::put('page','categories');
         $categories = Category::with('parentcategory')->get()->toArray();
 
         $categoriesModuleCount = AdminsRole::where(['subadmin_id' => Auth::guard('admin')->user()->id, 'module' => 'categories'])->count();
 
-        $categoriesModuleCount = 0;
-        $total = AdminsRole::selectRaw('SUM(view_access + edit_access + full_access) as total')->first();
-        $categoriesModuleCount = $total->total;
+        // $categoriesModuleCount = 0;
+        // $total = AdminsRole::selectRaw('SUM(view_access + edit_access + full_access) as total')->first();
+        // $categoriesModuleCount = $total->total;
         $categoriesModule = array();
         if(Auth::guard('admin')->user()->type == "admin") {
             $categoriesModule['view_access'] = 1;
@@ -28,7 +30,7 @@ class CategoryController extends Controller
             $message = "This feature is restricted for you!";
             return redirect('admin/dashboard')->with('error_message', $message);
         } else {
-            $pagesModule = AdminsRole::where(['subadmin_id' => Auth::guard('admin')->user()->id, 'module' => 'categories'])->first()->toArray();
+            $categoriesModule = AdminsRole::where(['subadmin_id' => Auth::guard('admin')->user()->id, 'module' => 'categories'])->first()->toArray();
         }
 
         return view('admin.categories.categories')->with(compact('categories','categoriesModule'));

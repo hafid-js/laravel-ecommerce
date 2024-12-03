@@ -22,9 +22,9 @@ class CmsController extends Controller
 
         $cmspagesModuleCount = AdminsRole::where(['subadmin_id' => Auth::guard('admin')->user()->id, 'module' => 'cms_pages'])->count();
 
-        $cmspagesModuleCount = 0;
-        $total = AdminsRole::selectRaw('SUM(view_access + edit_access + full_access) as total')->first();
-        $cmspagesModuleCount = $total->total;
+        // $cmspagesModuleCount = 0;
+        // $total = AdminsRole::selectRaw('SUM(view_access + edit_access + full_access) as total')->first();
+        // $cmspagesModuleCount = $total->total;
         $pagesModule = array();
         if(Auth::guard('admin')->user()->type == "admin") {
             $pagesModule['view_access'] = 1;

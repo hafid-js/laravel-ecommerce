@@ -82,14 +82,12 @@
                                                     @endif
                                                     @endif
                                                     @if($categoriesModule['edit_access'] == 1 || $categoriesModule['full_access'] == 1)
-                                                    @if ($category['status'] == 1)
                                                     &nbsp; &nbsp;
                                                     <a href="{{ url('admin/add-edit-category/' . $category['id']) }}"><i
                                                         class="fas fa-edit"></i></a>
                                                         &nbsp; &nbsp;
                                                         @endif
-                                                    @endif
-                                                    @if($pagesModule['full_access'] == 1)
+                                                    @if($categoriesModule['full_access'] == 1)
                                                     <a class="confirmDelete" title="Delete Category"
                                                         href="javascript:void(0)" record="category"
                                                         recordid="{{ $category['id'] }}"><i class="fas fa-trash"></i></a>
