@@ -54,95 +54,75 @@
 
                     <!-- /.card-header -->
                     <form
-                        @if (empty($category['id'])) action="{{ url('admin/add-edit-category') }}" @else action="{{ url('admin/add-edit-category/' . $category['id']) }}" @endif
-                        name="categoryForm" id="categoryForm" method="post" enctype="multipart/form-data">@csrf
+                        @if (empty($brand['id'])) action="{{ url('admin/add-edit-brand') }}" @else action="{{ url('admin/add-edit-brand/' . $brand['id']) }}" @endif
+                        name="brandForm" id="brandForm" method="post" enctype="multipart/form-data">@csrf
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label for="category_name">Category Name*</label>
-                                        <input type="text" placeholder="Enter Category Name" class="form-control"
-                                            id="category_name" name="category_name"
-                                            @if(!empty($category['category_name'])) value="{{ $category['category_name'] }}"
-                                            @else value="{{ old('category_name') }}"
+                                        <label for="brand_name">Brand Name*</label>
+                                        <input type="text" placeholder="Enter brand Name" class="form-control"
+                                            id="brand_name" name="brand_name"
+                                            @if(!empty($brand['brand_name'])) value="{{ $brand['brand_name'] }}"
+                                            @else value="{{ old('brand_name') }}"
                                             @endif>
                                     </div>
                                     <div class="form-group">
-                                        <label for="category_level">Category Level (Parent Category)*</label>
-                                        <select name="parent_id" class="form-control">
-                                            <option value="">Select</option>
-                                            <option value="0"
-                                            @if($category['parent_id'] == 0) selected
-                                            @endif
-                                            >Main Category</option>
-                                            @foreach ($getCategories as $cat)
-                                                <option
-                                                @if(isset($category['parent_id']) && $category['parent_id'] == $cat['id']) selected
-                                                @endif
-                                                 value="{{ $cat['id'] }}">{{ $cat['category_name'] }}</option>
-                                                @if (!empty($cat['subcategories']))
-                                                    @foreach ($cat['subcategories'] as $subcat)
-                                                        <option value="{{ $subcat['id'] }}"
-                                                        @if(isset($category['parent_id']) && $category['parent_id'] == $subcat['id']) selected
-                                                        @endif
-                                                        >
-                                                            &nbsp;&nbsp;&raquo;{{ $subcat['category_name'] }}</option>
-                                                        @if (!empty($subcat['subcategories']))
-                                                            @foreach ($subcat['subcategories'] as $subsubcat)
-                                                                <option value="{{ $subcat['id'] }}">
-                                                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&raquo; {{ $subsubcat['category_name'] }}
-                                                                </option>
-                                                            @endforeach
-                                                        @endif
-                                                    @endforeach
-                                                @endif
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="category_image">Category Image</label>
-                                        <input type="file" class="form-control" id="category_image"
-                                            name="category_image">
-                                            @if(!empty($category['category_image']))
-                                            <a target="_blank" href="{{ url('admin/images/categories/'.$category['category_image']) }}">
-                                                <img style="width: 50px; margin:10px;" src="{{ asset('admin/images/categories/'.$category['category_image']) }}" alt="">
+                                        <label for="brand_image">Brand Image</label>
+                                        <input type="file" class="form-control" id="brand_image"
+                                            name="brand_image">
+                                            @if(!empty($brand['brand_image']))
+                                            <a target="_blank" href="{{ url('admin/images/brands/'.$brand['brand_image']) }}">
+                                                <img style="width: 50px; margin:10px;" src="{{ asset('admin/images/brands/'.$brand['brand_image']) }}" alt="">
                                             </a>
-                                            <a class="confirmDelete" title="Delete Category Image"
-                                            href="javascript:void(0)" record="category-image"
-                                            recordid="{{ $category['id'] }}"><i style="color: white" class="fas fa-trash"></i></a>
+                                            <a class="confirmDelete" title="Delete Brand Image"
+                                            href="javascript:void(0)" record="brand-image"
+                                            recordid="{{ $brand['id'] }}"><i style="color: white" class="fas fa-trash"></i></a>
                                             @endif
-
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="brand_logo">Brand Logo</label>
+                                        <input type="file" class="form-control" id="brand_logo"
+                                            name="brand_logo">
+                                            @if(!empty($brand['brand_logo']))
+                                            <a target="_blank" href="{{ url('admin/images/brands/'.$brand['brand_logo']) }}">
+                                                <img style="width: 50px; margin:10px;" src="{{ asset('admin/images/brands/'.$brand['brand_logo']) }}" alt="">
+                                            </a>
+                                            <a class="confirmDelete" title="Delete Brand Logo"
+                                            href="javascript:void(0)" record="brand-logo"
+                                            recordid="{{ $brand['id'] }}"><i style="color: white" class="fas fa-trash"></i></a>
+                                            @endif
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="category_discount">Category Discount</label>
-                                        <input type="text" class="form-control" placeholder="Enter Category Discount"
-                                            id="category_discount" name="category_discount"
-                                            @if(!empty($category['category_discount'])) value="{{ $category['category_discount'] }}"
-                                            @else value="{{ old('category_discount') }}"
+                                        <label for="brand_discount">Brand Discount</label>
+                                        <input type="text" class="form-control" placeholder="Enter brand Discount"
+                                            id="brand_discount" name="brand_discount"
+                                            @if(!empty($brand['brand_discount'])) value="{{ $brand['brand_discount'] }}"
+                                            @else value="{{ old('brand_discount') }}"
                                             @endif>
                                     </div>
                                     <!-- /.form-group -->
                                     <div class="form-group">
                                         <div class="form-group">
-                                            <label for="url">Category URL*</label>
-                                            <input type="text" placeholder="Enter Category URL" class="form-control"
+                                            <label for="url">Brand URL*</label>
+                                            <input type="text" placeholder="Enter brand URL" class="form-control"
                                                 id="url" name="url"
-                                            @if(!empty($category['url'])) value="{{ $category['url'] }}"
+                                            @if(!empty($brand['url'])) value="{{ $brand['url'] }}"
                                             @else value="{{ old('url') }}"
                                             @endif>
                                         </div>
                                         </select>
                                     </div>
                                     <div class="form-group">
-                                        <label>Category Description</label>
-                                        <textarea class="form-control" rows="3" placeholder="Enter Description" id="description" name="description">@if(!empty($category['description'])) {{ $category['description'] }} @else {{ @old('description') }} @endif</textarea>
+                                        <label>Brand Description</label>
+                                        <textarea class="form-control" rows="3" placeholder="Enter Description" id="description" name="description">@if(!empty($brand['description'])) {{ $brand['description'] }} @else {{ @old('description') }} @endif</textarea>
                                     </div>
                                     <div class="form-group">
                                         <label>Meta Title*</label>
                                         <input type="text" placeholder="Enter Meta Title" class="form-control"
                                             id="meta_title" name="meta_title"
-                                            @if(!empty($category['meta_title'])) value="{{ $category['meta_title'] }}"
+                                            @if(!empty($brand['meta_title'])) value="{{ $brand['meta_title'] }}"
                                             @else value="{{ old('meta_title') }}"
                                             @endif>
                                     </div>
@@ -150,7 +130,7 @@
                                         <label for="meta_description"> Meta Description*</label>
                                         <input type="text" placeholder="Enter Meta Desctiption" class="form-control"
                                             id="meta_description" name="meta_description"
-                                            @if(!empty($category['meta_description'])) value="{{ $category['meta_description'] }}"
+                                            @if(!empty($brand['meta_description'])) value="{{ $brand['meta_description'] }}"
                                             @else value="{{ old('meta_description') }}"
                                             @endif>
                                     </div>
@@ -158,7 +138,7 @@
                                         <label>Meta Keywords*</label>
                                         <input type="text" placeholder="Enter Meta Keywords" class="form-control"
                                             id="meta_keywords" name="meta_keywords"
-                                            @if(!empty($category['meta_keywords'])) value="{{ $category['meta_keywords'] }}"
+                                            @if(!empty($brand['meta_keywords'])) value="{{ $brand['meta_keywords'] }}"
                                             @else value="{{ old('meta_keywords') }}"
                                             @endif>
                                     </div>

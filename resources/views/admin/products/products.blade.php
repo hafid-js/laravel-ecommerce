@@ -89,7 +89,7 @@
                                                     <a href="{{ url('admin/add-edit-product/' . $product['id']) }}"><i
                                                         class="fas fa-edit"></i></a>
                                                         &nbsp; &nbsp;
-                                                        @if($pagesModule['full_access'] == 1)
+                                                        @if($productsModule['full_access'] == 1)
                                                     <a class="confirmDelete" title="Delete Product"
                                                         href="javascript:void(0)" record="product"
                                                         recordid="{{ $product['id'] }}"><i class="fas fa-trash"></i></a>

@@ -8,6 +8,8 @@ use App\Models\Brand;
 use Session;
 use App\Models\AdminsRole;
 use Auth;
+use App\Models\Product;
+use Image;
 
 class BrandController extends Controller
 {
@@ -53,5 +55,97 @@ class BrandController extends Controller
     {
         Brand::where('id',$id)->delete();
         return redirect()->back()->with('success_message','Brand deleted successfully');
+    }
+
+    public function addEditBrand(Request $request, $id=null){
+        if ($id == "") {
+            $title = "Add Brand";
+            $brand = new Brand();
+            $message = "Brand added successfully";
+        } else {
+            $title = "Edit Brand";
+            $brand = Brand::find($id);
+            $message = "Brand updated successfully";
+        }
+        if ($request->isMethod('post')) {
+            $data = $request->all();
+
+            if($id == 0) {
+                $rules = [
+                    'brand_name' => 'required',
+                    'url' => 'required|unique:brands',
+                ];
+            } else {
+                $rules = [
+                'brand_name' => 'required',
+                    'url' => 'required',
+                ];
+            }
+
+            $customMessages = [
+                'brand_name.required' => 'Brand name is required',
+                'url.required' => 'Brand URL  is required',
+                'url.unique' => 'Unique Brand URL is required'
+            ];
+
+            $this->validate($request, $rules, $customMessages);
+
+        // upload brand image
+        if ($request->hasFile('brand_image')) {
+            $image_tmp = $request->file('brand_image');
+            if($image_tmp->isValid()) {
+                $extension = $image_tmp->getClientOriginalExtension();
+                $imageName = rand(111,99999).'.'.$extension;
+                $image_path = public_path('admin/images/brands/'.$imageName);
+                Image::make($image_tmp)->save($image_path);
+                $brand->brand_image = $imageName;
+            }
+
+        } else {
+            $brand->brand_image == "";
+        }
+
+
+        // upload brand logo
+        if ($request->hasFile('brand_logo')) {
+            $image_tmp = $request->file('brand_logo');
+            if($image_tmp->isValid()) {
+                $extension = $image_tmp->getClientOriginalExtension();
+                $imageName = rand(111,99999).'.'.$extension;
+                $image_path = public_path('admin/images/brands/'.$imageName);
+                Image::make($image_tmp)->save($image_path);
+                $brand->brand_logo = $imageName;
+            }
+
+        } else {
+            $brand->brand_logo == "";
+        }
+
+
+        // Remove Brand Discount from all products belongs to spesific Brand
+        if(empty($data['brand_discount'])){
+            $data['brand_discount'] = 0;
+            if($id  != ""){
+                $brandProducts = Product::where('brand_id', $id)->get()->toArray();
+                foreach($brandProducts as $key => $product) {
+                    if($product['discount_type'] == "brand"){
+                        Product::where('id', $product['id'])->update(['discount_type' => '','final_price' => $product['product_price']]);
+                    }
+                }
+            }
+        }
+
+        $brand->brand_name = $data['brand_name'];
+        $brand->brand_discount = $data['brand_discount'];
+        $brand->description = $data['description'];
+        $brand->url = $data['url'];
+        $brand->meta_title = $data['meta_title'];
+        $brand->meta_description = $data['meta_description'];
+        $brand->meta_keywords = $data['meta_keywords'];
+        $brand->status = 1;
+        $brand->save();
+        return redirect('admin/brands')->with('success_message', $message);
+        }
+        return view('admin.brands.add_edit_brand')->with(compact('title','brand'));
     }
 }

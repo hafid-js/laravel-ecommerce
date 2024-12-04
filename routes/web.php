@@ -66,6 +66,7 @@ Route::prefix('/admin')->namespace('App\Http\Controllers\Admin')->group(function
         Route::get('brands','BrandController@brands');
         Route::post('update-brand-status','BrandController@updateBrandStatus');
         Route::get('delete-brand/{id?}','BrandController@deleteBrand');
+        Route::match(['get','post'],'add-edit-brand/{id?}', 'BrandController@addEditBrand');
     });
 
 });
