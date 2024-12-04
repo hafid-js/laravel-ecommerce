@@ -61,6 +61,11 @@ Route::prefix('/admin')->namespace('App\Http\Controllers\Admin')->group(function
         // product attributes
         Route::post('update-attribute-status','ProductsController@updateAttributeStatus');
         Route::get('delete-attribute/{id?}','ProductsController@deleteAttribute');
+
+        //brands
+        Route::get('brands','BrandController@brands');
+        Route::post('update-brand-status','BrandController@updateBrandStatus');
+        Route::get('delete-brand/{id?}','BrandController@deleteBrand');
     });
 
 });
