@@ -93,22 +93,41 @@
                                 @endif
 
                                 @if ($role['module'] == 'products')
-                                @if ($role['view_access'] == 1)
-                                    @php $viewProducts = "checked" @endphp
-                                @else
-                                    @php $viewProducts = "" @endphp
+                                    @if ($role['view_access'] == 1)
+                                        @php $viewProducts = "checked" @endphp
+                                    @else
+                                        @php $viewProducts = "" @endphp
+                                    @endif
+                                    @if ($role['edit_access'] == 1)
+                                        @php $editProducts = "checked" @endphp
+                                    @else
+                                        @php $editProducts = "" @endphp
+                                    @endif
+                                    @if ($role['full_access'] == 1)
+                                        @php $fullProducts = "checked" @endphp
+                                    @else
+                                        @php $fullProducts = "" @endphp
+                                    @endif
                                 @endif
-                                @if ($role['edit_access'] == 1)
-                                    @php $editProducts = "checked" @endphp
-                                @else
-                                    @php $editProducts = "" @endphp
+
+                                @if ($role['module'] == 'brands')
+                                    @if ($role['view_access'] == 1)
+                                        @php $viewBrands = "checked" @endphp
+                                    @else
+                                        @php $viewBrands = "" @endphp
+                                    @endif
+                                    @if ($role['edit_access'] == 1)
+                                        @php $editBrands = "checked" @endphp
+                                    @else
+                                        @php $editBrands = "" @endphp
+                                    @endif
+                                    @if ($role['full_access'] == 1)
+                                        @php $fullBrands = "checked" @endphp
+                                    @else
+                                        @php $fullBrands = "" @endphp
+                                    @endif
                                 @endif
-                                @if ($role['full_access'] == 1)
-                                    @php $fullProducts = "checked" @endphp
-                                @else
-                                    @php $fullProducts = "" @endphp
-                                @endif
-                            @endif
+
                             @endforeach
                         @endif
                         <div class="card-body">
@@ -183,6 +202,25 @@
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" name="products[full]" value="1"
                                         @if (isset($fullProducts)) {{ $fullProducts }} @endif>
+                                    <label class="form-check-label">Full Access</label>
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                <label for="brands">Brands :</label>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="brands[view]" value="1"
+                                        @if (isset($viewBrands)) {{ $viewBrands }} @endif>
+                                    <label class="form-check-label">View Access</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="brands[edit]" value="1"
+                                        @if (isset($editBrands)) {{ $editBrands }} @endif>
+                                    <label class="form-check-label">View/Edit Access</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="brands[full]" value="1"
+                                        @if (isset($fullBrands)) {{ $fullBrands }} @endif>
                                     <label class="form-check-label">Full Access</label>
                                 </div>
                             </div>

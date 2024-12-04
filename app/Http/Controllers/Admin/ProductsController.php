@@ -9,10 +9,12 @@ use App\Models\Category;
 use App\Models\ProductsImage;
 use App\Models\ProductsAttribute;
 use App\Models\AdminsRole;
+use App\Models\Brand;
 use Auth;
 use DB;
 use Image;
 use Session;
+
 
 class ProductsController extends Controller
 {
@@ -147,6 +149,7 @@ class ProductsController extends Controller
             }
 
             $product->category_id = $data['category_id'];
+            $product->brand_id = $data['brand_id'];
             $product->product_name = $data['product_name'];
             $product->product_code = $data['product_code'];
             $product->product_color = $data['product_color'];
@@ -189,7 +192,7 @@ class ProductsController extends Controller
             $product->save();
 
             if ($id == "") {
-                $product_id = DB::getPdo()->lastInsert();
+                $product_id = DB::getPdo()->lastInsertId();
             } else {
                 $product_id = $id;
             }
@@ -269,6 +272,7 @@ class ProductsController extends Controller
             }
         }
 
+        if(isset($data['attributeId'])) {
             foreach($data['attributeId'] as $akey => $attribute) {
                 if(!empty($attribute)) {
                     ProductsAttribute::where(['id' => $data['attributeId'][$akey]])
@@ -278,17 +282,24 @@ class ProductsController extends Controller
                         ]);
                 }
             }
+        }
 
 
             return redirect('admin/products')->with('success_message', $message, $title);
 
         }
 
-
+        // get categories and their sub categories
         $getCategories = Category::getCategories();
 
+        // get brands
+        $getBrands = Brand::where('status', 1)->get()->toArray();
+
+        // product filters
         $productsFilters = Product::productsFilters();
-        return view('admin.products.add_edit_product')->with(compact('title','getCategories','productsFilters','product'));
+
+
+        return view('admin.products.add_edit_product')->with(compact('title','getCategories','productsFilters','product','getBrands'));
     }
 
     public function deleteProductVideo($id) {

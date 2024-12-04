@@ -34,12 +34,14 @@
                             </div>
                         @endif
                         <div class="card">
-                            <div class="card-header">
-                                <h3 class="card-title">brands</h3>
-                                <a href="{{ url('admin/add-edit-brand') }}"
-                                style="max-width: 150px; float: right; display: inline-block;"
-                                class="btn btn-block btn-primary"><i class="fas fa-plus"></i> Add Brand</a>
-                            </div>
+                            @if ($brandsModule['edit_access'] == 1 || $brandsModule['full_access'] == 1)
+                                <div class="card-header">
+                                    <h3 class="card-title">brands</h3>
+                                    <a href="{{ url('admin/add-edit-brand') }}"
+                                        style="max-width: 150px; float: right; display: inline-block;"
+                                        class="btn btn-block btn-primary"><i class="fas fa-plus"></i> Add Brand</a>
+                                </div>
+                            @endif
 
                             <!-- /.card-header -->
                             <div class="card-body">
@@ -61,25 +63,30 @@
                                                 <td>{{ $brand['url'] }}</td>
                                                 <td>{{ date('F j, Y, g:i a', strtotime($brand['created_at'])) }}</td>
                                                 <td>
-                                                    @if ($brand['status'] == 1)
-                                                        <a class="updateBrandStatus" id="brand-{{ $brand['id'] }}"
-                                                            brand_id={{ $brand['id'] }} href="javascript:void(0)"><i
-                                                                class="fas fa-toggle-on" status="Active"></i></a>
-                                                    @else
-                                                        <a class="updateBrandStatus" id="brand-{{ $brand['id'] }}"
-                                                            brand_id={{ $brand['id'] }} style="color: grey"
-                                                            href="javascript:void(0)"><i class="fas fa-toggle-off"
-                                                                status="Inactive"></i></a>
-                                                    @endif
-                                                    &nbsp; &nbsp;
-                                                    <a href="{{ url('admin/add-edit-brand/' . $brand['id']) }}"><i
-                                                        class="fas fa-edit"></i></a>
-                                                        &nbsp; &nbsp;
-                                                    @if($brandsModule['full_access'] == 1)
-                                                    <a class="confirmDelete" title="Delete Brand"
-                                                        href="javascript:void(0)" record="brand"
-                                                        recordid="{{ $brand['id'] }}"><i class="fas fa-trash"></i></a>
+                                                    @if ($brandsModule['edit_access'] == 1 || $brandsModule['full_access'] == 1)
+                                                        @if ($brand['status'] == 1)
+                                                            <a class="updateBrandStatus" id="brand-{{ $brand['id'] }}"
+                                                                brand_id={{ $brand['id'] }} href="javascript:void(0)"><i
+                                                                    class="fas fa-toggle-on" status="Active"></i></a>
+                                                        @else
+                                                            <a class="updateBrandStatus" id="brand-{{ $brand['id'] }}"
+                                                                brand_id={{ $brand['id'] }} style="color: grey"
+                                                                href="javascript:void(0)"><i class="fas fa-toggle-off"
+                                                                    status="Inactive"></i></a>
                                                         @endif
+                                                    @endif
+                                                    @if ($brandsModule['edit_access'] == 1 || $brandsModule['full_access'] == 1)
+                                                        &nbsp; &nbsp;
+                                                        <a href="{{ url('admin/add-edit-brand/' . $brand['id']) }}"><i
+                                                                class="fas fa-edit"></i></a>
+                                                        &nbsp; &nbsp;
+                                                        @if ($brandsModule['full_access'] == 1)
+                                                            <a class="confirmDelete" title="Delete Brand"
+                                                                href="javascript:void(0)" record="brand"
+                                                                recordid="{{ $brand['id'] }}"><i
+                                                                    class="fas fa-trash"></i></a>
+                                                        @endif
+                                                    @endif
                                                 </td>
                                             </tr>
                                         @endforeach

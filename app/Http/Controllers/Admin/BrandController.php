@@ -19,10 +19,6 @@ class BrandController extends Controller
 
         // set admin/subadmin permission for brands
         $brandsModuleCount = AdminsRole::where(['subadmin_id' => Auth::guard('admin')->user()->id, 'module' => 'brands'])->count();
-
-        // $brandsModuleCount = 0;
-        // $total = AdminsRole::selectRaw('SUM(view_access + edit_access + full_access) as total')->first();
-        // $brandsModuleCount = $total->total;
         $brandsModule = array();
         if(Auth::guard('admin')->user()->type == "admin") {
             $brandsModule['view_access'] = 1;
@@ -32,9 +28,32 @@ class BrandController extends Controller
             $message = "This feature is restricted for you!";
             return redirect('admin/dashboard')->with('error_message', $message);
         } else {
+
             $brandsModule = AdminsRole::where(['subadmin_id' => Auth::guard('admin')->user()->id, 'module' => 'brands'])->first()->toArray();
         }
+
         return view('admin.brands.brands')->with(compact('brands','brandsModule'));
+
+
+
+        Session::put('page','products');
+        $products = Product::with('category')->get()->toArray();
+
+        // set admin/subadmin permission for products
+        $productsModuleCount = AdminsRole::where(['subadmin_id' => Auth::guard('admin')->user()->id, 'module' => 'products'])->count();
+        $productsModule = array();
+        if(Auth::guard('admin')->user()->type == "admin") {
+            $productsModule['view_access'] = 1;
+            $productsModule['edit_access'] = 1;
+            $productsModule['full_access'] = 1;
+        } else if ($productsModuleCount == 0) {
+            $message = "This feature is restricted for you!";
+            return redirect('admin/dashboard')->with('error_message', $message);
+        } else {
+            $productsModule = AdminsRole::where(['subadmin_id' => Auth::guard('admin')->user()->id, 'module' => 'products'])->first()->toArray();
+        }
+
+        return view('admin.products.products')->with(compact('products', 'productsModule'));
     }
 
     public function updateBrandStatus(Request $request)
