@@ -70,6 +70,11 @@ Route::prefix('/admin')->namespace('App\Http\Controllers\Admin')->group(function
         Route::get('delete-brand-image/{id?}','BrandController@deleteBrandImage');
         Route::get('delete-brand-logo/{id?}','BrandController@deleteBrandLogo');
 
+        // banners
+        Route::get('banners','BannersController@banners');
+        Route::post('update-banner-status','BannersController@updateBannerStatus');
+        Route::get('delete-banner/{id?}','BannersController@deleteBanner');
+
     });
 
 });
