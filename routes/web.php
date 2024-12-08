@@ -23,6 +23,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::namespace('App\Http\Controllers\Front')->group(function() {
+    Route::get('/',[IndexController::class,'index']);
+});
+
 Route::prefix('/admin')->namespace('App\Http\Controllers\Admin')->group(function() {
     Route::match(['get', 'post'], 'login', [AdminController::class,'login']);
     Route::group(['middleware' => ['admin']], function() {

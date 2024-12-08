@@ -9,6 +9,10 @@ use Validator;
 use Hash;
 use App\Models\Admin;
 use App\Models\AdminsRole;
+use App\Models\Category;
+use App\Models\Product;
+use App\Models\Brand;
+use App\Models\User;
 use Image;
 use Session;
 
@@ -17,7 +21,12 @@ class AdminController extends Controller
 {
     public function dashboard() {
         Session::put('page','dashboard');
-        return view('admin.layout.dashboard');
+
+        $categoriesCount = Category::get()->count();
+        $productsCount = Product::get()->count();
+        $brandCount = Brand::get()->count();
+        $usersCount = User::get()->count();
+        return view('admin.layout.dashboard')->with(compact('categoriesCount','productsCount','brandCount','usersCount'));;
     }
 
     public function login(Request $request) {
