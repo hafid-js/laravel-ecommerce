@@ -6,7 +6,7 @@
             <div class="primary-nav">
                 <!--====== Main Logo ======-->
                 <a class="main-logo" href="index.html">
-                <img src="images/logo/logo-1.png" alt=""></a>
+                <img src="{{ url('front/images/logo/logo-1.png') }}" alt=""></a>
                 <!--====== End - Main Logo ======-->
                 <!--====== Search Form ======-->
                 <form class="main-form">
@@ -307,7 +307,7 @@
                                                 <div class="col-lg-9 mega-image">
                                                     <div class="mega-banner">
                                                         <a class="u-d-block" href="shop-side-version-2.html">
-                                                        <img class="u-img-fluid u-d-block" src="images/banners/sitemaker-slider-banner-1.png" alt=""></a>
+                                                        <img class="u-img-fluid u-d-block" src="{{ url('front/images/banners/sitemaker-slider-banner-1.png')}}" alt=""></a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -321,13 +321,13 @@
                                                 <div class="col-lg-6 mega-image">
                                                     <div class="mega-banner">
                                                         <a class="u-d-block" href="shop-side-version-2.html">
-                                                        <img class="u-img-fluid u-d-block" src="images/banners/sitemaker-slider-banner-1.png" alt=""></a>
+                                                        <img class="u-img-fluid u-d-block" src="{{ url('front/images/banners/sitemaker-slider-banner-1.png')}}" alt=""></a>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-6 mega-image">
                                                     <div class="mega-banner">
                                                         <a class="u-d-block" href="shop-side-version-2.html">
-                                                        <img class="u-img-fluid u-d-block" src="images/banners/sitemaker-slider-banner-1.png" alt=""></a>
+                                                        <img class="u-img-fluid u-d-block" src="{{ url('front/images/banners/sitemaker-slider-banner-1.png')}}" alt=""></a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -500,13 +500,13 @@
                                                 <div class="col-lg-9 mega-image">
                                                     <div class="mega-banner">
                                                         <a class="u-d-block" href="shop-side-version-2.html">
-                                                        <img class="u-img-fluid u-d-block" src="images/banners/sitemaker-slider-banner-1.png" alt=""></a>
+                                                        <img class="u-img-fluid u-d-block" src="{{ url('front/images/banners/sitemaker-slider-banner-1.png')}}" alt=""></a>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-3 mega-image">
                                                     <div class="mega-banner">
                                                         <a class="u-d-block" href="shop-side-version-2.html">
-                                                        <img class="u-img-fluid u-d-block" src="images/banners/sitemaker-slider-banner-1.png" alt=""></a>
+                                                        <img class="u-img-fluid u-d-block" src="{{ url('front/images/banners/sitemaker-slider-banner-1.png')}}" alt=""></a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -520,19 +520,19 @@
                                                 <div class="col-lg-4 mega-image">
                                                     <div class="mega-banner">
                                                         <a class="u-d-block" href="shop-side-version-2.html">
-                                                        <img class="u-img-fluid u-d-block" src="images/banners/sitemaker-slider-banner-1.png" alt=""></a>
+                                                        <img class="u-img-fluid u-d-block" src="{{ url('front/images/banners/sitemaker-slider-banner-1.png')}}" alt=""></a>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-4 mega-image">
                                                     <div class="mega-banner">
                                                         <a class="u-d-block" href="shop-side-version-2.html">
-                                                        <img class="u-img-fluid u-d-block" src="images/banners/sitemaker-slider-banner-1.png" alt=""></a>
+                                                        <img class="u-img-fluid u-d-block" src="{{ url('front/images/banners/sitemaker-slider-banner-1.png')}}" alt=""></a>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-4 mega-image">
                                                     <div class="mega-banner">
                                                         <a class="u-d-block" href="shop-side-version-2.html">
-                                                        <img class="u-img-fluid u-d-block" src="images/banners/sitemaker-slider-banner-1.png" alt=""></a>
+                                                        <img class="u-img-fluid u-d-block" src="{{ url('front/images/banners/sitemaker-slider-banner-1.png')}}" alt=""></a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -705,13 +705,13 @@
                                                 <div class="col-lg-6 mega-image">
                                                     <div class="mega-banner">
                                                         <a class="u-d-block" href="shop-side-version-2.html">
-                                                        <img class="u-img-fluid u-d-block" src="images/banners/sitemaker-slider-banner-1.png" alt=""></a>
+                                                        <img class="u-img-fluid u-d-block" src="{{ url('front/images/banners/sitemaker-slider-banner-1.png')}}" alt=""></a>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-6 mega-image">
                                                     <div class="mega-banner">
                                                         <a class="u-d-block" href="shop-side-version-2.html">
-                                                        <img class="u-img-fluid u-d-block" src="images/banners/sitemaker-slider-banner-1.png" alt=""></a>
+                                                        <img class="u-img-fluid u-d-block" src="{{ url('front/images/banners/sitemaker-slider-banner-1.png')}}" alt=""></a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -914,7 +914,7 @@
                                             <div class="mini-product">
                                                 <div class="mini-product__image-wrapper">
                                                     <a class="mini-product__link" href="product-detail.html">
-                                                    <img class="u-img-fluid" src="images/product/sitemakers-tshirt.png" alt=""></a>
+                                                    <img class="u-img-fluid" src="{{ url('front/images/product/sitemakers-tshirt.png')}}" alt=""></a>
                                                 </div>
                                                 <div class="mini-product__info-wrapper">
                                                     <span class="mini-product__category">
@@ -933,7 +933,7 @@
                                             <div class="mini-product">
                                                 <div class="mini-product__image-wrapper">
                                                     <a class="mini-product__link" href="product-detail.html">
-                                                    <img class="u-img-fluid" src="images/product/sitemakers-tshirt.png" alt=""></a>
+                                                    <img class="u-img-fluid" src="{{ url('front/images/product/sitemakers-tshirt.png')}}" alt=""></a>
                                                 </div>
                                                 <div class="mini-product__info-wrapper">
                                                     <span class="mini-product__category">
@@ -952,7 +952,7 @@
                                             <div class="mini-product">
                                                 <div class="mini-product__image-wrapper">
                                                     <a class="mini-product__link" href="product-detail.html">
-                                                    <img class="u-img-fluid" src="images/product/sitemakers-tshirt.png" alt=""></a>
+                                                    <img class="u-img-fluid" src="{{ url('front/images/product/sitemakers-tshirt.png')}}" alt=""></a>
                                                 </div>
                                                 <div class="mini-product__info-wrapper">
                                                     <span class="mini-product__category">

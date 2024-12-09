@@ -6,7 +6,7 @@
                 <div class="row u-s-m-x-0">
                     <div class="col-lg-6 new-l__col-1 u-s-p-x-0">
                         <a class="new-l__img-wrap u-d-block" href="shop-side-version-2.html">
-                        <img class="u-img-fluid u-d-block" src="images/newsletter/subscribe-now.png" alt=""></a>
+                        <img class="u-img-fluid u-d-block" src="{{ url('front/images/newsletter/subscribe-now.png') }}" alt=""></a>
                     </div>
                     <div class="col-lg-6 new-l__col-2">
                         <div class="new-l__section u-s-m-t-30">

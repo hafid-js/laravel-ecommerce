@@ -1,9 +1,11 @@
+@extends('front.layout.layout')
+@section('content')
 <div class="app-content">
     <!--====== Primary Slider ======-->
     <div class="s-skeleton s-skeleton--h-600 s-skeleton--bg-grey">
         <div class="owl-carousel primary-style-1" id="sitemakers-slider">
             <div class="sitemakers-slide sitemakers-slide--1"
-                style="background-image: url('images/banners/sitemaker-slider-banner-1.png');">
+                style="background-image: url('{{ url('front/images/banners/sitemaker-slider-banner-1.png') }}">
                 <div class="container">
                     <div class="row">
                         <div class="col-12">
@@ -18,7 +20,7 @@
                 </div>
             </div>
             <div class="sitemakers-slide sitemakers-slide--2"
-                style="background-image: url('images/banners/sitemaker-slider-banner-2.png');">
+                style="background-image: url('{{ url('front/images/banners/sitemaker-slider-banner-2.png') }}">
                 <div class="container">
                     <div class="row">
                         <div class="col-12">
@@ -33,7 +35,7 @@
                 </div>
             </div>
             <div class="sitemakers-slide sitemakers-slide--3"
-                style="background-image: url('images/banners/sitemaker-slider-banner-3.png');">
+                style="background-image: url('{{ url('front/images/banners/sitemaker-slider-banner-3.png') }}">
                 <div class="container">
                     <div class="row">
                         <div class="col-12">
@@ -73,7 +75,7 @@
                     <div class="col-lg-5 col-md-5 u-s-m-b-30">
                         <a class="collection" href="shop-side-version-2.html">
                             <div class="aspect aspect--bg-grey aspect--square">
-                                <img class="aspect__img collection__img" src="images/collection/fix-banner-1.png"
+                                <img class="aspect__img collection__img" src="{{ url('front/images/collection/fix-banner-1.png')}}"
                                     alt="">
                             </div>
                         </a>
@@ -81,7 +83,7 @@
                     <div class="col-lg-7 col-md-7 u-s-m-b-30">
                         <a class="collection" href="shop-side-version-2.html">
                             <div class="aspect aspect--bg-grey aspect--1286-890">
-                                <img class="aspect__img collection__img" src="images/collection/fix-banner-2.png"
+                                <img class="aspect__img collection__img" src="{{ url('front/images/collection/fix-banner-2.png')}}"
                                     alt="">
                             </div>
                         </a>
@@ -89,7 +91,7 @@
                     <div class="col-lg-7 col-md-7 u-s-m-b-30">
                         <a class="collection" href="shop-side-version-2.html">
                             <div class="aspect aspect--bg-grey aspect--1286-890">
-                                <img class="aspect__img collection__img" src="images/collection/fix-banner-3.png"
+                                <img class="aspect__img collection__img" src="{{ url('front/images/collection/fix-banner-3.png')}}"
                                     alt="">
                             </div>
                         </a>
@@ -97,7 +99,7 @@
                     <div class="col-lg-5 col-md-5 u-s-m-b-30">
                         <a class="collection" href="shop-side-version-2.html">
                             <div class="aspect aspect--bg-grey aspect--square">
-                                <img class="aspect__img collection__img" src="images/collection/fix-banner-4.png"
+                                <img class="aspect__img collection__img" src="{{ url('front/images/collection/fix-banner-4.png')}}"
                                     alt="">
                             </div>
                         </a>
@@ -158,7 +160,7 @@
                                         <div class="product-o__wrap">
                                             <a class="aspect aspect--bg-grey aspect--square u-d-block"
                                                 href="product-detail.html">
-                                                <img class="aspect__img" src="images/product/sitemakers-tshirt.png"
+                                                <img class="aspect__img" src="{{ url('front/images/product/sitemakers-tshirt.png')}}"
                                                     alt=""></a>
                                         </div>
                                         <span class="product-o__category">
@@ -179,7 +181,7 @@
                                         <div class="product-o__wrap">
                                             <a class="aspect aspect--bg-grey aspect--square u-d-block"
                                                 href="product-detail.html">
-                                                <img class="aspect__img" src="images/product/sitemakers-tshirt.png"
+                                                <img class="aspect__img" src="{{ url('front/images/product/sitemakers-tshirt.png')}}"
                                                     alt=""></a>
                                         </div>
                                         <span class="product-o__category">
@@ -200,7 +202,7 @@
                                         <div class="product-o__wrap">
                                             <a class="aspect aspect--bg-grey aspect--square u-d-block"
                                                 href="product-detail.html">
-                                                <img class="aspect__img" src="images/product/sitemakers-tshirt.png"
+                                                <img class="aspect__img" src="{{ url('front/images/product/sitemakers-tshirt.png')}}"
                                                     alt=""></a>
                                         </div>
                                         <span class="product-o__category">
@@ -221,7 +223,7 @@
                                         <div class="product-o__wrap">
                                             <a class="aspect aspect--bg-grey aspect--square u-d-block"
                                                 href="product-detail.html">
-                                                <img class="aspect__img" src="images/product/sitemakers-tshirt.png"
+                                                <img class="aspect__img" src="{{ url('front/images/product/sitemakers-tshirt.png')}}"
                                                     alt=""></a>
                                         </div>
                                         <span class="product-o__category">
@@ -242,7 +244,7 @@
                                         <div class="product-o__wrap">
                                             <a class="aspect aspect--bg-grey aspect--square u-d-block"
                                                 href="product-detail.html">
-                                                <img class="aspect__img" src="images/product/sitemakers-tshirt.png"
+                                                <img class="aspect__img" src="{{ url('front/images/product/sitemakers-tshirt.png')}}"
                                                     alt=""></a>
                                         </div>
                                         <span class="product-o__category">
@@ -263,7 +265,7 @@
                                         <div class="product-o__wrap">
                                             <a class="aspect aspect--bg-grey aspect--square u-d-block"
                                                 href="product-detail.html">
-                                                <img class="aspect__img" src="images/product/sitemakers-tshirt.png"
+                                                <img class="aspect__img" src="{{ url('front/images/product/sitemakers-tshirt.png')}}"
                                                     alt=""></a>
                                         </div>
                                         <span class="product-o__category">
@@ -284,7 +286,7 @@
                                         <div class="product-o__wrap">
                                             <a class="aspect aspect--bg-grey aspect--square u-d-block"
                                                 href="product-detail.html">
-                                                <img class="aspect__img" src="images/product/sitemakers-tshirt.png"
+                                                <img class="aspect__img" src="{{ url('front/images/product/sitemakers-tshirt.png')}}"
                                                     alt=""></a>
                                         </div>
                                         <span class="product-o__category">
@@ -305,7 +307,7 @@
                                         <div class="product-o__wrap">
                                             <a class="aspect aspect--bg-grey aspect--square u-d-block"
                                                 href="product-detail.html">
-                                                <img class="aspect__img" src="images/product/sitemakers-tshirt.png"
+                                                <img class="aspect__img" src="{{ url('front/images/product/sitemakers-tshirt.png')}}"
                                                     alt=""></a>
                                         </div>
                                         <span class="product-o__category">
@@ -327,7 +329,7 @@
                                         <div class="product-o__wrap">
                                             <a class="aspect aspect--bg-grey aspect--square u-d-block"
                                                 href="product-detail.html">
-                                                <img class="aspect__img" src="images/product/sitemakers-tshirt.png"
+                                                <img class="aspect__img" src="{{ url('front/images/product/sitemakers-tshirt.png')}}"
                                                     alt=""></a>
                                         </div>
                                         <span class="product-o__category">
@@ -349,7 +351,7 @@
                                         <div class="product-o__wrap">
                                             <a class="aspect aspect--bg-grey aspect--square u-d-block"
                                                 href="product-detail.html">
-                                                <img class="aspect__img" src="images/product/sitemakers-tshirt.png"
+                                                <img class="aspect__img" src="{{ url('front/images/product/sitemakers-tshirt.png')}}"
                                                     alt=""></a>
                                         </div>
                                         <span class="product-o__category">
@@ -371,7 +373,7 @@
                                         <div class="product-o__wrap">
                                             <a class="aspect aspect--bg-grey aspect--square u-d-block"
                                                 href="product-detail.html">
-                                                <img class="aspect__img" src="images/product/sitemakers-tshirt.png"
+                                                <img class="aspect__img" src="{{ url('front/images/product/sitemakers-tshirt.png')}}"
                                                     alt=""></a>
                                         </div>
                                         <span class="product-o__category">
@@ -393,7 +395,7 @@
                                         <div class="product-o__wrap">
                                             <a class="aspect aspect--bg-grey aspect--square u-d-block"
                                                 href="product-detail.html">
-                                                <img class="aspect__img" src="images/product/sitemakers-tshirt.png"
+                                                <img class="aspect__img" src="{{ url('front/images/product/sitemakers-tshirt.png')}}"
                                                     alt=""></a>
                                         </div>
                                         <span class="product-o__category">
@@ -415,7 +417,7 @@
                                         <div class="product-o__wrap">
                                             <a class="aspect aspect--bg-grey aspect--square u-d-block"
                                                 href="product-detail.html">
-                                                <img class="aspect__img" src="images/product/sitemakers-tshirt.png"
+                                                <img class="aspect__img" src="{{ url('front/images/product/sitemakers-tshirt.png')}}"
                                                     alt=""></a>
                                         </div>
                                         <span class="product-o__category">
@@ -437,7 +439,7 @@
                                         <div class="product-o__wrap">
                                             <a class="aspect aspect--bg-grey aspect--square u-d-block"
                                                 href="product-detail.html">
-                                                <img class="aspect__img" src="images/product/sitemakers-tshirt.png"
+                                                <img class="aspect__img" src="{{ url('front/images/product/sitemakers-tshirt.png')}}"
                                                     alt=""></a>
                                         </div>
                                         <span class="product-o__category">
@@ -459,7 +461,7 @@
                                         <div class="product-o__wrap">
                                             <a class="aspect aspect--bg-grey aspect--square u-d-block"
                                                 href="product-detail.html">
-                                                <img class="aspect__img" src="images/product/sitemakers-tshirt.png"
+                                                <img class="aspect__img" src="{{ url('front/images/product/sitemakers-tshirt.png')}}"
                                                     alt=""></a>
                                         </div>
                                         <span class="product-o__category">
@@ -481,7 +483,7 @@
                                         <div class="product-o__wrap">
                                             <a class="aspect aspect--bg-grey aspect--square u-d-block"
                                                 href="product-detail.html">
-                                                <img class="aspect__img" src="images/product/sitemakers-tshirt.png"
+                                                <img class="aspect__img" src="{{ url('front/images/product/sitemakers-tshirt.png')}}"
                                                     alt=""></a>
                                         </div>
                                         <span class="product-o__category">
@@ -536,7 +538,7 @@
                                 <div class="product-o__wrap">
                                     <a class="aspect aspect--bg-grey aspect--square u-d-block"
                                         href="product-detail.html">
-                                        <img class="aspect__img" src="images/product/sitemakers-tshirt.png"
+                                        <img class="aspect__img" src="{{ url('front/images/product/sitemakers-tshirt.png')}}"
                                             alt=""></a>
                                 </div>
                                 <span class="product-o__category">
@@ -557,7 +559,7 @@
                                 <div class="product-o__wrap">
                                     <a class="aspect aspect--bg-grey aspect--square u-d-block"
                                         href="product-detail.html">
-                                        <img class="aspect__img" src="images/product/sitemakers-tshirt.png"
+                                        <img class="aspect__img" src="{{ url('front/images/product/sitemakers-tshirt.png')}}"
                                             alt=""></a>
                                 </div>
                                 <span class="product-o__category">
@@ -578,7 +580,7 @@
                                 <div class="product-o__wrap">
                                     <a class="aspect aspect--bg-grey aspect--square u-d-block"
                                         href="product-detail.html">
-                                        <img class="aspect__img" src="images/product/sitemakers-tshirt.png"
+                                        <img class="aspect__img" src="{{ url('front/images/product/sitemakers-tshirt.png')}}"
                                             alt=""></a>
                                 </div>
                                 <span class="product-o__category">
@@ -599,7 +601,7 @@
                                 <div class="product-o__wrap">
                                     <a class="aspect aspect--bg-grey aspect--square u-d-block"
                                         href="product-detail.html">
-                                        <img class="aspect__img" src="images/product/sitemakers-tshirt.png"
+                                        <img class="aspect__img" src="{{ url('front/images/product/sitemakers-tshirt.png')}}"
                                             alt=""></a>
                                 </div>
                                 <span class="product-o__category">
@@ -620,7 +622,7 @@
                                 <div class="product-o__wrap">
                                     <a class="aspect aspect--bg-grey aspect--square u-d-block"
                                         href="product-detail.html">
-                                        <img class="aspect__img" src="images/product/sitemakers-tshirt.png"
+                                        <img class="aspect__img" src="{{ url('front/images/product/sitemakers-tshirt.png')}}"
                                             alt=""></a>
                                 </div>
                                 <span class="product-o__category">
@@ -641,7 +643,7 @@
                                 <div class="product-o__wrap">
                                     <a class="aspect aspect--bg-grey aspect--square u-d-block"
                                         href="product-detail.html">
-                                        <img class="aspect__img" src="images/product/sitemakers-tshirt.png"
+                                        <img class="aspect__img" src="{{ url('front/images/product/sitemakers-tshirt.png')}}"
                                             alt=""></a>
                                 </div>
                                 <span class="product-o__category">
@@ -695,7 +697,7 @@
                                 <div class="product-o__wrap">
                                     <a class="aspect aspect--bg-grey aspect--square u-d-block"
                                         href="product-detail.html">
-                                        <img class="aspect__img" src="images/product/sitemakers-tshirt.png"
+                                        <img class="aspect__img" src="{{ url('front/images/product/sitemakers-tshirt.png')}}"
                                             alt=""></a>
                                 </div>
                                 <span class="product-o__category">
@@ -716,7 +718,7 @@
                                 <div class="product-o__wrap">
                                     <a class="aspect aspect--bg-grey aspect--square u-d-block"
                                         href="product-detail.html">
-                                        <img class="aspect__img" src="images/product/sitemakers-tshirt.png"
+                                        <img class="aspect__img" src="{{ url('front/images/product/sitemakers-tshirt.png')}}"
                                             alt=""></a>
                                 </div>
                                 <span class="product-o__category">
@@ -737,7 +739,7 @@
                                 <div class="product-o__wrap">
                                     <a class="aspect aspect--bg-grey aspect--square u-d-block"
                                         href="product-detail.html">
-                                        <img class="aspect__img" src="images/product/sitemakers-tshirt.png"
+                                        <img class="aspect__img" src="{{ url('front/images/product/sitemakers-tshirt.png')}}"
                                             alt=""></a>
                                 </div>
                                 <span class="product-o__category">
@@ -758,7 +760,7 @@
                                 <div class="product-o__wrap">
                                     <a class="aspect aspect--bg-grey aspect--square u-d-block"
                                         href="product-detail.html">
-                                        <img class="aspect__img" src="images/product/sitemakers-tshirt.png"
+                                        <img class="aspect__img" src="{{ url('front/images/product/sitemakers-tshirt.png')}}"
                                             alt=""></a>
                                 </div>
                                 <span class="product-o__category">
@@ -779,7 +781,7 @@
                                 <div class="product-o__wrap">
                                     <a class="aspect aspect--bg-grey aspect--square u-d-block"
                                         href="product-detail.html">
-                                        <img class="aspect__img" src="images/product/sitemakers-tshirt.png"
+                                        <img class="aspect__img" src="{{ url('front/images/product/sitemakers-tshirt.png')}}"
                                             alt=""></a>
                                 </div>
                                 <span class="product-o__category">
@@ -800,7 +802,7 @@
                                 <div class="product-o__wrap">
                                     <a class="aspect aspect--bg-grey aspect--square u-d-block"
                                         href="product-detail.html">
-                                        <img class="aspect__img" src="images/product/sitemakers-tshirt.png"
+                                        <img class="aspect__img" src="{{ url('front/images/product/sitemakers-tshirt.png')}}"
                                             alt=""></a>
                                 </div>
                                 <span class="product-o__category">
@@ -821,7 +823,7 @@
                                 <div class="product-o__wrap">
                                     <a class="aspect aspect--bg-grey aspect--square u-d-block"
                                         href="product-detail.html">
-                                        <img class="aspect__img" src="images/product/sitemakers-tshirt.png"
+                                        <img class="aspect__img" src="{{ url('front/images/product/sitemakers-tshirt.png')}}"
                                             alt=""></a>
                                 </div>
                                 <span class="product-o__category">
@@ -842,7 +844,7 @@
                                 <div class="product-o__wrap">
                                     <a class="aspect aspect--bg-grey aspect--square u-d-block"
                                         href="product-detail.html">
-                                        <img class="aspect__img" src="images/product/sitemakers-tshirt.png"
+                                        <img class="aspect__img" src="{{ url('front/images/product/sitemakers-tshirt.png')}}"
                                             alt=""></a>
                                 </div>
                                 <span class="product-o__category">
@@ -871,3 +873,4 @@
     </div>
     <!--====== End - Section 5 ======-->
 </div>
+@endsection

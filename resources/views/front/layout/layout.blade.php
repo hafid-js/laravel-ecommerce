@@ -8,21 +8,21 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="description" content="">
         <meta name="author" content="SiteMakers.in">
-        <link href="images/favicon.png" rel="shortcut icon">
+        <link href="{{ url('front/images/favicon.png') }}" rel="shortcut icon">
         <title>Laravel E-commerce Template - By SiteMakers.in</title>
         <!--====== Google Font ======-->
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet">
         <!--====== Vendor Css ======-->
-        <link rel="stylesheet" href="css/vendor.css">
+        <link rel="stylesheet" href="{{ url('front/css/vendor.css' ) }}">
         <!--====== Utility-Spacing ======-->
-        <link rel="stylesheet" href="css/utility.css">
+        <link rel="stylesheet" href="{{ url('front/css/utility.css') }}">
         <!--====== App ======-->
-        <link rel="stylesheet" href="css/app.css">
+        <link rel="stylesheet" href="{{ url('front/css/app.css') }}">
     </head>
     <body class="config">
         <div class="preloader is-active">
             <div class="preloader__wrap">
-                <img class="preloader__img" src="images/preloader.png" alt="">
+                <img class="preloader__img" src="{{ url('front/images/preloader.png') }}" alt="">
             </div>
         </div>
         <!--====== Main App ======-->
@@ -58,11 +58,11 @@
         </script>
         <script src="https://www.google-analytics.com/analytics.js" async defer></script>
         <!--====== Vendor Js ======-->
-        <script src="js/vendor.js"></script>
+        <script src="{{ url('front/js/vendor.js') }}"></script>
         <!--====== jQuery Shopnav plugin ======-->
-        <script src="js/jquery.shopnav.js"></script>
+        <script src="{{ url('front/js/jquery.shopnav.js') }}"></script>
         <!--====== App ======-->
-        <script src="js/app.js"></script>
+        <script src="{{ url('front/js/app.js') }}"></script>
         <!--====== Noscript ======-->
         <noscript>
             <div class="app-setting">
