@@ -51,7 +51,7 @@ class BannersController extends Controller
         $bannerImage = Banner::where('id', $id)->first();
 
         // get banner image path
-        $image_path = 'admin/images/banners/';
+        $image_path = 'front/images/banners/';
 
         // delete banner image if exists in folder
         if (file_exists($image_path.$bannerImage->image)){
@@ -76,6 +76,8 @@ class BannersController extends Controller
         if ($request->isMethod('post')) {
             $data = $request->all();
 
+
+            if($data == "") {
                 $rules = [
                     'type' => 'required',
                     'image' => 'required',
@@ -87,6 +89,8 @@ class BannersController extends Controller
             ];
 
             $this->validate($request, $rules, $customMessages);
+        }
+
 
         // upload banner image
         if ($request->hasFile('image')) {
@@ -94,13 +98,15 @@ class BannersController extends Controller
             if($image_tmp->isValid()) {
                 $extension = $image_tmp->getClientOriginalExtension();
                 $imageName = rand(111,99999).'.'.$extension;
-                $image_path = public_path('admin/images/banners/'.$imageName);
+                if($request->type == 'Fix') {
+                    $image_path = public_path('front/images/collection/'.$imageName);
+                } else {
+                    $image_path = public_path('front/images/banners/'.$imageName);
+                }
                 Image::make($image_tmp)->save($image_path);
                 $banner->image = $imageName;
             }
 
-        } else {
-            $banner->image == "";
         }
 
         if(!isset($data['title'])) {

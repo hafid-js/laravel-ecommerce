@@ -6,7 +6,7 @@ use App\Http\Controllers\Admin\CmsController;
 use App\Http\Controllers\Admin\ProductsController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\BrandController;
-use App\Http\Controllers\Admin\BannerController;
+use App\Http\Controllers\Admin\BannersController;
 use App\Http\Controllers\Front\IndexController;
 
 /*

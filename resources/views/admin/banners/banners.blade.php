@@ -60,11 +60,14 @@
                                         @foreach ($banners as $banner)
                                             <tr>
                                                 <td>{{ $banner['id'] }}</td>
-                                                <td><a target="_blank" href="{{ url('admin/images/banners/'.$banner['image']) }}"><img style="width: 180px"; src="{{ asset('admin/images/banners/'.$banner['image']) }}" alt=""></a></td>
+                                               @if($banner['type'] == 'Slider')
+                                               <td><a target="_blank" href="{{ url('front/images/banners/'.$banner['image']) }}"><img style="width: 180px"; src="{{ asset('front/images/banners/'.$banner['image']) }}" alt=""></a></td>
+                                               @else
+                                               <td><a target="_blank" href="{{ url('front/images/collection/'.$banner['image']) }}"><img style="width: 180px"; src="{{ asset('front/images/collection/'.$banner['image']) }}" alt=""></a></td>
+                                               @endif
                                                 <td>{{ $banner['type'] }}</td>
                                                 <td>{{ $banner['link'] }}</td>
                                                 <td>{{ $banner['title'] }}</td>
-                                                <td>{{ date('F j, Y, g:i a', strtotime($banner['created_at'])) }}</td>
                                                 <td>
                                                     @if ($bannersModule['edit_access'] == 1 || $bannersModule['full_access'] == 1)
                                                         @if ($banner['status'] == 1)
