@@ -315,7 +315,11 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="is_featured">Featured Item</label>
-                                        <input type="checkbox" id="is_featured" name="is_featured" @if(!empty($product['is_featured']) && $product['is_featured'] == "Yes") checked @endif>
+                                        <input type="checkbox" id="is_featured" name="is_featured" value="Yes" @if(!empty($product['is_featured']) && $product['is_featured'] == "Yes") checked @endif>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="is_bestseller">Best Seller</label>
+                                        <input type="checkbox" id="is_bestseller" name="is_bestseller" value="Yes" @if(!empty($product['is_bestseller']) && $product['is_bestseller'] == "Yes") checked @endif>
                                     </div>
                                 </div>
                                 <!-- /.form-group -->
