@@ -13,6 +13,10 @@ class Product extends Model
         return $this->belongsTo('App\Models\Category','category_id')->with('parentcategory');
     }
 
+    public function brand() {
+        return $this->belongsTo('App\Models\Brand','brand_id');
+    }
+
     public static function productsFilters() {
         $productsFilters['fabricArray'] = array('Cotton','Polyester','Wool');
         $productsFilters['sleeveArray'] = array('Full Sleeve','Half Sleeve','Short Sleeve','Sleeveless');

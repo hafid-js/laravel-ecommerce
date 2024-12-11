@@ -133,7 +133,7 @@ class ProductsController extends Controller
                     // $videoName = $video_tmp->getClientOriginalName();
                     $videoExtension = $video_tmp->getClientOriginalExtension();
                     $videoName = rand().'.'.$videoExtension;
-                    $videoPath = "admin/videos/products";
+                    $videoPath = "front/videos/products";
                     $video_tmp->move($videoPath, $videoName);
 
                     $product->product_video = $videoName;
@@ -211,9 +211,9 @@ class ProductsController extends Controller
                     $imageName = 'product-'.rand(1111,9999999).'.'.$extension;
 
                     // image path for small, medium and large images
-                    $largeImagePath = 'admin/images/products/large/'.$imageName;
-                    $mediumImagePath = 'admin/images/products/medium/'.$imageName;
-                    $smallImagePath = 'admin/images/products/small/'.$imageName;
+                    $largeImagePath = 'front/images/products/large/'.$imageName;
+                    $mediumImagePath = 'front/images/products/medium/'.$imageName;
+                    $smallImagePath = 'front/images/products/small/'.$imageName;
 
                     // upload the large, medium and small images after resize
                     Image::make($image_temp)->resize(1040,1200)->save($largeImagePath);
@@ -323,9 +323,9 @@ class ProductsController extends Controller
         $productImage = ProductsImage::select('image')->where('id', $id)->first();
 
         // get product image paths
-        $largeImagePath = 'admin/images/products/large/';
-        $mediumImagePath = 'admin/images/products/medium/';
-        $smallImagePath = 'admin/images/products/small/';
+        $largeImagePath = 'front/images/products/large/';
+        $mediumImagePath = 'front/images/products/medium/';
+        $smallImagePath = 'front/images/products/small/';
 
         if (file_exists($largeImagePath.$productImage->image)){
             unlink($largeImagePath.$productImage->image);
