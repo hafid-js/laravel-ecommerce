@@ -24,4 +24,15 @@ class Category extends Model
         }])->where('parent_id', 0)->where('status',1)->get()->toArray();
         return $getCategories;
     }
+
+    public static function getCategoryDetails($url) {
+        $getCategoryDetails = Category::select('id','category_name','url')->with('subcategories')->where('url',$url)->first()->toArray();
+
+        $catIds = array();
+        $catIds[] = $getCategoryDetails['id'];
+        foreach ($getCategoryDetails['subcategories'] as $subcat) {
+            $catIds[] = $subcat['id'];
+        }
+        return array('catIds' => $catIds,'getCategoryDetails' => $getCategoryDetails);
+    }
 }

@@ -45,16 +45,19 @@
             <div class="container">
                 <div class="row">
                     @foreach($homeFixBanners as $fixBanner)
-                    @if(isset($fixBanner['image']))
                     <div class="col-lg-6 col-md-6 u-s-m-b-30">
+                        @if(isset($fixBanner['image']))
                         <a class="collection" href="{{ $fixBanner['link'] }}" title="{{ $fixBanner['title'] }}">
                             <div class="aspect aspect--bg-grey aspect--square">
                                 <img class="aspect__img collection__img" src="{{ url('front/images/collection/'.$fixBanner['image'])}}"
                                     alt="{{  $fixBanner['alt'] }}">
                             </div>
                         </a>
+                        @else
+                        <img class="aspect__img" src="{{ url('front/images/product/sitemakers-tshirt.png')}}"
+                        alt="">
+                        @endif
                     </div>
-                    @endif
                     @endforeach
                 </div>
             </div>
@@ -131,7 +134,7 @@
                                                 class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
                                             <span class="product-o__review">(25)</span>
                                         </div>
-                                        <span class="product-o__price">Rp.{{ $product['final_price'] }}
+                                        <span class="product-o__price">Rp.{{ $product['product_price'] }}
                                             @if($product['discount_type'] != "")
                                             <span class="product-o__discount">Rp.{{ $product['final_price'] }}</span></span>
                                             @endif
@@ -163,7 +166,7 @@
                                                 class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
                                             <span class="product-o__review">(25)</span>
                                         </div>
-                                        <span class="product-o__price">Rp.{{ $product['final_price'] }}
+                                        <span class="product-o__price">Rp.{{ $product['product_price'] }}
                                             @if($product['discount_type'] != "")
                                             <span class="product-o__discount">Rp.{{ $product['final_price'] }}</span></span>
                                             @endif
@@ -195,7 +198,7 @@
                                                 class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
                                             <span class="product-o__review">(25)</span>
                                         </div>
-                                        <span class="product-o__price">Rp.{{ $product['final_price'] }}
+                                        <span class="product-o__price">Rp.{{ $product['product_price'] }}
                                             @if($product['discount_type'] != "")
                                             <span class="product-o__discount">Rp.{{ $product['final_price'] }}</span></span>
                                             @endif
@@ -227,7 +230,7 @@
                                                 class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
                                             <span class="product-o__review">(25)</span>
                                         </div>
-                                        <span class="product-o__price">Rp.{{ $product['final_price'] }}
+                                        <span class="product-o__price">Rp.{{ $product['product_price'] }}
                                             @if($product['discount_type'] != "")
                                             <span class="product-o__discount">Rp.{{ $product['final_price'] }}</span></span>
                                             @endif
@@ -292,7 +295,7 @@
                                         class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
                                     <span class="product-o__review">(25)</span>
                                 </div>
-                                <span class="product-o__price">Rp.{{ $product['final_price'] }}
+                                <span class="product-o__price">Rp.{{ $product['product_price'] }}
                                     @if($product['discount_type'] != "")
                                     <span class="product-o__discount">Rp.{{ $product['final_price'] }}</span></span>
                                     @endif
@@ -356,7 +359,7 @@
                                         class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
                                     <span class="product-o__review">(25)</span>
                                 </div>
-                                <span class="product-o__price">Rp.{{ $product['final_price'] }}
+                                <span class="product-o__price">Rp.{{ $product['product_price'] }}
                                     @if($product['discount_type'] != "")
                                     <span class="product-o__discount">Rp.{{ $product['final_price'] }}</span></span>
                                     @endif
