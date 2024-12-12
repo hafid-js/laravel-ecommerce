@@ -25,14 +25,26 @@ class Category extends Model
         return $getCategories;
     }
 
-    public static function getCategoryDetails($url) {
-        $getCategoryDetails = Category::select('id','category_name','url')->with('subcategories')->where('url',$url)->first()->toArray();
+    public static function categoryDetails($url) {
+        $categoryDetails = Category::select('id','parent_id','category_name','url')->with('subcategories')->where('url',$url)->first()->toArray();
 
         $catIds = array();
-        $catIds[] = $getCategoryDetails['id'];
-        foreach ($getCategoryDetails['subcategories'] as $subcat) {
+        $catIds[] = $categoryDetails['id'];
+        foreach ($categoryDetails['subcategories'] as $subcat) {
             $catIds[] = $subcat['id'];
         }
-        return array('catIds' => $catIds,'getCategoryDetails' => $getCategoryDetails);
+
+        if ($categoryDetails['parent_id'] == 0 || $categoryDetails['parent_id'] == 1 || $categoryDetails['parent_id'] == 2 || $categoryDetails['parent_id'] == 3) {
+            // only show main category in breadcrumb
+            $breadcrumbs = '<a class="gl-tag btn--e-brand-shadow" href="' . url($categoryDetails['url']) . '">' . $categoryDetails['category_name'] . '</a>';
+
+        } else {
+
+            $parentCategory = Category::select('category_name','url')->where('id',$categoryDetails['parent_id'])->first()->toArray();
+            $breadcrumbs = '<a class="gl-tag btn--e-brand-shadow" href="' . url($parentCategory['url']) . '">' . $parentCategory['category_name'] . '</a>
+            <a class="gl-tag btn--e-brand-shadow" href="' . url($categoryDetails['url']) . '">' . $categoryDetails['category_name'] . '</a>';
+        }
+
+        return array('catIds' => $catIds,'categoryDetails' => $categoryDetails,'breadcrumbs' => $breadcrumbs);
     }
 }
