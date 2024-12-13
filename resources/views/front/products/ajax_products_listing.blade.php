@@ -51,3 +51,15 @@
         </div>
     </div>
 @endforeach
+<div class="u-s-p-y-60">
+
+    <!--====== Pagination ======-->
+    <ul class="shop-p__pagination pagination">
+        @if(isset($request['sort']))
+        {{ $categoryProducts->appends(['sort' => $request['sort']])->links() }}
+        @else
+        {{ $categoryProducts->links() }}
+        @endif
+    </ul>
+    <!--====== End - Pagination ======-->
+</div>

@@ -39,7 +39,7 @@
                                     <form name="sortProducts" id="sortProducts">
                                         <input type="hidden" name="url" id="url" value="{{ $url }}">
                                         <div class="tool-style__form-wrap">
-                                            <div class="u-s-m-b-8"><select class="select-box select-box--transparent-b-2" name="sort" id="sort">
+                                            <div class="u-s-m-b-8"><select class="select-box select-box--transparent-b-2 getsort" name="sort" id="sort">
                                                     <option selected>Sort By: Newest Items</option>
                                                     <option value="product_latest"
                                                     @if(isset($_GET['sort']) && !empty($_GET['sort']) && $_GET['sort'] == "product_latest") selected @endif
@@ -68,18 +68,11 @@
                                 </div>
                             </div>
                             <div class="shop-p__collection">
-                                <div class="row is-grid-active">
+                                <div class="row is-grid-active" id="appendProducts">
                                     @include('front.products.ajax_products_listing')
                                 </div>
                             </div>
-                            <div class="u-s-p-y-60">
 
-                                <!--====== Pagination ======-->
-                                <ul class="shop-p__pagination pagination">
-                                    {{ $categoryProducts->links() }}
-                                </ul>
-                                <!--====== End - Pagination ======-->
-                            </div>
                         </div>
                     </div>
                 </div>
