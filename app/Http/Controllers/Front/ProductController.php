@@ -20,7 +20,7 @@ class ProductController extends Controller
             $categoryDetails = Category::categoryDetails($url);
 
             // get category and their sub category products
-            $categoryProducts = Product::with(['brand','images'])->whereIn('category_id',$categoryDetails['catIds'])->where('status',1)->orderBy('id','Desc');
+            $categoryProducts = Product::with(['brand','images'])->whereIn('category_id',$categoryDetails['catIds'])->where('products.status',1);
             // dd($categoryProducts);
 
             if(isset($request['sort']) && !empty($request['sort'])){
@@ -37,7 +37,7 @@ class ProductController extends Controller
                 } else if($request['sort'] == "discounted_items"){
                     $categoryProducts->where('product_discount','>',0);
                 } else {
-                    $categoryProducts->orderBy('id','Desc');
+                    $categoryProducts->orderBy('products.id','Desc');
                 }
             }
 
@@ -45,6 +45,12 @@ class ProductController extends Controller
             if(isset($request['color']) && !empty($request['color'])){
                 $colors = explode('~', $request['color']);
                 $categoryProducts->whereIn('products.family_color',$colors);
+            }
+
+            // update query for sizes filter
+            if(isset($request['size']) && !empty($request['size'])){
+                $sizes = explode('~', $request['size']);
+                $categoryProducts->join('products_attributes','products_attributes.product_id','=','products.id')->whereIn('products_attributes.size',$sizes)->groupBy('products_attributes.product_id');
             }
 
             $categoryProducts = $categoryProducts->paginate(6);
@@ -57,10 +63,6 @@ class ProductController extends Controller
             } else {
                 return view('front.products.listing')->with(compact('categoryDetails','categoryProducts','url'));
             }
-
-            $categoryProducts = $categoryProducts->paginate(2);
-
-            return view('front.products.listing')->with(compact('categoryDetails','categoryProducts','url'));
         } {
             abort(404);
         }

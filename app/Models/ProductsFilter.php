@@ -15,4 +15,10 @@ class ProductsFilter extends Model
         $getProductColors = Product::select('family_color')->whereIn('id',$getProductIds)->groupBy('family_color')->pluck('family_color');
         return $getProductColors;
     }
+
+    public static function getSizes($catIds) {
+        $getProductIds = Product::select('id')->whereIn('category_id',$catIds)->pluck('id');
+        $getProductSizes = ProductsAttribute::select('size')->where('status',1)->whereIn('product_id',$getProductIds)->groupBy('size')->pluck('size');
+        return $getProductSizes;
+    }
 }
