@@ -52,14 +52,20 @@
     </div>
 @endforeach
 <div class="u-s-p-y-60">
+    <ul class="shop-p__pagination pagination">
+        <?php
+        if(!isset($_GET['color'])){
+            $_GET['color'] = "";
+        }
+        if(!isset($_GET['sort'])){
+            $_GET['sort'] = "";
+        }
+        ?>
 
     <!--====== Pagination ======-->
-    <ul class="shop-p__pagination pagination">
-        @if(isset($request['sort']))
-        {{ $categoryProducts->appends(['sort' => $request['sort']])->links() }}
-        @else
-        {{ $categoryProducts->links() }}
-        @endif
+        {{ $categoryProducts->appends(
+            ['sort' => $_GET['sort'],
+            'color' => $_GET['color']])->links() }}
     </ul>
     <!--====== End - Pagination ======-->
 </div>

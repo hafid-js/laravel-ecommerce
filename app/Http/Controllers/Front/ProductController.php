@@ -41,6 +41,12 @@ class ProductController extends Controller
                 }
             }
 
+            // update query for colors filter
+            if(isset($request['color']) && !empty($request['color'])){
+                $colors = explode('~', $request['color']);
+                $categoryProducts->whereIn('products.family_color',$colors);
+            }
+
             $categoryProducts = $categoryProducts->paginate(6);
 
             if($request->ajax()){
