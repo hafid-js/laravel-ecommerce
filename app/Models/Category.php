@@ -18,15 +18,14 @@ class Category extends Model
     }
 
     public static function getCategories() {
-        $getCategories = Category::with(
-            ['subcategories' => function($query) {
+        $getCategories = Category::with(['subcategories' => function($query) {
             $query->with('subcategories');
         }])->where('parent_id', 0)->where('status',1)->get()->toArray();
         return $getCategories;
     }
 
     public static function categoryDetails($url) {
-        $categoryDetails = Category::select('id','parent_id','category_name','url')->with('subcategories')->where('url',$url)->first()->toArray();
+        $categoryDetails = Category::select('id','parent_id','category_name','url')->with('subcategories','parentcategory')->where('url',$url)->first()->toArray();
 
         $catIds = array();
         $catIds[] = $categoryDetails['id'];
