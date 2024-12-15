@@ -77,7 +77,7 @@ class ProductController extends Controller
                 }
             }
 
-            $categoryProducts = $categoryProducts->paginate(6);
+            $categoryProducts = $categoryProducts->paginate(30);
 
             if($request->ajax()){
                 return response()->json([
@@ -90,5 +90,13 @@ class ProductController extends Controller
         } {
             abort(404);
         }
+    }
+
+    public function detail($id){
+        $productDetails = Product::with(['category','brand','attributes','images'])->find($id)->toArray();
+
+        // get category details
+        $categoryDetails = Category::categoryDetails($productDetails['category']['url']);
+        return view('front.products.detail')->with(compact('productDetails','categoryDetails'));
     }
 }

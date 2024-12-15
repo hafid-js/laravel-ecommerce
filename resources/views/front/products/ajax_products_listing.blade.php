@@ -2,10 +2,10 @@
     <div class="col-lg-4 col-md-6 col-sm-6">
         <div class="product-m">
             <div class="product-m__thumb">
-                <a class="aspect aspect--bg-grey aspect--square u-d-block" href="product-detail.html">
+                <a class="aspect aspect--bg-grey aspect--square u-d-block" href="{{ url('product/'.$product['id']) }}">
                     @if (isset($product['images'][0]['image']) && !empty($product['images'][0]['image']))
                         <img class="aspect__img"
-                            src="{{ url('front/images/products/' . $product['images'][0]['image']) }}" alt="">
+                            src="{{ url('front/images/products/medium/' . $product['images'][0]['image']) }}" alt="">
                     @else
                         <img class="aspect__img" src="{{ url('front/images/product/sitemakers-tshirt.png') }}"
                             alt="">

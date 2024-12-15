@@ -150,7 +150,7 @@
                                             @if(!empty($product['product_discount'])) value="{{ $product['product_discount'] }}" @else value="{{ @old('product_discount') }}" @endif>
                                     </div>
                                     <div class="form-group">
-                                        <label for="product_weight">Product Wight</label>
+                                        <label for="product_weight">Product Weight</label>
                                         <input type="text" class="form-control" placeholder="Enter Product Weight"
                                             id="product_weight" name="product_weight"
                                             @if(!empty($product['product_weight'])) value="{{ $product['product_weight'] }}" @else value="{{ @old('product_weight') }}" @endif>
@@ -162,8 +162,8 @@
                                         <tr>
                                             @foreach($product['images'] as $image)
                                             <td style="background-color:#f9f9f9">
-                                                <a target="_blank" href="{{ url('admin/images/products/small/'.$image['image']) }}">
-                                                    <img style="width: 60px;" src="{{ asset('admin/images/products/small/'.$image['image']) }}" alt=""></a>&nbsp;
+                                                <a target="_blank" href="{{ url('front/images/products/small/'.$image['image']) }}">
+                                                    <img style="width: 60px;" src="{{ asset('front/images/products/small/'.$image['image']) }}" alt=""></a>&nbsp;
                                                     <input type="hidden" name="image[]" value="{{ $image['image'] }}">
                                                     <input style="width: 40px;" type="text" name="image_sort[]" value="{{ $image['image_sort'] }}">
                                                 <a class="confirmDelete" title="Delete Product Image" href="javascript:void(0)" record="product-image"
