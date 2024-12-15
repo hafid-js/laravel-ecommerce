@@ -66,6 +66,9 @@
         if (!isset($_GET['brand'])) {
             $_GET['brand'] = '';
         }
+        if (!isset($_GET['price'])) {
+            $_GET['price'] = '';
+        }
 
         ?>
 
