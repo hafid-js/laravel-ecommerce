@@ -21,4 +21,11 @@ class ProductsFilter extends Model
         $getProductSizes = ProductsAttribute::select('size')->where('status',1)->whereIn('product_id',$getProductIds)->groupBy('size')->pluck('size');
         return $getProductSizes;
     }
+
+    public static function getBrands($catIds){
+        $getProductIds = Product::select('id')->whereIn('category_id',$catIds)->pluck('id');
+        $getProductBrandIds = Product::select('brand_id')->whereIn('id',$getProductIds)->groupBy('brand_id')->pluck('brand_id');
+        $getProductBrands = Brand::select('id','brand_name')->where('status',1)->whereIn('id',$getProductBrandIds)->orderBy('brand_name','ASC')->get()->toArray();
+        return $getProductBrands;
+    }
 }

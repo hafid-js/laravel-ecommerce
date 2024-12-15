@@ -53,6 +53,12 @@ class ProductController extends Controller
                 $categoryProducts->join('products_attributes','products_attributes.product_id','=','products.id')->whereIn('products_attributes.size',$sizes)->groupBy('products_attributes.product_id');
             }
 
+            // update query for brands filter
+            if(isset($request['brand']) && !empty($request['brand'])){
+                $brands = explode('~',$request['brand']);
+                $categoryProducts->whereIn('products.brand_id',$brands);
+            }
+
             $categoryProducts = $categoryProducts->paginate(6);
 
             if($request->ajax()){
