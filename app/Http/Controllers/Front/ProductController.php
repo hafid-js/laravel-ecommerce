@@ -99,4 +99,13 @@ class ProductController extends Controller
         $categoryDetails = Category::categoryDetails($productDetails['category']['url']);
         return view('front.products.detail')->with(compact('productDetails','categoryDetails'));
     }
+
+    public function getAttributePrice(Request $request){
+        if($request->ajax()){
+            $data = $request->all();
+
+            $getAttributePrice = Product::getAttributePrice($data['product_id'], $data['size']);
+            return $getAttributePrice;
+        }
+    }
 }

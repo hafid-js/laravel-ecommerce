@@ -33,4 +33,42 @@ class Product extends Model
     public function attributes() {
         return $this->hasMany('App\Models\ProductsAttribute');
     }
+
+    public static function getAttributePrice($product_id, $size){
+        $attributePrice = ProductsAttribute::where(
+            [
+                'product_id' => $product_id,
+                'size' => $size
+                ])->first()->toArray();
+        // for getting product discount
+        $productDetails = Product::select(['product_discount','category_id','brand_id'])->where('id',$product_id)->first()->toArray();
+        // for getting category discount
+        $categoryDetails = Category::select(['category_discount'])->where('id',$productDetails['category_id'])->first()->toArray();
+        // for getting brand discount
+        $brandDetails = Brand::select(['brand_discount'])->where('id',$productDetails['brand_id'])->first()->toArray();
+
+        if($productDetails['product_discount'] > 0) {
+            // 1st case if there is any product discount
+            $discount = $attributePrice['price'] * $productDetails['product_discount'] / 100;
+            $discount_percent = $productDetails['product_discount'];
+            $final_price = $attributePrice['price'] - $discount;
+        } else if ($categoryDetails['category_discount'] > 0){
+            // 2nd case if there is any category discount
+            $discount = $attributePrice['price'] * $categoryDetails['category_discount'] / 100;
+            $discount_percent = $productDetails['category_discount'];
+            $final_price = $attributePrice['price'] - $discount;
+        } else if($brandDetails['brand_discount'] > 0){
+            // 3rd case if there is any brand discount
+            $discount = $attributePrice['price'] * $brandDetails['brand_discount'] / 100;
+            $discount_percent = $productDetails['brand_discount'];
+            $final_price = $attributePrice['price'] - $discount;
+        } else {
+            // if there is no discount
+            $discount = 0;
+            $discount_percent = 0;
+            $final_price = $attributePrice['price'];
+        }
+
+        return array('product_price' => $attributePrice['price'],'final_price' => $final_price,'discount' => $discount, 'discount_percent' => $discount_percent);
+    }
 }
