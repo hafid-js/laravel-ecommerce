@@ -154,4 +154,10 @@ class ProductController extends Controller
             return $getAttributePrice;
         }
     }
+
+    public function addToCart(Request $request){
+        if($request->isMethod('post')){
+
+        }
+    }
 }

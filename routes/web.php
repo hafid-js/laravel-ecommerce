@@ -41,6 +41,9 @@ Route::namespace('App\Http\Controllers\Front')->group(function() {
 
     // get product attribute price
     Route::post('get-attribute-price','ProductController@getAttributePrice');
+
+    // add to cart
+    Route::post('/add-to-cart','ProductController@addToCart');
 });
 
 Route::prefix('/admin')->namespace('App\Http\Controllers\Admin')->group(function() {

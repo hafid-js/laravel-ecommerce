@@ -130,7 +130,8 @@
                             </div>
                             @if (count($groupProducts) > 0)
                                 <div class="u-s-m-b-15">
-                                    <form class="pd-detail__form">
+                                    <form name="addtoCart" id="addToCart" class="pd-detail__form">
+                                        <input type="hidden" name="product_id" value="{{ $productDetails['id'] }}">
                                         <div class="u-s-m-b-15">
                                             <span class="pd-detail__label u-s-m-b-8">Color:</span>
                                             @foreach ($groupProducts as $product)
@@ -152,7 +153,7 @@
                                             <div class="size__radio">
                                                 <input type="radio" id="{{ $attribute['size'] }}" name="size"
                                                     value="{{ $attribute['size'] }}"
-                                                    product-id="{{ $productDetails['id'] }}" class="getPrice" checked>
+                                                    product-id="{{ $productDetails['id'] }}" class="getPrice" required>
                                                 <label class="size__radio-label"
                                                     for="{{ $attribute['size'] }}">{{ $attribute['size'] }}</label>
                                             </div>

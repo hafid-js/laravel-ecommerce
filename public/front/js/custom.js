@@ -29,4 +29,21 @@ $(document).ready(function(){
             }
         })
     })
+
+    $("#addToCart").submit(function(){
+        var formData = $(this).serialize();
+        $.ajax({
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+            },
+            url:'/add-to-cart',
+            type:'post',
+            data:formData,
+            success:function(resp){
+                alert(resp)
+            }, error: function() {
+                alert("Error");
+            }
+        })
+    })
 });
