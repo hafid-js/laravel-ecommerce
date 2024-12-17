@@ -93,11 +93,29 @@ class ProductController extends Controller
     }
 
     public function detail($id){
-        $productDetails = Product::with(['category','brand','attributes','images'])->find($id)->toArray();
-
+        $productCount = Product::where('status', 1)->where('id',$id)->count();
+        if($productCount == 0) {
+            abort(404);
+        }
+        $productDetails = Product::with(['category','brand','attributes' => function($query){
+            $query->where('stock','>',0)->where('status',1);
+        },'images'])->find($id)->toArray();
         // get category details
         $categoryDetails = Category::categoryDetails($productDetails['category']['url']);
-        return view('front.products.detail')->with(compact('productDetails','categoryDetails'));
+        // get group products (product colors)
+        $groupProducts = array();
+        if(!empty($productDetails['group_code'])){
+            $groupProducts = Product::select('id','product_color')->where('id','!=',$id)->where([
+                'group_code' => $productDetails['group_code'],
+                'status' =>1
+                ])->get()->toArray();
+                // dd($groupProducts);
+        }
+
+        // get related products
+        $relatedProducts = Product::with('brand','images')->where('category_id',$productDetails['category']['id'])->where('id','!=',$id)->limit(4)->inRandomOrder()->get()->toArray();
+
+        return view('front.products.detail')->with(compact('productDetails','categoryDetails', 'groupProducts','relatedProducts'));
     }
 
     public function getAttributePrice(Request $request){

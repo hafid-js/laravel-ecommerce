@@ -179,7 +179,7 @@
                                         <label for="product_video">Product Video</label>
                                         <input type="file" class="form-control" id="product_video" name="product_video">
                                         @if(!empty($product['product_video']))
-                                        <a target="_blank" href="{{ url('admin/videos/products/'. $product['product_video'] ) }}" style="color: #ccc;">View</a>&nbsp;|
+                                        <a target="_blank" href="{{ url('front/videos/products/'. $product['product_video'] ) }}" style="color: #ccc;">View</a>&nbsp;|
                                         <a class="confirmDelete" title="Delete Product Video"
                                         href="javascript:void(0)" record="product-video"
                                         recordid="{{ $product['id'] }}" style="color: #ccc;">Delete</a>
