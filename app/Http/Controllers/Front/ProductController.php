@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\View;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductsFilter;
+use Session;
+use DB;
 
 class ProductController extends Controller
 {
@@ -115,7 +117,33 @@ class ProductController extends Controller
         // get related products
         $relatedProducts = Product::with('brand','images')->where('category_id',$productDetails['category']['id'])->where('id','!=',$id)->limit(4)->inRandomOrder()->get()->toArray();
 
-        return view('front.products.detail')->with(compact('productDetails','categoryDetails', 'groupProducts','relatedProducts'));
+        // set session for recently viewed items
+        if (empty(Session::get('session_id'))){
+            $session_id = md5(uniqid(rand(),true));
+        } else {
+            $session_id = Session::get('session_id');
+        }
+        Session::put('session_id',$session_id);
+
+        // insert product in recently_viewed_items table if not already exists
+        $countRecentlyViewedItems = DB::table('recently_viewed_items')->where([
+            'product_id' => $id,
+            'session_id' => $session_id
+        ])->count();
+        if($countRecentlyViewedItems == 0){
+            DB::table('recently_viewed_items')->insert([
+                'product_id' => $id,
+                'session_id' => $session_id
+            ]);
+        }
+
+        // get recently viewed products ids
+        $recentProductIds = DB::table('recently_viewed_items')->select('product_id')->where('product_id','!=',$id)->where('session_id',$session_id)->inRandomOrder()->get()->take(4)->pluck('product_id');
+
+        // get recently viewed products
+        $recentlyViewedProducts = Product::with('brand','images')->whereIn('id',$recentProductIds)->where('id','!=',$id)->get()->toArray();
+
+        return view('front.products.detail')->with(compact('productDetails','categoryDetails', 'groupProducts','relatedProducts','recentlyViewedProducts'));
     }
 
     public function getAttributePrice(Request $request){

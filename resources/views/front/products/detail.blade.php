@@ -724,6 +724,7 @@
         </div>
     </div>
     <!--====== End - Product Detail Tab ======-->
+
     <div class="u-s-p-b-90">
 
         <!--====== Section Intro ======-->
@@ -749,6 +750,71 @@
                 <div class="slider-fouc">
                     <div class="owl-carousel product-slider" data-item="4">
                         @foreach($relatedProducts as $product)
+                        <div class="u-s-m-b-30">
+                            <div class="product-o product-o--hover-on">
+                                <div class="product-o__wrap">
+                                    <a class="aspect aspect--bg-grey aspect--square u-d-block" href="{{ url('product/'.$product['id']) }}">
+                                        @if (isset($product['images'][0]['image']) && !empty($product['images'][0]['image']))
+                                            <img class="aspect__img"
+                                                src="{{ url('front/images/products/medium/' . $product['images'][0]['image']) }}" alt="">
+                                        @else
+                                            <img class="aspect__img" src="{{ url('front/images/product/sitemakers-tshirt.png') }}"
+                                                alt="">
+                                        @endif
+                                    </a>
+                                </div>
+                                <span class="product-o__category">
+                                    <a href="shop-side-version-2.html">{{ $product['brand']['brand_name'] }}</a></span>
+                                <span class="product-o__name">
+
+                                    <a href="product-detail.html">{{ $product['product_name'] }}</a></span>
+                                <div class="product-o__rating gl-rating-style"><i class="fas fa-star"></i><i
+                                        class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                        class="fas fa-star"></i>
+
+                                    <span class="product-o__review">(20)</span>
+                                </div>
+
+                                <span class="product-o__price">Rp.{{ $product['product_price'] }}
+
+                                    @if ($product['discount_type'] != '')
+                                    <span class="product-o__discount">Rp.{{ $product['final_price'] }}</span></span>
+                                @endif
+                            </div>
+                        </div>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--====== End - Section Content ======-->
+    </div>
+
+    <div class="u-s-p-b-90">
+
+        <!--====== Section Intro ======-->
+        <div class="section__intro u-s-m-b-46">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="section__text-wrap">
+                            <h1 class="section__heading u-c-secondary u-s-m-b-12">CUSTOMER ALSO VIEWED</h1>
+
+                            <span class="section__span u-c-grey">PRODUCTS THAT CUSTOMER VIEWED</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--====== End - Section Intro ======-->
+
+
+        <!--====== Section Content ======-->
+        <div class="section__content">
+            <div class="container">
+                <div class="slider-fouc">
+                    <div class="owl-carousel product-slider" data-item="4">
+                        @foreach($recentlyViewedProducts as $product)
                         <div class="u-s-m-b-30">
                             <div class="product-o product-o--hover-on">
                                 <div class="product-o__wrap">
