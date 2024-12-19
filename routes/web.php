@@ -37,7 +37,7 @@ Route::namespace('App\Http\Controllers\Front')->group(function() {
     }
 
     // product detail page
-    Route::get('product/{id}','productController@detail');
+    Route::get('product/{id}','ProductController@detail');
 
     // get product attribute price
     Route::post('get-attribute-price','ProductController@getAttributePrice');

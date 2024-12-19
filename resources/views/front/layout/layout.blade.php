@@ -20,6 +20,8 @@
     <link rel="stylesheet" href="{{ url('front/css/utility.css') }}">
     <!--====== App ======-->
     <link rel="stylesheet" href="{{ url('front/css/app.css') }}">
+    <link rel="stylesheet" href="{{ url('front/css/custom.css') }}">
+    <!-- Latest compiled and minified CSS -->
 </head>
 
 <body class="config">

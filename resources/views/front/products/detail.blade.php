@@ -58,7 +58,8 @@
                         <!--====== Product Right Side Details ======-->
                         <div class="pd-detail">
                             <div>
-
+                                <div class="print-error-msg"></div>
+                                <div class="print-success-msg"></div>
                                 <span class="pd-detail__name">{{ $productDetails['product_name'] }}</span>
                             </div>
                             <div>
@@ -130,7 +131,7 @@
                             </div>
                             @if (count($groupProducts) > 0)
                                 <div class="u-s-m-b-15">
-                                    <form name="addtoCart" id="addToCart" class="pd-detail__form">
+                                    <form name="addToCart" id="addToCart" class="pd-detail__form">@csrf
                                         <input type="hidden" name="product_id" value="{{ $productDetails['id'] }}">
                                         <div class="u-s-m-b-15">
                                             <span class="pd-detail__label u-s-m-b-8">Color:</span>

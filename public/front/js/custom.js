@@ -40,9 +40,17 @@ $(document).ready(function(){
             type:'post',
             data:formData,
             success:function(resp){
-                alert(resp)
+                if(resp['status'] == true) {
+                    $('.print-success-msg').show();
+                    $('.print-success-msg').delay(3000).fadeOut('slow');
+                    $('.print-success-msg').html("<div class='alert'><span class='closebtn' onclick='this.parentElement.style.display='none';'>&times;</span>"+resp['message']+"</div>");
+                } else {
+                    $('.print-error-msg').show();
+                    $('.print-error-msg').delay(3000).fadeOut('slow');
+                    $('.print-error-msg').html("<div class='alert'><span class='closebtn' onclick='this.parentElement.style.display='none';'>&times;</span>"+resp['message']+"</div>");
+                }
             }, error: function() {
-                alert("Error");
+                alert("Error kntl");
             }
         })
     })

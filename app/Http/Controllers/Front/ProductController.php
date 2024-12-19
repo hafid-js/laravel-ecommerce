@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\View;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductsFilter;
+use App\Models\ProductsAttribute;
 use Session;
 use DB;
 
@@ -157,7 +158,34 @@ class ProductController extends Controller
 
     public function addToCart(Request $request){
         if($request->isMethod('post')){
+            $data = $request->all();
 
+            // check product stock
+            $productStock = ProductsAttribute::productStock($data['product_id'], $data['size']);
+            if ($data['qty'] > $productStock) {
+                $message = "Required Quantity is not available!";
+                return response()->json([
+                    'status' => false,
+                    'message' => $message]);
+            }
+
+            // check product status
+            $productStatus = Product::productStatus($data['product_id']);
+            if ($productStatus == 0) {
+                $message = "Product is not available!";
+                return response()->json([
+                    'status' => false,
+                    'message' => $message]);
+            }
+
+            // generate session id if not exists
+            $session_id = Session::get('session_id');
+            if(empty($session_id)){
+                $session_id = Session::getId();
+                Session::put('session_id', $session_id);
+            }
+
+            echo $session_id; die();
         }
     }
 }
