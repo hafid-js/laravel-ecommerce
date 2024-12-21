@@ -10,8 +10,10 @@ use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductsFilter;
 use App\Models\ProductsAttribute;
+use App\Models\Cart;
 use Session;
 use DB;
+use Auth;
 
 class ProductController extends Controller
 {
@@ -185,7 +187,47 @@ class ProductController extends Controller
                 Session::put('session_id', $session_id);
             }
 
-            echo $session_id; die();
+            // check product if already exists in the user cart
+            if(Auth::Check()){
+                // user is logged in
+                $user_id = Auth::user()->id;
+                $countProducts = Cart::where([
+                    'product_id' => $data['product_id'],
+                    'product_size' => $data['size'],
+                    'user_id' => $user_id])->count();
+            } else {
+                // user is not logged in
+                $user_id = 0;
+                $countProducts = Cart::where([
+                    'product_id' => $data['product_id'],
+                    'product_size' => $data['size'],
+                    'session_id' => $session_id])->count();
+
+            }
+
+            if($countProducts > 0) {
+                $message = "Product already exists in Cart";
+                return response()->json([
+                    'status' => false,
+                    'message' => $message
+                ]);
+            }
+
+            // save the product in carts table
+            $item = new Cart;
+            $item->session_id = $session_id;
+            if(Auth::check()) {
+                $item->user_id = Auth::user()->id;
+            }
+            $item->product_id = $data['product_id'];
+            $item->product_size = $data['size'];
+            $item->product_qty = $data['qty'];
+            $item->save();
+            $message = "Product added successfully in Cart!";
+            return response()->json([
+               'status' => true,
+               'message' => $message
+            ]);
         }
     }
 }

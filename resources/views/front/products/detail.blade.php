@@ -169,7 +169,7 @@
 
                                             <span class="input-counter__minus fas fa-minus"></span>
 
-                                            <input class="input-counter__text input-counter--text-primary-style"
+                                            <input class="input-counter__text input-counter--text-primary-style" name="qty"
                                                 type="text" value="1" data-min="1" data-max="1000">
 
                                             <span class="input-counter__plus fas fa-plus"></span>

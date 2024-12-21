@@ -30,7 +30,8 @@ $(document).ready(function(){
         })
     })
 
-    $("#addToCart").submit(function(){
+    $("#addToCart").submit(function(event){
+        event.preventDefault(); // Mencegah form untuk reload halaman
         var formData = $(this).serialize();
         $.ajax({
             headers: {
@@ -40,6 +41,7 @@ $(document).ready(function(){
             type:'post',
             data:formData,
             success:function(resp){
+                alert(resp['status']);
                 if(resp['status'] == true) {
                     $('.print-success-msg').show();
                     $('.print-success-msg').delay(3000).fadeOut('slow');
@@ -49,9 +51,11 @@ $(document).ready(function(){
                     $('.print-error-msg').delay(3000).fadeOut('slow');
                     $('.print-error-msg').html("<div class='alert'><span class='closebtn' onclick='this.parentElement.style.display='none';'>&times;</span>"+resp['message']+"</div>");
                 }
-            }, error: function() {
-                alert("Error kntl");
+            },
+            error: function(xhr, status, error) {
+                alert("Error kntl: " + error); // Menampilkan pesan error jika ada masalah di server
             }
-        })
-    })
+        });
+    });
+
 });
