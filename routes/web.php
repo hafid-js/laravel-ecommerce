@@ -44,6 +44,9 @@ Route::namespace('App\Http\Controllers\Front')->group(function() {
 
     // add to cart
     Route::post('/add-to-cart','ProductController@addToCart');
+
+    // Shopping Cart
+    Route::get('cart','ProductController@cart');
 });
 
 Route::prefix('/admin')->namespace('App\Http\Controllers\Admin')->group(function() {
