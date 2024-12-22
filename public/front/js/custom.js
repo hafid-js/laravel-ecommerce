@@ -63,7 +63,6 @@ $(document).ready(function(){
             var quantity = $(this).data('qty');
             // increase the qty by 1
             new_qty = parseInt(quantity) + 1;
-            alert(new_qty);
         }
         if($(this).hasClass('fa-minus')){
             // get qty
@@ -88,7 +87,7 @@ $(document).ready(function(){
             url:'/update-cart-item-qty',
             type:'post',
             success:function(resp){
-                alert(resp);
+                $("#appendCartItems").html(resp.view);
             }, error: function(){
                 alert("Error");
             }

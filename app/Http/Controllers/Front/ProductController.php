@@ -239,7 +239,18 @@ class ProductController extends Controller
     public function updateCartItemQty(Request $request){
         if($request->ajax()){
             $data = $request->all();
-            echo "<pre></pre>"; print_r($data); die();
+
+
+            // update the cart item qty
+            Cart::where('id',$data['cartid'])->update(['product_qty' => $data['qty']]);
+
+            // get updated cart items
+            $getCartItems = Cart::getCartItems();
+
+            return response()->json([
+                'status' => true,
+                'view' => (String)View::make('front.products.cart_items')->with(compact('getCartItems'))
+            ]);
         }
     }
 }
