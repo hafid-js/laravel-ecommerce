@@ -87,6 +87,9 @@ $(document).ready(function(){
             url:'/update-cart-item-qty',
             type:'post',
             success:function(resp){
+                if(resp.status == false) {
+                    alert(resp.message)
+                }
                 $("#appendCartItems").html(resp.view);
             }, error: function(){
                 alert("Error");
