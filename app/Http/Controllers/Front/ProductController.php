@@ -235,4 +235,11 @@ class ProductController extends Controller
         $getCartItems = Cart::getCartItems();
         return view('front.products.cart')->with(compact('getCartItems'));
     }
+
+    public function updateCartItemQty(Request $request){
+        if($request->ajax()){
+            $data = $request->all();
+            echo "<pre></pre>"; print_r($data); die();
+        }
+    }
 }

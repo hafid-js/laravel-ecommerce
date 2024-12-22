@@ -47,6 +47,9 @@ Route::namespace('App\Http\Controllers\Front')->group(function() {
 
     // Shopping Cart
     Route::get('cart','ProductController@cart');
+
+    // update cart item quantity
+    Route::post('update-cart-item-qty','ProductController@updateCartItemQty');
 });
 
 Route::prefix('/admin')->namespace('App\Http\Controllers\Admin')->group(function() {

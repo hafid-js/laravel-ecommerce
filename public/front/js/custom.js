@@ -44,7 +44,7 @@ $(document).ready(function(){
                 if(resp['status'] == true) {
                     $('.print-success-msg').show();
                     $('.print-success-msg').delay(3000).fadeOut('slow');
-                    $('.print-success-msg').html("<div class='alert'><span class='closebtn' onclick='this.parentElement.style.display='none';'>&times;</span>"+resp['message']+"</div>");
+                    $('.print-success-msg').html("<div class='success'><span class='closebtn' onclick='this.parentElement.style.display='none';'>&times;</span>"+resp['message']+"</div>");
                 } else {
                     $('.print-error-msg').show();
                     $('.print-error-msg').delay(3000).fadeOut('slow');
@@ -55,6 +55,44 @@ $(document).ready(function(){
                 alert("Error kntl: " + error); // Menampilkan pesan error jika ada masalah di server
             }
         });
+    });
+
+    $(document).on('click','.updateCartItem', function(){
+        if($(this).hasClass('fa-plus')){
+            // get qty
+            var quantity = $(this).data('qty');
+            // increase the qty by 1
+            new_qty = parseInt(quantity) + 1;
+            alert(new_qty);
+        }
+        if($(this).hasClass('fa-minus')){
+            // get qty
+            var quantity = $(this).data('qty');
+            // check qty is atleast 1
+            if(quantity <= 1) {
+                alert("Item Quantity must be 1 or greater!");
+                return false;
+            }
+            // increase the qty by 1
+            new_qty = parseInt(quantity) - 1;
+        }
+        var cartid = $(this).data('cartid');
+        $.ajax({
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+            },
+            data: {
+                cartid : cartid,
+                qty : new_qty
+            },
+            url:'/update-cart-item-qty',
+            type:'post',
+            success:function(resp){
+                alert(resp);
+            }, error: function(){
+                alert("Error");
+            }
+        })
     });
 
 });
