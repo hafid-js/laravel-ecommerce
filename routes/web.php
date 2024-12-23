@@ -50,6 +50,9 @@ Route::namespace('App\Http\Controllers\Front')->group(function() {
 
     // update cart item quantity
     Route::post('update-cart-item-qty','ProductController@updateCartItemQty');
+
+    // delete cart item
+    Route::post('delete-cart-item','ProductController@deleteCartItem');
 });
 
 Route::prefix('/admin')->namespace('App\Http\Controllers\Admin')->group(function() {

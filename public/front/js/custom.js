@@ -94,7 +94,31 @@ $(document).ready(function(){
             }, error: function(){
                 alert("Error");
             }
-        })
+        });
     });
+
+    // delete cart item
+    $(document).on('click', '.deleteCartItem', function() {
+        var cartid = $(this).data('cartid');
+        var result = confirm("Are you sure want to delete this cart item?");
+        if(result) {
+            $.ajax({
+                headers: {
+                    "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+                },
+                data: {
+                    cartid:cartid
+                },
+                url:'/delete-cart-item',
+                type:'post',
+                success:function(resp){
+                    $("#appendCartItems").html(resp.view);
+                },
+                error: function() {
+                    alert("Error");
+                }
+            });
+        }
+    })
 
 });
