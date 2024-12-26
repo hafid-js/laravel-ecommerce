@@ -223,10 +223,15 @@ class ProductController extends Controller
             $item->product_size = $data['size'];
             $item->product_qty = $data['qty'];
             $item->save();
+
+            // get total cart items
+            $totalCartItems = totalCartItems();
+
             $message = "Product added successfully in Cart! <a style='color:#ffffff; text-decoration:underline;' href='/cart'>View Cart</a>";
             return response()->json([
                'status' => true,
-               'message' => $message
+               'message' => $message,
+               'totalCartItems' => $totalCartItems
             ]);
         }
     }
@@ -280,8 +285,12 @@ class ProductController extends Controller
             // get updated cart items
             $getCartItems = Cart::getCartItems();
 
+            // get total cart items
+            $totalCartItems = totalCartItems();
+
             return response()->json([
                 'status' => true,
+                'totalCartItems' => $totalCartItems,
                 'view' => (String)View::make('front.products.cart_items')->with(compact('getCartItems'))
             ]);
         }

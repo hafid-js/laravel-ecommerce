@@ -41,6 +41,7 @@ $(document).ready(function(){
             type:'post',
             data:formData,
             success:function(resp){
+                $[".totalCartItems"].htm(resp['totalCartItems']);
                 if(resp['status'] == true) {
                     $('.print-success-msg').show();
                     $('.print-success-msg').delay(3000).fadeOut('slow');
@@ -87,6 +88,7 @@ $(document).ready(function(){
             url:'/update-cart-item-qty',
             type:'post',
             success:function(resp){
+                $(".totalCartItems").html(resp.totalCartItems);
                 if(resp.status == false) {
                     alert(resp.message)
                 }
@@ -112,6 +114,7 @@ $(document).ready(function(){
                 url:'/delete-cart-item',
                 type:'post',
                 success:function(resp){
+                    $(".totalCartItems").html(resp.totalCartItems);
                     $("#appendCartItems").html(resp.view);
                 },
                 error: function() {

@@ -49,7 +49,7 @@ Route::namespace('App\Http\Controllers\Front')->group(function() {
     Route::get('cart','ProductController@cart');
 
     // update cart item quantity
-    Route::post('update-cart-item-qty','ProductController@updateCartItemQty');
+    Route::post('/update-cart-item-qty','ProductController@updateCartItemQty');
 
     // delete cart item
     Route::post('delete-cart-item','ProductController@deleteCartItem');
