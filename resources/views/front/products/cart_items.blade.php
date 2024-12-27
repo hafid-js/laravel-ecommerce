@@ -62,9 +62,11 @@
                                             <div class="table-p__box">
                                                 <div class="table-p__img-wrap">
                                                     @if (isset($item['product']['images'][0]['image']) && !empty($item['product']['images'][0]['image']))
-                                                        <img class="u-img-fluid"
+                                                        <a href="{{ url('product/' . $item['product']['id']) }}">
+                                                            <img class="u-img-fluid"
                                                             src="{{ url('front/images/products/medium/' . $item['product']['images'][0]['image']) }}"
                                                             alt="">
+                                                        </a>
                                                     @else
                                                         <img class="u-img-fluid"
                                                             src="{{ asset('front/images/product/sitemakers-tshirt.png') }}"
