@@ -52,27 +52,27 @@
                         <div class="l-f-o">
                             <div class="l-f-o__pad-box">
                                 <h1 class="gl-h1">PERSONAL INFORMATION</h1>
-                                <form class="l-f-o__form">
+                                <form id="registerForm" action="javascript:;" method="post" class="l-f-o__form">@csrf
                                     <div class="u-s-m-b-30">
 
                                         <label class="gl-label" for="reg-fname">NAME *</label>
 
-                                        <input class="input-text input-text--primary-style" type="text" id="reg-name" placeholder="Name"></div>
+                                        <input name="name" class="input-text input-text--primary-style" type="text" id="reg-name" placeholder="Name"></div>
                                     <div class="u-s-m-b-30">
 
                                         <label class="gl-label" for="reg-mobile">MOBILE *</label>
 
-                                        <input class="input-text input-text--primary-style" type="text" id="reg-mobile" placeholder="MOBILE"></div>
+                                        <input name="mobile" class="input-text input-text--primary-style" type="text" id="reg-mobile" placeholder="MOBILE"></div>
                                     <div class="u-s-m-b-30">
 
                                         <label class="gl-label" for="reg-email">E-MAIL *</label>
 
-                                        <input class="input-text input-text--primary-style" type="text" id="reg-email" placeholder="Enter E-mail"></div>
+                                        <input name="email" class="input-text input-text--primary-style" type="email" id="reg-email" placeholder="Enter E-mail"></div>
                                     <div class="u-s-m-b-30">
 
                                         <label class="gl-label" for="reg-password">PASSWORD *</label>
 
-                                        <input class="input-text input-text--primary-style" type="text" id="reg-password" placeholder="Enter Password"></div>
+                                        <input name="password" class="input-text input-text--primary-style" type="text" id="reg-password" placeholder="Enter Password"></div>
                                     <div class="u-s-m-b-15">
 
                                         <button class="btn btn--e-transparent-brand-b-2" type="submit">CREATE</button></div>

@@ -150,4 +150,21 @@ $(document).ready(function(){
         }
     })
 
+
+    // register form validation
+    $("#registerForm").submit(function() {
+        var formData = $("#registerForm").serialize();
+
+        $.ajax({
+            url:'/user/register',
+            type:'post',
+            data:formData,
+            success:function(resp){
+                window.location.href = resp.redirectUrl;
+            }, error: function() {
+                alert("Error")
+            }
+        })
+    })
+
 });
