@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Front;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Mail;
 use App\Models\User;
 use Validator;
 use Auth;
@@ -47,6 +48,18 @@ class UserController extends Controller
                 'email' => $data['email'],
                 'password' => $data['password']
             ])){
+
+                // send register email
+                $email = $data['email'];
+                $messageData = [
+                    'name' => $data['name'],
+                    'mobile' => $data['mobile'],
+                    'email' => $data['email']];
+
+                    Mail::send('emails.register', $messageData, function($message) use ($email) {
+                        $message->to($email)->subject('Welcome to Lektumbas.id');
+                    });
+
                 $redirectUrl = url('cart');
                 return response()->json([
                     'status' => false,
