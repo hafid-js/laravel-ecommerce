@@ -34,22 +34,25 @@ $totalCartItems = totalCartItems();
                                 <!--====== Dropdown ======-->
                                 <span class="js-menu-toggle"></span>
                                 <ul style="width:120px">
+                                    @if(Auth::check())
                                     <li>
-                                        <a href="dashboard.html"><i class="fas fa-user-circle u-s-m-r-6"></i>
+                                        <a href="{{ url('user/account') }}"><i class="fas fa-user-circle u-s-m-r-6"></i>
                                         <span>Account</span></a>
                                     </li>
                                     <li>
-                                        <a href="signup.html"><i class="fas fa-user-plus u-s-m-r-6"></i>
+                                        <a href="{{ url('user/logout') }}"><i class="fas fa-lock-open u-s-m-r-6"></i>
+                                        <span>Signout</span></a>
+                                    </li>
+                                    @else
+                                    <li>
+                                        <a href="{{ url('user/register') }}"><i class="fas fa-user-plus u-s-m-r-6"></i>
                                         <span>Signup</span></a>
                                     </li>
                                     <li>
-                                        <a href="signin.html"><i class="fas fa-lock u-s-m-r-6"></i>
+                                        <a href="{{ url('user/login') }}"><i class="fas fa-lock u-s-m-r-6"></i>
                                         <span>Signin</span></a>
                                     </li>
-                                    <li>
-                                        <a href="signup.html"><i class="fas fa-lock-open u-s-m-r-6"></i>
-                                        <span>Signout</span></a>
-                                    </li>
+                                    @endif
                                 </ul>
                                 <!--====== End - Dropdown ======-->
                             </li>

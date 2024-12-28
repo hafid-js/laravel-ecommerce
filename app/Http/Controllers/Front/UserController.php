@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Front;
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use Validator;
 use Auth;
 
 use Illuminate\Http\Request;
@@ -15,6 +16,20 @@ class UserController extends Controller
 
     public function registerUser(Request $request){
         if($request->ajax()) {
+
+            $validator = Validator::make($request->all(),
+            [
+                'name' => 'required|string|max:150',
+                'mobile' => 'required|numeric|min_digits:10|max_digits:12',
+                'email' => 'required|email|max:250|unique:users',
+                'password' => 'required|string|min:6'
+            ],
+        [
+            'email.email' => 'Please enter the valid Email'
+        ]);
+
+        if($validator->passes()){
+
             $data = $request->all();
             // echo "<pre></pre>"; print_r($data); die();
 
@@ -33,9 +48,24 @@ class UserController extends Controller
                 'password' => $data['password']
             ])){
                 $redirectUrl = url('cart');
-                return response()->json(['redirectUrl' => $redirectUrl]);
+                return response()->json([
+                    'status' => false,
+                    'type' => 'success',
+                    'redirectUrl' => $redirectUrl]);
             }
+        } else {
+            return response()->json([
+                'status' => false,
+                'type' => 'validation',
+                'errors' => $validator->messages()
+            ]);
         }
+    }
         return view('front.users.register');
+    }
+
+    public function userLogout(){
+        Auth::logout();
+        return redirect('user/login');
     }
 }
