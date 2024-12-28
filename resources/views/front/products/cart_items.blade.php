@@ -14,7 +14,7 @@
                         </li>
                         <li class="is-marked">
 
-                            <a href="cart.html">Cart</a>
+                            <a href="{{ url('/cart') }}">Cart</a>
                         </li>
                     </ul>
                 </div>
@@ -146,11 +146,11 @@
                     </div>
                     <div class="route-box__g2">
 
-                        <a class="route-box__link" href="cart.html"><i class="fas fa-trash"></i>
+                        <a class="route-box__link emptyCart" href="{{ url('/cart') }}"><i class="fas fa-trash"></i>
                             <span>CLEAR CART</span>
                         </a>
 
-                        <!-- <a class="route-box__link" href="cart.html"><i class="fas fa-sync"></i>
+                        <!-- <a class="route-box__link" href="{{ url('/cart') }}"><i class="fas fa-sync"></i>
                                             <span>UPDATE CART</span>
                                         </a> -->
                     </div>
@@ -189,7 +189,7 @@
                                         <div class="u-s-m-b-30">
 
                                             <a class="f-cart__ship-link btn--e-transparent-brand-b-2"
-                                                href="cart.html">APPLY</a>
+                                                href="{{ url('/cart') }}">APPLY</a>
                                         </div>
 
                                         <!-- <span class="gl-text">Note: Any note can come here</span> -->

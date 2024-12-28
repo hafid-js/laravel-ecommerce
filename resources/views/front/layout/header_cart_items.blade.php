@@ -38,12 +38,14 @@ $getCartItems = getCartItems();
                                             </div>
                                             <a class="mini-product__delete-link far fa-trash-alt"></a>
                                         </div>
-                                        @endforeach
+
                                         <!--====== End - Card for mini cart ======-->
+                                        @php $total_price = $total_price + ($getAttributePrice['final_price'] * $item['product_qty']) @endphp
+                                        @endforeach
                                     </div>
                                     <!--====== End - Mini Product Container ======-->
                                     <!--====== Mini Product Statistics ======-->
-                                    @php $total_price = $total_price + ($getAttributePrice['final_price'] * $item['product_qty']) @endphp
+
                                     <div class="mini-product-stat">
                                         <div class="mini-total">
                                             <span class="subtotal-text">SUBTOTAL</span>
@@ -53,7 +55,7 @@ $getCartItems = getCartItems();
                                         </div>
                                         <div class="mini-action">
                                             <a class="mini-link btn--e-brand-b-2" href="checkout.html">PROCEED TO CHECKOUT</a>
-                                            <a class="mini-link btn--e-transparent-secondary-b-2" href="cart.html">VIEW CART</a>
+                                            <a class="mini-link btn--e-transparent-secondary-b-2" href="{{ url('/cart') }}">VIEW CART</a>
                                         </div>
                                     </div>
                                     <!--====== End - Mini Product Statistics ======-->

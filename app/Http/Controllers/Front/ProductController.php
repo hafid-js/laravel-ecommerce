@@ -308,8 +308,31 @@ class ProductController extends Controller
             // get updated cart items
             $getCartItems = getCartItems();
 
+            $totalCartItems = totalCartItems();
+
             return response()->json([
                'status' => true,
+               'totalCartItems' => $totalCartItems,
+                'view' => (String)View::make('front.products.cart_items')->with(compact('getCartItems')),
+                'minicartview' => (String)View::make('front.layout.header_cart_items')->with(compact('getCartItems'))
+            ]);
+        }
+    }
+
+
+    public function emptyCart(Request $request) {
+        if($request->ajax()) {
+
+            emptyCart();
+
+            // get updated cart items
+            $getCartItems = getCartItems();
+
+            $totalCartItems = totalCartItems();
+
+            return response()->json([
+               'status' => true,
+               'totalCartItems' => $totalCartItems,
                 'view' => (String)View::make('front.products.cart_items')->with(compact('getCartItems')),
                 'minicartview' => (String)View::make('front.layout.header_cart_items')->with(compact('getCartItems'))
             ]);

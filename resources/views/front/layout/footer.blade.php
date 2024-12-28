@@ -49,7 +49,7 @@
                                             <a href="orders.html">My Orders</a>
                                         </li>
                                         <li>
-                                            <a href="cart.html">My Cart</a>
+                                            <a href="{{ url('/cart') }}">My Cart</a>
                                         </li>
                                         <li>
                                             <a href="wishlist.html">My Wishlist</a>
