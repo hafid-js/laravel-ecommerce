@@ -11,7 +11,54 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    public function loginUser() {
+    public function loginUser(Request $request) {
+        if($request->ajax()) {
+            $data = $request->all();
+            $validator = Validator::make($request->all(),
+            [
+                'email' => 'required|email|max:250|exists:users',
+                'password' => 'required|string|min:6'
+            ],
+        [
+            'email.exists' => 'Email does not exists'
+        ]);
+
+        if($validator->passes()){
+            if(Auth::attempt([
+                'email' => $data['email'],
+                'password' => $data['password']
+            ])) {
+                if(Auth::user()->status == 0) {
+                    Auth::logout();
+                    return response()->json([
+                        'status' => false,
+                        'type' => 'inactive',
+                        'message' => 'Your account is not activated yet!'
+                    ]);
+                }
+
+
+            $redirectUrl = url('cart');
+            return response()->json([
+               'status' => true,
+                'type' =>'success',
+               'redirectUrl' => $redirectUrl]);
+            } else {
+                return response()->json([
+                    'status' => false,
+                    'type' => 'incorrect',
+                    'message' => 'You have entered wrong email or password'
+                ]);
+            }
+
+        } else {
+            return response()->json([
+                'status' => false,
+                'type' => 'error',
+                'errors' => $validator->messages()
+            ]);
+            }
+        }
         return view('front.users.login');
     }
 

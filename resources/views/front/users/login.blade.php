@@ -79,17 +79,22 @@
                                     </div>
                                     @endif
                                 <span class="gl-text u-s-m-b-30">If you have an account with us, please log in.</span>
-                                <form class="l-f-o__form">
+                                <p id="login-error"></p>
+                                <form class="l-f-o__form" id="loginForm" action="javascript:;" method="post">@csrf
                                     <div class="u-s-m-b-30">
 
-                                        <label class="gl-label" for="login-email">E-MAIL *</label>
+                                        <label class="gl-label" for="login-email" >E-MAIL *</label>
 
-                                        <input class="input-text input-text--primary-style" type="text" id="login-email" placeholder="Enter E-mail"></div>
+                                        <input class="input-text input-text--primary-style" type="text" id="login-email" placeholder="Enter E-mail" name="email">
+                                        <p class="login-email"></p>
+                                    </div>
                                     <div class="u-s-m-b-30">
 
                                         <label class="gl-label" for="login-password">PASSWORD *</label>
 
-                                        <input class="input-text input-text--primary-style" type="text" id="login-password" placeholder="Enter Password"></div>
+                                        <input class="input-text input-text--primary-style" type="password" id="login-password" placeholder="Enter Password" name="password">
+                                        <p class="login-password"></p>
+                                    </div>
                                     <div class="gl-inline">
                                         <div class="u-s-m-b-30">
 
