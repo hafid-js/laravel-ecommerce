@@ -171,7 +171,8 @@ $(document).ready(function(){
                         }, 4000);
                     })
                 } else if (data.type == "success"){
-                    window.location.href = data.redirectUrl;
+                    $("#register-success").attr('style','color:green')
+                    $("#register-success").html(data.message)
                 }
             }, error: function() {
                 alert("Error")

@@ -52,6 +52,7 @@
                         <div class="l-f-o">
                             <div class="l-f-o__pad-box">
                                 <h1 class="gl-h1">PERSONAL INFORMATION</h1>
+                                <p id="register-success"></p>
                                 <form id="registerForm" action="javascript:;" method="post" class="l-f-o__form">@csrf
                                     <div class="u-s-m-b-30">
 
