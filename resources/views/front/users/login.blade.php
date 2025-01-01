@@ -85,14 +85,18 @@
 
                                         <label class="gl-label" for="login-email" >E-MAIL *</label>
 
-                                        <input class="input-text input-text--primary-style" type="text" id="login-email" placeholder="Enter E-mail" name="email">
+                                        <input class="input-text input-text--primary-style" type="text" id="login-email" placeholder="Enter E-mail" name="email" value="<?php if (isset($_COOKIE['user-email'])) {
+                                            echo $_COOKIE['user-email'];
+                                        } ?>">
                                         <p class="login-email"></p>
                                     </div>
                                     <div class="u-s-m-b-30">
 
                                         <label class="gl-label" for="login-password">PASSWORD *</label>
 
-                                        <input class="input-text input-text--primary-style" type="password" id="login-password" placeholder="Enter Password" name="password">
+                                        <input class="input-text input-text--primary-style" type="password" id="login-password" placeholder="Enter Password" name="password" value="<?php if (isset($_COOKIE['user-password'])) {
+                                            echo $_COOKIE['user-password'];
+                                        } ?>">
                                         <p class="login-password"></p>
                                     </div>
                                     <div class="gl-inline">
@@ -108,7 +112,7 @@
                                         <!--====== Check Box ======-->
                                         <div class="check-box">
 
-                                            <input type="checkbox" id="remember-me">
+                                            <input type="checkbox" id="remember-me" name="remember-me" @if(isset($_COOKIE["user-email"])) checked="" @endif>
                                             <div class="check-box__state check-box__state--primary">
 
                                                 <label class="check-box__label" for="remember-me">Remember Me</label></div>

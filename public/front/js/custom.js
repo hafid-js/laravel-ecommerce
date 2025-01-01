@@ -224,7 +224,8 @@ $(document).ready(function(){
                     }, 4000);
             }
              else if(resp.type=="success"){
-                window.location.href = resp.redirecturl;
+                window.location = resp.redirectUrl;
+
             }
             }, error: function(){
                 alert("Error");

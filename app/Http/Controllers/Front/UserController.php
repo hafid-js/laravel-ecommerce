@@ -28,6 +28,16 @@ class UserController extends Controller
                 'email' => $data['email'],
                 'password' => $data['password']
             ])) {
+
+                // remember user email and password
+                if(!empty($data['remember-me'])){
+                    setcookie("user-email", $data['email'], time()+3600);
+                    setcookie("user-password", $data['password'], time()+3600);
+                } else {
+                    setcookie("user-email");
+                    setcookie("user-password");
+                }
+
                 if(Auth::user()->status == 0) {
                     Auth::logout();
                     return response()->json([
@@ -41,7 +51,7 @@ class UserController extends Controller
             $redirectUrl = url('cart');
             return response()->json([
                'status' => true,
-                'type' =>'success',
+                'type' => 'success',
                'redirectUrl' => $redirectUrl]);
             } else {
                 return response()->json([
