@@ -185,9 +185,60 @@ class UserController extends Controller
         }
     }
 
+    public function forgotPassword(Request $request){
+        if($request->ajax()){
+            $data = $request->all();
+
+            $validator = Validator::make($request->all(),
+            [
+                'email' => 'required|email|max:250|exists:users',
+            ],
+        [
+            'email.exists' => 'Email does not exists',
+        ]);
+
+        if($validator->passes()){
+
+            // send email to user with reset password link
+            $email = $data['email'];
+            $messageData = [
+                'email' => $data['email'],
+                'code' => base64_encode($data['email'])
+            ];
+
+            Mail::send('emails.reset_password', $messageData, function($message) use ($email) {
+                $message->to($email)->subject('Reset your Password - Lektumbas.id Account');
+            });
+            // show success message
+            return response()->json([
+            //    'status' => true,
+                'type' =>'success',
+                'message' => 'Reset Password link sent to your registered email.']);
+
+        } else {
+            return response()->json([
+                'status' => false,
+                'type' => 'validation',
+                'errors' => $validator->messages()
+            ]);
+        }
+
+        } else {
+            return view('front.users.forgot_password');
+        }
+    }
+
+    public function resetPassword(Request $request){
+        if($request->ajax()){
+            $data = $request->all();
+        } else {
+            return view('front.users.reset_password');
+        }
+    }
 
     public function userLogout(){
         Auth::logout();
         return redirect('user/login');
     }
+
 }
