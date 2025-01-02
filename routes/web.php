@@ -74,7 +74,7 @@ Route::namespace('App\Http\Controllers\Front')->group(function() {
         Route::match(['get','post'], 'user/forgot-password','UserController@forgotPassword');
 
         // reset password
-        Route::match(['get','post'].'user/reset-password','UserController@resetPassword');
+        Route::match(['get','post'],'user/reset-password/{code?}','UserController@resetPassword');
 });
 
 Route::prefix('/admin')->namespace('App\Http\Controllers\Admin')->group(function() {

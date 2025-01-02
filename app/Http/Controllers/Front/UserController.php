@@ -228,11 +228,32 @@ class UserController extends Controller
         }
     }
 
-    public function resetPassword(Request $request){
+    public function resetPassword(Request $request, $code=null){
         if($request->ajax()){
             $data = $request->all();
+
+            $email = base64_decode($data['code']);
+            $userCount = User::where('email',$email)->count();
+            if($userCount > 0) {
+                // update new password
+                User::where('email', $email)->update(['password' => bcrypt($data['password'])]);
+
+                // send confirmation email to user
+                $messageData = ['email' => $email];
+                Mail::send('emails.new_password_confirmation', $messageData, function($message) use ($email) {
+                    $message->to($email)->subject('Password Updated - Lektumbas.id');
+                });
+
+                // show success message
+                return response()->json([
+                    'type' =>'success',
+                   'message' => 'Password has been successfully updated. You can now login now']);
+
+            } else {
+                abort(404);
+            }
         } else {
-            return view('front.users.reset_password');
+            return view('front.users.reset_password')->with(compact('code'));
         }
     }
 

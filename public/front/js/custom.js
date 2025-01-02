@@ -44,6 +44,7 @@ $(document).ready(function () {
     });
 
     $("#addToCart").submit(function (event) {
+        $(".loader").show();
         event.preventDefault(); // Mencegah form untuk reload halaman
         var formData = $(this).serialize();
         $.ajax({
@@ -54,6 +55,7 @@ $(document).ready(function () {
             type: "post",
             data: formData,
             success: function (resp) {
+                $(".loader").hide();
                 $(".totalCartItems").html(resp["totalCartItems"]);
                 $("#appendCartItems").html(resp.view);
                 $("#appendMiniCartItems").html(resp.minicartview);
@@ -66,6 +68,7 @@ $(document).ready(function () {
                             "</div>"
                     );
                 } else {
+                    $(".loader").hide();
                     $(".print-error-msg").show();
                     $(".print-error-msg").delay(3000).fadeOut("slow");
                     $(".print-error-msg").html(
@@ -178,6 +181,7 @@ $(document).ready(function () {
 
     // register form validation
     $("#registerForm").submit(function () {
+        $(".loader").show();
         var formData = $("#registerForm").serialize();
 
         $.ajax({
@@ -186,6 +190,7 @@ $(document).ready(function () {
             data: formData,
             success: function (data) {
                 if (data.type == "validation") {
+                    $(".loader").hide();
                     $.each(data.errors, function (i, error) {
                         $("#register-" + i).attr("style", "color:red");
                         $("#register-" + i).html(error);
@@ -196,6 +201,7 @@ $(document).ready(function () {
                         }, 4000);
                     });
                 } else if (data.type == "success") {
+                    $(".loader").hide();
                     $("#register-success").attr("style", "color:green");
                     $("#register-success").html(data.message);
                 }
@@ -259,6 +265,7 @@ $(document).ready(function () {
 
     // forgot form validation
     $("#forgotForm").submit(function () {
+        $(".loader").show();
         var formData = $(this).serialize();
         $.ajax({
             headers: {
@@ -268,6 +275,7 @@ $(document).ready(function () {
             type: "post",
             data: formData,
             success: function (resp) {
+                $(".loader").hide();
                 if (resp.type == "error") {
                     $.each(resp.errors, function (i, error) {
                         $(".forgot-" + i).attr("style", "color:red");
@@ -284,8 +292,44 @@ $(document).ready(function () {
                 }
             },
             error: function () {
+                $(".loader").hide();
                 alert("Error");
             },
         });
     });
+
+    $("#resetPwdForm").submit(function () {
+        $(".loader").show();
+        var formData = $(this).serialize();
+        $.ajax({
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+            },
+            url: "/user/reset-password",
+            type: "post",
+            data: formData,
+            success: function (resp) {
+                $(".loader").hide();
+                if (resp.type == "error") {
+                    $.each(resp.errors, function (i, error) {
+                        $(".reset-" + i).attr("style", "color:red");
+                        $(".reset-" + i).html(error);
+                        setTimeout(function () {
+                            $(".reset-" + i).css({
+                                display: "none",
+                            });
+                        }, 4000);
+                    });
+                } else if (resp.type == "success") {
+                    $("#reset-success").attr("style", "color:green");
+                    $("#reset-success").html(resp.message);
+                }
+            },
+            error: function () {
+                $(".loader").hide();
+                alert("Error");
+            },
+        });
+    });
+
 });

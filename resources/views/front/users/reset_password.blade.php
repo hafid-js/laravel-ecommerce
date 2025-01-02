@@ -56,8 +56,8 @@
                                         <h1 class="gl-h1">PASSWORD RESET</h1>
 
                                         <span class="gl-text u-s-m-b-30">Enter your email to reset your password.</span>
-                                        <p id="forgot-success"></p>
-                                        <form class="l-f-o__form" id="forgotForm" action="javascript:;" method="post">@csrf
+                                        <p id="reset-success"></p>
+                                        <form class="l-f-o__form" id="resetPwdForm" action="javascript:;" method="post">@csrf
                                             <input type="hidden" name="code" value="{{ $code }}">
                                             <div class="u-s-m-b-30">
 
@@ -71,7 +71,7 @@
                                                 <button class="btn btn--e-transparent-brand-b-2" type="submit">SUBMIT</button></div>
                                             <div class="u-s-m-b-30">
 
-                                                <a class="gl-link" href="signin.html">Back to Login</a></div>
+                                                <a class="gl-link" href="{{ url('/user/login') }}">Back to Login</a></div>
                                         </form>
                                     </div>
                                 </div>

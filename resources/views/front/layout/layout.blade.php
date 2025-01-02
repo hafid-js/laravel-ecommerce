@@ -25,6 +25,9 @@
 </head>
 
 <body class="config">
+    <div class="loader">
+        <img src="{{ asset('front/images/loading.gif') }}" alt="loading..." />
+     </div>
     <div class="preloader is-active">
         <div class="preloader__wrap">
             <img class="preloader__img" src="{{ url('front/images/preloader.png') }}" alt="">
