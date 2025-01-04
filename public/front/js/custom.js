@@ -298,6 +298,39 @@ $(document).ready(function () {
         });
     });
 
+        // account form validation
+        $("#accountForm").submit(function () {
+            $(".loader").show();
+            var formData = $(this).serialize();
+
+            $.ajax({
+                url: "/user/account",
+                type: "post",
+                data: formData,
+                success: function (data) {
+                    if (data.type == "validation") {
+                        $(".loader").hide();
+                        $.each(data.errors, function (i, error) {
+                            $("#account-" + i).attr("style", "color:red");
+                            $("#account-" + i).html(error);
+                            setTimeout(function () {
+                                $("#account-" + i).css({
+                                    display: "none",
+                                });
+                            }, 4000);
+                        });
+                    } else if (data.type == "success") {
+                        $(".loader").hide();
+                        $("#account-success").attr("style", "color:green");
+                        $("#account-success").html(data.message);
+                    }
+                },
+                error: function () {
+                    alert("Error");
+                },
+            });
+        });
+
     $("#resetPwdForm").submit(function () {
         $(".loader").show();
         var formData = $(this).serialize();

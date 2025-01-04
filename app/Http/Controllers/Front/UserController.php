@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Front;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Mail;
 use App\Models\User;
+use App\Models\Country;
 use Validator;
 use Auth;
 
@@ -262,4 +263,48 @@ class UserController extends Controller
         return redirect('user/login');
     }
 
+    public function account(Request $request) {
+        if($request->ajax()) {
+            $data = $request->all();
+            $validator = Validator::make($request->all(),
+            [
+                'name' => 'required|string|max:150',
+                'city' => 'required|string|max:150',
+                'state' => 'required|string|max:150',
+                'address' => 'required|string|max:150',
+                'pincode' => 'required|string|max:150',
+                'mobile' => 'required|numeric|min_digits:10|max_digits:12',
+            ]);
+
+        if($validator->passes()){
+            // update user details
+            User::where('id', Auth::user()->id)->update([
+                'name' => $data['name'],
+                'address' => $data['address'],
+                'city' => $data['city'],
+                'state' => $data['state'],
+                'country' => $data['country'],
+                'pincode' => $data['pincode'],
+                'country' => $data['country'],
+                'mobile' => $data['mobile'],
+            ]);
+
+            // redirect back user with success message
+            return response()->json([
+                'status' => true,
+                'type' => 'success',
+                'message' => 'User Details Successfully Updated!'
+            ]);
+        } else {
+        return response()->json([
+            'status' => false,
+            'type' => 'validation',
+            'errors' => $validator->messages()
+        ]);
+        }
+    } else {
+        $countries = Country::where('status',1)->get()->toArray();
+        return view('front.users.account')->with(compact('countries'));
+        }
+    }
 }

@@ -59,7 +59,7 @@ Route::namespace('App\Http\Controllers\Front')->group(function() {
         Route::post('empty-cart','ProductController@emptyCart');
 
         // user login
-        Route::match(['get','post'], 'user/login','UserController@loginUser');
+        Route::match(['get','post'], 'user/login','UserController@loginUser')->name('login');
 
         // user register
         Route::match(['get','post'], 'user/register','UserController@registerUser');
@@ -67,8 +67,13 @@ Route::namespace('App\Http\Controllers\Front')->group(function() {
         // user confirm account
         Route::match(['get','post'], 'user/confirm/{code}','UserController@confirmAccount');
 
-        // user logout
+        Route::group(['middleware' => ['auth']], function() {
+             // user logout
         Route::get('user/logout','UserController@userLogout');
+
+        // user account
+        Route::match(['get','post'],'user/account','UserController@account');
+        });
 
         // forgot password
         Route::match(['get','post'], 'user/forgot-password','UserController@forgotPassword');
