@@ -46,7 +46,7 @@
                                         <li><a href="account.html">My Billing/Contact Address</a></li>
                                         <li><a href="orders.html">My Orders</a></li>
                                         <li><a href="wishlist.html">My Wish List</a></li>
-                                        <li><a href="update-password.html">Update Password</a></li>
+                                        <li><a href="{{ url('user/update-password') }}">Update Password</a></li>
                                     </ul>
                                 </div>
                             </div>

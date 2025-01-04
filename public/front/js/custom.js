@@ -299,6 +299,7 @@ $(document).ready(function () {
     });
 
         // account form validation
+        $("#account-success")
         $("#accountForm").submit(function () {
             $(".loader").show();
             var formData = $(this).serialize();
@@ -364,5 +365,49 @@ $(document).ready(function () {
             },
         });
     });
+
+       // user update password validation
+       $("#password-success").hide();
+       $("#password-error").hide();
+       $("#passwordForm").submit(function () {
+           $(".loader").show();
+           var formData = $(this).serialize();
+
+           $.ajax({
+               url: "/user/update-password",
+               type: "post",
+               data: formData,
+               success: function (data) {
+                   if (data.type == "error") {
+                       $(".loader").hide();
+                       $("#password-success").hide();
+                       $.each(data.errors, function (i, error) {
+                           $("#password-" + i).attr("style", "color:red");
+                           $("#password-" + i).html(error);
+                           setTimeout(function () {
+                               $("#password-" + i).css({
+                                   display: "none",
+                               });
+                           }, 4000);
+                       });
+                   } else if (data.type == "incorrect") {
+                       $(".loader").hide();
+                       $("#password-success").hide();
+                       $("#password-error").attr("style", "color:red");
+                       $("#password-error").html(data.message);
+                   } else if (data.type == "success") {
+                    $(".loader").hide();
+                    $("#password-error").hide();
+                    $("#password-success").attr("style", "color:green");
+                    $("#password-success").html(data.message);
+                }
+
+               },
+               error: function () {
+                $(".loader").hide();
+                   alert("Error");
+               },
+           });
+       });
 
 });

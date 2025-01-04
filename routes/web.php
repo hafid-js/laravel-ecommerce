@@ -75,6 +75,9 @@ Route::namespace('App\Http\Controllers\Front')->group(function() {
         Route::match(['get','post'],'user/account','UserController@account');
         });
 
+        // user change password
+        Route::match(['get','post'],'user/update-password','UserController@updatePassword');
+
         // forgot password
         Route::match(['get','post'], 'user/forgot-password','UserController@forgotPassword');
 

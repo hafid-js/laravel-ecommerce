@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Country;
 use Validator;
 use Auth;
+use Hash;
 
 use Illuminate\Http\Request;
 
@@ -305,6 +306,54 @@ class UserController extends Controller
     } else {
         $countries = Country::where('status',1)->get()->toArray();
         return view('front.users.account')->with(compact('countries'));
+        }
+    }
+
+    public function updatePassword(Request $request) {
+        if ($request->ajax()) {
+            $data = $request->all();
+
+            $validator = Validator::make($request->all(), [
+                'current_password' => 'required',
+                'new_password' => 'required|min:6',
+                'confirm_password' => 'required|same:new_password'
+            ]);
+
+            if($validator->passes()) {
+                // entered by the user in update password form
+                $current_password = $data['current_password'];
+
+                // get current password from users table
+                $checkPassword = User::where('id',Auth::user()->id)->first();
+
+                // compare current password
+                if(Hash::check($current_password, $checkPassword->password)){
+                    // update user current password
+                    $user = User::find(Auth::user()->id);
+                    $user->password = bcrypt($data['new_password']);
+                    $user->save();
+
+                    // redirect back user with success message
+                    return response()->json([
+                        'type' => 'success',
+                        'message' => 'Your password is successfully updated!'
+                    ]);
+                } else {
+                    // redirect back user with error message
+                    return response()->json([
+                        'type' => 'incorrect',
+                        'message' => 'Your current password is incorrect!'
+                    ]);
+                }
+
+            } else {
+                return response()->json([
+                    'type' => 'error',
+                    'errors' => $validator->messages()
+                ]);
+            }
+        } else {
+            return view('front.users.update_password');
         }
     }
 }
