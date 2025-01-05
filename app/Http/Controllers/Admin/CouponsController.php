@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Coupon;
 use App\Models\AdminsRole;
+use App\Models\Category;
+use App\Models\Brand;
+use App\Models\User;
 use Session;
 use Auth;
 
@@ -51,6 +54,37 @@ class CouponsController extends Controller
     {
         Coupon::where('id',$id)->delete();
         return redirect()->back()->with('success_message','Coupon deleted successfully');
+    }
+
+    public function addEditCoupon(Request $request, $id=null) {
+        if($id=""){
+            // add coupon
+            $coupon = new Coupon;
+            $title = "Add Coupon";
+            $message = "Coupon added successfully";
+        } else {
+            // edit coupon
+            $coupon = Coupon::find($id);
+            $title = "Edit Coupon";
+            $message = "Coupon updated successfully";
+        }
+
+        if($request->isMethod('post')){
+            $data = $request->all();
+            echo "<pre></pre>"; print_r($data); die();
+        }
+
+
+        // get categories and their sub categories
+        $getCategories = Category::getCategories();
+
+        // get brands
+        $getBrands = Brand::where('status', 1)->get()->toArray();
+
+        // get user emails
+        $getUsers = User::select('email')->where('status', 1)->get()->toArray();
+
+        return view('admin.coupons.add_edit_coupon')->with(compact('title','coupon','getCategories','getBrands','getUsers'));
     }
 
 }

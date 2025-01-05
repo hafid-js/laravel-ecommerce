@@ -67,7 +67,7 @@
                         name="categoryForm" id="categoryForm" method="post" enctype="multipart/form-data">@csrf
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-md-12">
+                                <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="category_name">Category Name*</label>
                                         <input type="text" placeholder="Enter Category Name" class="form-control"

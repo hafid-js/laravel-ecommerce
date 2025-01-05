@@ -68,7 +68,7 @@
                         name="productForm" id="productForm" method="post" enctype="multipart/form-data">@csrf
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-md-12">
+                                <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="category_id">Select Category*</label>
                                         <select name="category_id" class="form-control">
@@ -96,7 +96,7 @@
                                         <select name="brand_id" id="brand_id" class="form-control">
                                             <option value="">Select</option>
                                             @foreach ($getBrands as $brand)
-                                            <option value="{{ $brand['id'] }}" @if(!empty($product['brand_id'] == $brand['id'])) selected @endif>{{ $brand['brand_name'] }}</option>
+                                            <option value="{{ $brand['id'] }}" @if(!empty($product['brand_id']) && $product['brand_id'] == $brand['id']) selected @endif>{{ $brand['brand_name'] }}</option>
                                             @endforeach
                                         </select>
 
@@ -187,7 +187,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label>Added Attributes</label>
-                                        <table style="background-color: #4f4040; width: 50%;" cellpading="5">
+                                        <table style="background-color: #4f4040; width: 100%;" cellpading="5">
                                             <tr>
                                                 <th>ID</th>
                                                 <th>Size</th>

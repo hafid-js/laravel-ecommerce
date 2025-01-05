@@ -56,7 +56,7 @@
                     <form @if(empty($cmspage['id'])) action="{{ url('admin/add-edit-cms-page') }}" @else action="{{ url('admin/add-edit-cms-page/'.$cmspage['id']) }}" @endif name="cmsForm" id="cmsForm"  method="post">@csrf
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-md-12">
+                                <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Title*</label>
                                         <input type="text" placeholder="Enter Page Title" class="form-control"

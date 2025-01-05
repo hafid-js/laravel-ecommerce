@@ -348,4 +348,13 @@ $(document).on("click", ".updateCouponStatus", function () {
         x--; //Decrease field counter
     });
 
+    // show/hide coupon field for manual/automatic
+    $("#ManualCoupon").click(function() {
+        $("#couponField").show();
+    });
+
+     $("#AutomaticCoupon").click(function() {
+        $("#couponField").hide();
+    });
+
 });

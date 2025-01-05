@@ -190,34 +190,65 @@
                     </ul>
                 </li>
 
-                @if  (Session::get('page') == 'banners')
-                @php $active="active" @endphp
-            @else
-                @php $active = "" @endphp
-            @endif
-            <li class="nav-item menu-open">
-                <a href="#" class="nav-link {{ $active }}">
-                    <i class="nav-icon fas fa-users"></i>
-                    <p>
-                        Pages Management
-                        <i class="right fas fa-angle-left"></i>
-                    </p>
-                </a>
-                <ul class="nav nav-treeview">
+                @if (Auth::guard('admin')->user()->type == 'admin')
                     @if (Session::get('page') == 'banners')
-                    @php $active="active" @endphp
-                @else
-                    @php $active = "" @endphp
+                        @php $active="active" @endphp
+                    @else
+                        @php $active = "" @endphp
+                    @endif
+                    <li class="nav-item menu-open">
+                        <a href="#" class="nav-link {{ $active }}">
+                            <i class="nav-icon fas fa-users"></i>
+                            <p>
+                                Pages Management
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            @if (Session::get('page') == 'banners')
+                                @php $active="active" @endphp
+                            @else
+                                @php $active = "" @endphp
+                            @endif
+                            <li class="nav-item">
+                                <a href="{{ url('admin/banners') }}" class="nav-link {{ $active }}">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Banners</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
                 @endif
-                <li class="nav-item">
-                    <a href="{{ url('admin/banners') }}" class="nav-link {{ $active }}">
-                        <i class="far fa-circle nav-icon"></i>
-                        <p>Banners</p>
-                    </a>
-                </li>
-                </ul>
-            </li>
 
+                @if (Auth::guard('admin')->user()->type == 'admin')
+                    @if (Session::get('page') == 'coupons')
+                        @php $active="active" @endphp
+                    @else
+                        @php $active = "" @endphp
+                    @endif
+                    <li class="nav-item menu-open">
+                        <a href="#" class="nav-link {{ $active }}">
+                            <i class="nav-icon fas fa-money-bill-wave"></i>
+                            <p>
+                                Coupons Management
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            @if (Session::get('page') == 'coupons')
+                                @php $active="active" @endphp
+                            @else
+                                @php $active = "" @endphp
+                            @endif
+                            <li class="nav-item">
+                                <a href="{{ url('admin/coupons') }}" class="nav-link {{ $active }}">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Coupons</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                @endif
 
             </ul>
         </nav>
