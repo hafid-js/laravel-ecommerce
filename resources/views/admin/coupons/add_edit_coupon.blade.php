@@ -36,22 +36,18 @@
                         </div>
                     </div>
 
-                    @if ($errors->any())
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="alert alert-danger">
-                                        <ul>
-                                            @foreach ($errors->all() as $error)
-                                                <li>{{ $error }}</li>
-                                            @endforeach
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    @if(count($errors) > 0 )
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <ul class="p-0 m-0" style="list-style: none;">
+                            @foreach($errors->all() as $error)
+                            <li>{{$error}}</li>
+                            @endforeach
+                        </ul>
+                    </div>
                     @endif
-
 
                     @if (Session::has('success_message'))
                         <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -83,12 +79,12 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="coupon_type">Coupon Type*</label>&nbsp;&nbsp;
-                                        <input type="radio" id="coupon_type" name="coupon_type" value="Single Time">&nbsp;Single Time&nbsp;
+                                        <input type="radio" id="coupon_type" name="coupon_type" value="Single Time" checked>&nbsp;Single Time&nbsp;
                                         <input type="radio" id="coupon_type" name="coupon_type" value="Multiple Times">&nbsp;Multiple Times&nbsp;
                                     </div>
                                     <div class="form-group">
                                         <label for="amount_type">Amount Type*</label>&nbsp;&nbsp;
-                                        <input type="radio" id="amount_type" name="amount_type" value="Percetage">&nbsp;Percentage&nbsp;
+                                        <input type="radio" id="amount_type" name="amount_type" value="Percetage" checked>&nbsp;Percentage&nbsp;
                                         <input type="radio" id="amount_type" name="amount_type" value="Fixed">&nbsp;Fixed&nbsp;
                                     </div>
                                     <div class="form-group">
