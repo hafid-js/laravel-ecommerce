@@ -73,10 +73,14 @@ Route::namespace('App\Http\Controllers\Front')->group(function() {
 
         // user account
         Route::match(['get','post'],'user/account','UserController@account');
-        });
 
         // user change password
         Route::match(['get','post'],'user/update-password','UserController@updatePassword');
+
+        // apply coupon
+        Route::post('/apply-coupon','ProductController@applyCoupon');
+
+        });
 
         // forgot password
         Route::match(['get','post'], 'user/forgot-password','UserController@forgotPassword');

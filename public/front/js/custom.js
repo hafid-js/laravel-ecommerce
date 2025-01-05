@@ -366,6 +366,41 @@ $(document).ready(function () {
         });
     });
 
+    // Apply Coupon
+    $(document).on('click','#applyCoupon', function(){
+        var user = $(this).attr("user");
+        if(user==1){
+
+        } else {
+            alert("Please login to apply Coupon");
+            return false;
+        }
+        var code = $("#code").val();
+        $.ajax({
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+            },
+            type:'post',
+            data:{code:code},
+            url:'/apply-coupon',
+            success:function(resp){
+                if(resp.status==false) {
+                    //
+                    $(".print-error-msg").show();
+                    $(".print-error-msg").delay(3000).fadeOut("slow");
+                    $(".print-error-msg").html(
+                        "<div class='alert'>"+
+                            resp["message"] +
+                            "</div>"
+                    );
+                }
+            }, error: function(){
+                alert("Error");
+            }
+        })
+
+    })
+
        // user update password validation
        $("#password-success").hide();
        $("#password-error").hide();
@@ -409,5 +444,7 @@ $(document).ready(function () {
                },
            });
        });
+
+
 
 });

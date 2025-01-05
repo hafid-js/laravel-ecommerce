@@ -11,6 +11,7 @@ use App\Models\Product;
 use App\Models\ProductsFilter;
 use App\Models\ProductsAttribute;
 use App\Models\Cart;
+use App\Models\Coupon;
 use Session;
 use DB;
 use Auth;
@@ -338,6 +339,33 @@ class ProductController extends Controller
                 'view' => (String)View::make('front.products.cart_items')->with(compact('getCartItems')),
                 'minicartview' => (String)View::make('front.layout.header_cart_items')->with(compact('getCartItems'))
             ]);
+        }
+    }
+
+    public function applyCoupon(Request $request){
+        if($request->ajax()){
+            $data = $request->all();
+
+            // get update cart items
+            $getCartItems = getCartItems();
+
+            // get total cart items
+            $totalCartItems = totalCartItems();
+
+            // verify coupon is valid or not
+            $couponCount = Coupon::where('coupon_code',$data['code'])->count();
+            if($couponCount==0){
+                return response()->json([
+                    'status' => false,
+                    'totalCartItems' => $totalCartItems,
+                    'message' => 'The coupon is not valid!',
+                     'view' => (String)View::make('front.products.cart_items')->with(compact('getCartItems')),
+                     'minicartview' => (String)View::make('front.layout.header_cart_items')->with(compact('getCartItems'))
+                 ]);
+            } else {
+                // check for other coupon conditions
+                echo "coupon valid"; die();
+            }
         }
     }
 }
