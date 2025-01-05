@@ -80,7 +80,7 @@
                                                         <option @if(!empty(@old('category_id')) && $subcat['id'] == @old('category_id')) selected @elseif(!empty($product['category_id']) && $product['category_id'] == $subcat['id']) selected @endif  value="{{ $subcat['id'] }}">&nbsp;&nbsp;&raquo;{{ $subcat['category_name'] }}</option>
                                                         @if (!empty($subcat['subcategories']))
                                                             @foreach ($subcat['subcategories'] as $subsubcat)
-                                                                <option @if(!empty(@old('category_id')) && $subsubcat['id'] == @old('category_id')) selected @elseif(!empty($product['category_id']) && $product['category_id'] == $subsubcat['id']) selected @endif  value="{{ $subcat['id'] }}">
+                                                                <option @if(!empty(@old('category_id')) && $subsubcat['id'] == @old('category_id')) selected @elseif(!empty($product['category_id']) && $product['category_id'] == $subsubcat['id']) selected @endif  value="{{ $subsubcat['id'] }}">
                                                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&raquo; {{ $subsubcat['category_name'] }}
                                                                 </option>
                                                             @endforeach
