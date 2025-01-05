@@ -33,7 +33,8 @@ $getCartItems = getCartItems();
                                                     <span class="mini-product__name">
                                                     <a href="{{ url('product/' . $item['product']['id']) }}">{{ $item['product']['product_name'] }}</a></span>
                                                     <span class="mini-product__quantity">{{ $item['product_qty'] }}</span>
-                                                    <span class="mini-product__price">Rp.{{ $getAttributePrice['product_price'] * $item['product_qty'] }}</span>
+                                                    <span class="mini-product__price">Rp.{{ $getAttributePrice['product_price'] }} = <span style="font-weight: bold; magrin-left:10px;color:red;font-size:14px;">
+                                                        Rp.{{ $getAttributePrice['product_price'] * $item['product_qty'] }}</span></span>
                                                 </div>
                                             </div>
                                             <a class="mini-product__delete-link far fa-trash-alt"></a>
@@ -54,8 +55,8 @@ $getCartItems = getCartItems();
                                             </span>
                                         </div>
                                         <div class="mini-action">
-                                            <a class="mini-link btn--e-brand-b-2" href="checkout.html">PROCEED TO CHECKOUT</a>
-                                            <a class="mini-link btn--e-transparent-secondary-b-2" href="{{ url('/cart') }}">VIEW CART</a>
+                                            <a class="mini-link btn--e-brand-b-2" href="{{ url('checkout') }}">PROCEED TO CHECKOUT</a>
+                                            <a class="mini-link btn--e-transparent-secondary-b-2" href="{{ url('cart') }}">VIEW CART</a>
                                         </div>
                                     </div>
                                     <!--====== End - Mini Product Statistics ======-->

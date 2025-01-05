@@ -181,10 +181,11 @@ class ProductController extends Controller
             }
 
             // generate session id if not exists
-            $session_id = Session::get('session_id');
-            if(empty($session_id)){
+            if(empty(Session::get('session_id'))){
                 $session_id = Session::getId();
                 Session::put('session_id', $session_id);
+            } else {
+                $session_id = Session::get('session_id');
             }
 
             // check product if already exists in the user cart
@@ -232,7 +233,8 @@ class ProductController extends Controller
             return response()->json([
                'status' => true,
                'message' => $message,
-               'totalCartItems' => $totalCartItems
+               'totalCartItems' => $totalCartItems,
+               'minicartview' => (String)View::make('front.layout.header_cart_items')->with(compact('getCartItems'))
             ]);
         }
     }
