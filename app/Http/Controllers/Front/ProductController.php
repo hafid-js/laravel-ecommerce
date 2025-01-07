@@ -408,6 +408,7 @@ class ProductController extends Controller
                     $usersID[] = $getUserID['id'];
                 }
 
+                // in this case still error. i will be try fixing again in next day
 
                 // check if any cart item does not belong to coupon user
                 foreach($getCartItems as $key => $item) {
