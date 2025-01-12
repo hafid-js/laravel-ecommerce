@@ -242,9 +242,11 @@
                                     </div>
                                     <div>
 
-                                        <button type="submit" style="width: 100%;" class="f-cart__ship-link btn--e-transparent-brand-b-2">
+                                        <a href={{ url('checkout') }}>
+                                        <button type="submit" style="cursor: pointer; width:100%;" class="f-cart__ship-link btn--e-transparent-brand-b-2">
                                             PROCEED TO CHECKOUT
                                         </button>
+                                    </a>
                                     </div>
                                 </div>
                             </div>

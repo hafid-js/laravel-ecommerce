@@ -80,6 +80,9 @@ Route::namespace('App\Http\Controllers\Front')->group(function() {
         // apply coupon
         Route::post('/apply-coupon','ProductController@applyCoupon');
 
+        // Checkout
+        Route::match(['get','post'],'/checkout','ProductController@checkout');
+
         });
 
         // forgot password
