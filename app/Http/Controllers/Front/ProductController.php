@@ -164,6 +164,10 @@ class ProductController extends Controller
         if($request->isMethod('post')){
             $data = $request->all();
 
+            // forget the coupon sessions
+            Session::forget('couponAmount');
+            Session::forget('couponCode');
+
             // check product stock
             $productStock = ProductsAttribute::productStock($data['product_id'], $data['size']);
             if ($data['qty'] > $productStock) {
@@ -250,6 +254,10 @@ class ProductController extends Controller
         if($request->ajax()){
             $data = $request->all();
 
+            // forget the coupon sessions
+            Session::forget('couponAmount');
+            Session::forget('couponCode');
+
             // get cart details
             $cartDetails = Cart::find($data['cartid']);
 
@@ -307,6 +315,11 @@ class ProductController extends Controller
     public function deleteCartItem(Request $request) {
         if($request->ajax()) {
             $data = $request->all();
+
+            // forget the coupon sessions
+            Session::forget('couponAmount');
+            Session::forget('couponCode');
+
             Cart::where('id',$data['cartid'])->delete();
 
             // get updated cart items
@@ -380,27 +393,13 @@ class ProductController extends Controller
                 }
 
 
-                // if coupon is from selected categories
                 // get all selected categories from coupon
                 $catArr = explode(",",$couponDetails->categories);
-
-                // check if any cart item dose not belong to coupon category
-                foreach($getCartItems as $key => $item) {
-                    if(!in_array($item['product']['category_id'], $catArr)){
-                        $error_message = "The coupon code is not for one of the selected products.";
-                    }
-                }
 
                 // get all selected brands from coupon
                 $brandsArr = explode(",",$couponDetails->brands);
 
-                // check if any cart item dose not belong to coupon category
-                foreach($getCartItems as $key => $item) {
-                    if(!in_array($item['product']['brand_id'], $brandsArr)){
-                        $error_message = "The coupon code is not for one of the selected products.";
-                    }
-                }
-                // get all selected brands from coupon
+                // get all selected users from coupon
                 $usersArr = explode(",",$couponDetails->users);
 
                 foreach($usersArr as $key => $user){
@@ -408,16 +407,25 @@ class ProductController extends Controller
                     $usersID[] = $getUserID['id'];
                 }
 
-                // in this case still error. i will be try fixing again in next day
-
-                // check if any cart item does not belong to coupon user
+                // check if any cart item dose not belong to coupon category, brand, and user
+                $total_amount = 0;
                 foreach($getCartItems as $key => $item) {
+                    // check if any cart item dose not belong to coupon category
+                    if(!in_array($item['product']['category_id'], $catArr)){
+                        $error_message = "The coupon code is not for one of the selected products.";
+                    }
+                    // check if any cart item dose not belong to coupon brand
+                    if(!in_array($item['product']['brand_id'], $brandsArr)){
+                        $error_message = "The coupon code is not for one of the selected products.";
+                    }
+                    // check if any cart item dose not belong to coupon user
                     if(count($usersArr)>0) {
                         if(!in_array($item['user_id'],$usersID)){
                             $error_message = "The coupon code is not for you. Try again with valid coupon code!";
                         }
                     }
-
+                    $getAttributePrice = Product::getAttributePrice($item['product_id'], $item['product_size']);
+                    $total_amount = $total_amount + ($getAttributePrice['final_price'] * $item['product_qty']);
                 }
 
                 // if error message is there
@@ -426,6 +434,33 @@ class ProductController extends Controller
                         'status' => false,
                         'totalCartItems' => $totalCartItems,
                         'message' => $error_message,
+                         'view' => (String)View::make('front.products.cart_items')->with(compact('getCartItems')),
+                         'minicartview' => (String)View::make('front.layout.header_cart_items')->with(compact('getCartItems'))
+                     ]);
+                } else {
+                    // apply coupon if coupon code is correct
+
+                    // check if coupon amount type is fixed or percentage
+                    if($couponDetails->amount_type=="Fixed"){
+                        $couponAmount = $couponDetails->amount;
+                    } else {
+                        $couponAmount = $total_amount * ($couponDetails->amount/100);
+                    }
+
+                    $grand_total = $total_amount - $couponAmount;
+
+                    // Add cpupon code & amount in session variables
+                    Session::put('couponAmount', $couponAmount);
+                    Session::put('couponCode', $data['code']);
+
+                    $message = "Coupon Code successfully applied. you are availing discount!";
+
+                    return response()->json([
+                        'status' => true,
+                        'totalCartItems' => $totalCartItems,
+                        'couponAmount' => $couponAmount,
+                        'grandTotal' => $grand_total,
+                        'message' => $message,
                          'view' => (String)View::make('front.products.cart_items')->with(compact('getCartItems')),
                          'minicartview' => (String)View::make('front.layout.header_cart_items')->with(compact('getCartItems'))
                      ]);

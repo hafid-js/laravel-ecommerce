@@ -218,11 +218,24 @@
                                                 </tr>
                                                 <tr>
                                                     <td>COUPON DISCOUNT</td>
-                                                    <td>₹0</td>
+                                                    <td>
+                                                        <span class="couponAmount">
+                                                            @if(Session::has('couponAmount'))
+                                                            Rp.{{ Session::get('couponAmount')}}
+                                                            @else
+                                                            Rp.0
+                                                            @endif
+                                                        </span>
+                                                    </td>
                                                 </tr>
                                                 <tr>
                                                     <td>GRAND TOTAL</td>
-                                                    <td>Rp.{{ $total_price }}</td>
+                                                    <td>
+                                                        <span class="grandTotal">
+                                                            @php $grand_total = $total_price - Session::get('couponAmount')
+                                                            @endphp
+                                                        </span>
+                                                        Rp.{{ $grand_total }}</td>
                                                 </tr>
                                             </tbody>
                                         </table>

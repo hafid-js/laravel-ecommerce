@@ -385,7 +385,7 @@ $(document).ready(function () {
             url:'/apply-coupon',
             success:function(resp){
                 if(resp.status==false) {
-                    //
+                    // alert(resp.message);
                     $(".print-error-msg").show();
                     $(".print-error-msg").delay(3000).fadeOut("slow");
                     $(".print-error-msg").html(
@@ -393,6 +393,28 @@ $(document).ready(function () {
                             resp["message"] +
                             "</div>"
                     );
+                } else if(resp.status==true){
+                    // alert(resp.message);
+                    if(resp.couponAmount > 0){
+                        $(".couponAmount").text("Rp."+resp.couponAmount);
+                    } else {
+                        $(".couponAmount").text("Rp.0")
+                    }
+
+                    if(resp.grand_total > 0){
+                        $(".grandTotal").text("Rp."+resp.grandTotal);
+                    }
+                    $(".print-success-msg").show();
+                    $(".print-success-msg").delay(3000).fadeOut("slow");
+                    $(".print-success-msg").html(
+                        "<div class='success'>"+
+                            resp["message"] +
+                            "</div>"
+                    );
+
+                    $(".totalCartItems").html(resp.totalCartItems);
+                    $("#appendCartItems").html(resp.view);
+                    $("#appendMiniCartItems").html(resp.minicartview);
                 }
             }, error: function(){
                 alert("Error");
