@@ -96,6 +96,7 @@
       $("#brands").DataTable();
       $("#banners").DataTable();
       $("#coupons").DataTable();
+      $("#users").DataTable();
     });
 
   </script>

@@ -255,6 +255,40 @@ $(document).on("click", ".updateCouponStatus", function () {
     });
 });
 
+
+// update user status
+$(document).on("click", ".updateUserStatus", function () {
+    var status = $(this).children("i").attr("status");
+    var user_id = $(this).attr("user_id");
+    // alert(user_id);
+
+    $.ajax({
+        headers: {
+            "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+        },
+        type: "post",
+        url: "/admin/update-user-status",
+        data: {
+            status: status,
+            user_id: user_id,
+        },
+        success: function (resp) {
+            if (resp["status"] == 0) {
+                $("#user-" + user_id).html(
+                    "<i class='fas fa-toggle-off' style='color:grey' status='Inactive'></i>"
+                );
+            } else if (resp["status"] == 1) {
+                $("#user-" + user_id).html(
+                    "<i class='fas fa-toggle-on' status='Active'></i>"
+                );
+            }
+        },
+        error: function () {
+            alert("Error");
+        },
+    });
+});
+
     // $(document).on("click", ".confirmDelete", function () {
 
     //     var name = $(this).attr("name");
