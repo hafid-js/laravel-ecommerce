@@ -27,7 +27,7 @@ class DeliveryAddressTableSeeder extends Seeder
             ],
             [
                 'id' => 2,
-                'user_id' => 2,
+                'user_id' => 1,
                 'name' => 'Riris Rahayu',
                 'address' => 'Jl.Kutoarjo No 3',
                 'city' => 'Purworejo',
