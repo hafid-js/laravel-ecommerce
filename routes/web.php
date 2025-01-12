@@ -90,6 +90,9 @@ Route::namespace('App\Http\Controllers\Front')->group(function() {
 
         // reset password
         Route::match(['get','post'],'user/reset-password/{code?}','UserController@resetPassword');
+
+        // save delivery address
+        Route::post('save-delivery-address','AddressController@saveDeliveryAddress');
 });
 
 Route::prefix('/admin')->namespace('App\Http\Controllers\Admin')->group(function() {

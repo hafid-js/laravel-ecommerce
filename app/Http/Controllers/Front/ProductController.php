@@ -14,6 +14,7 @@ use App\Models\Cart;
 use App\Models\User;
 use App\Models\Coupon;
 use App\Models\DeliveryAddress;
+use App\Models\Country;
 use Session;
 use DB;
 use Auth;
@@ -476,6 +477,9 @@ class ProductController extends Controller
 
         // get user delivery addresses
         $deliveryAddresses = DeliveryAddress::deliveryAddresses();
-        return view('front.products.checkout')->with(compact('getCartItems','deliveryAddresses'));
+
+        // get all countries
+        $countries = Country::where('status',1)->get()->toArray();
+        return view('front.products.checkout')->with(compact('getCartItems','deliveryAddresses','countries'));
     }
 }

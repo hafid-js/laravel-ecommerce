@@ -35,82 +35,51 @@
             <div class="checkout-f">
                 <div class="row">
                     <div class="col-lg-6">
-                        @if(count($deliveryAddresses) > 0)
-                        <h1 class="checkout-f__h1">DELIVERY ADDRESSES</h1>
-                        <div class="o-summary__section u-s-m-b-30">
-                            <div class="o-summary__box">
-                                <div class="ship-b">
-
-                                    <span class="ship-b__text">Ship to:</span>
-                                    @foreach($deliveryAddresses as $address)
-                                    <div class="ship-b__box u-s-m-b-10">
-                                        <input type="radio" id="address{{ $address['id'] }}" name="address_id" value="{{ $address['id'] }}">
-                                        <p class="ship-b__p">
-                                            {{ $address['name'] }},
-                                            {{ $address['address'] }},
-                                            {{ $address['city'] }},
-                                            {{ $address['state'] }},
-                                            {{ $address['country'] }}
-                                        </p>
-
-                                        <a class="ship-b__edit btn--e-transparent-platinum-b-2" data-modal="modal" data-modal-id="#edit-ship-address">Edit</a>
-                                        <a class="ship-b__edit btn--e-transparent-platinum-b-2" data-modal="modal" data-modal-id="#edit-ship-address">Delete</a>
-                                    </div>
-                                    @endforeach
-
-                                </div>
-                            </div>
+                        <div id="deliveryAddresses">
+                            @include('front.products.delivery_addresses')
                         </div>
-                        @endif
                         <h1 class="checkout-f__h1">ADD NEW DELIVERY ADDRESS</h1>
-                        <form class="checkout-f__delivery">
+                        <form class="checkout-f__delivery" id="deliveryAddressForm" action="javascript:;" method="post">@csrf
+                            <input type="hidden" name="delivery_id">
                             <div class="u-s-m-b-30">
-                                <div class="u-s-m-b-15">
-
-                                    <!--====== Check Box ======-->
-                                    <!-- <div class="check-box">
-
-                                        <input type="checkbox" id="get-address">
-                                        <div class="check-box__state check-box__state--primary">
-
-                                            <label class="check-box__label" for="get-address">Use default shipping and billing address from account</label></div>
-                                    </div> -->
-                                    <!--====== End - Check Box ======-->
-                                </div>
 
                                 <!--====== NAME ======-->
                                 <div class="u-s-m-b-15">
 
-                                    <label class="gl-label" for="shipping-name">NAME *</label>
+                                    <label class="gl-label" for="delivery_name">NAME *</label>
 
-                                    <input class="input-text input-text--primary-style" type="text" id="shipping-name">
+                                    <input class="input-text input-text--primary-style" type="text" id="delivery_name" name="delivery_name">
+                                    <p id="delivery-delivery_name"></p>
                                 </div>
                                 <!--====== End - NAME ======-->
 
                                 <!--====== ADDRESS ======-->
                                 <div class="u-s-m-b-15">
 
-                                    <label class="gl-label" for="shipping-address">ADDRESS *</label>
+                                    <label class="gl-label" for="delivery_address">ADDRESS *</label>
 
-                                    <input class="input-text input-text--primary-style" type="text" id="shipping-address">
+                                    <input class="input-text input-text--primary-style" type="text" name="delivery_address" id="delivery_address">
+                                    <p id="delivery-delivery_address"></p>
                                 </div>
                                 <!--====== End - ADDRESS ======-->
 
                                 <!--====== CITY ======-->
                                 <div class="u-s-m-b-15">
 
-                                    <label class="gl-label" for="shipping-city">CITY *</label>
+                                    <label class="gl-label" for="delivery_city">CITY *</label>
 
-                                    <input class="input-text input-text--primary-style" type="text" id="shipping-city">
+                                    <input class="input-text input-text--primary-style" type="text" name="delivery_city" id="delivery_city">
+                                    <p id="delivery-delivery_name"></p>
                                 </div>
                                 <!--====== End - CITY ======-->
 
                                 <!--====== STATE ======-->
                                 <div class="u-s-m-b-15">
 
-                                    <label class="gl-label" for="shipping-state">STATE *</label>
+                                    <label class="gl-label" for="delivery_state">STATE *</label>
 
-                                    <input class="input-text input-text--primary-style" type="text" id="shipping-state">
+                                    <input class="input-text input-text--primary-style" type="text" name="delivery_state" id="delivery_state">
+                                    <p id="delivery-delivery_state"></p>
                                 </div>
                                 <!--====== End - STATE ======-->
 
@@ -119,13 +88,15 @@
 
                                     <!--====== Select Box ======-->
 
-                                    <label class="gl-label" for="billing-country">COUNTRY *</label><select class="select-box select-box--primary-style" id="billing-country">
+                                    <label class="gl-label" for="delivery_country">COUNTRY *</label><select class="select-box select-box--primary-style" id="delivery_country" name="delivery_country">
                                         <option selected value="">Choose Country</option>
-                                        <option value="India">India</option>
-                                        <option value="United Arab Emirate">United Arab Emirate</option>
-                                        <option value="United Kingdom">United Kingdom</option>
-                                        <option value="United States">United States</option>
+                                        @foreach($countries as $country)
+                                        <option value="{{ $country['country_name'] }}" @if($country['country_name'] == Auth::user()->country) selected @endif>
+                                            {{ $country['country_name'] }}
+                                        </option>
+                                        @endforeach
                                     </select>
+                                    <p id="delivery-delivery_country"></p>
                                     <!--====== End - Select Box ======-->
                                 </div>
                                 <!--====== End - Country ======-->
@@ -134,9 +105,10 @@
                                 <!--====== PINCODE ======-->
                                 <div class="u-s-m-b-15">
 
-                                    <label class="gl-label" for="shipping-pincode">PINCODE *</label>
+                                    <label class="gl-label" for="delivery_pincode">PINCODE *</label>
 
-                                    <input class="input-text input-text--primary-style" type="text" id="shipping-pincode">
+                                    <input class="input-text input-text--primary-style" type="text" name="delivery_pincode" id="delivery_pincode">
+                                    <p id="delivery-delivery_pincode"></p>
                                 </div>
                                 <!--====== End - PINCODE ======-->
 
@@ -144,9 +116,10 @@
                                 <!--====== MOBILE ======-->
                                 <div class="u-s-m-b-15">
 
-                                    <label class="gl-label" for="shipping-mobile">MOBILE *</label>
+                                    <label class="gl-label" for="delivery_mobile">MOBILE *</label>
 
-                                    <input class="input-text input-text--primary-style" type="text" id="shipping-mobile">
+                                    <input class="input-text input-text--primary-style" type="text" name="delivery_mobile" id="delivery_mobile">
+                                    <p id="delivery-delivery_mobile"></p>
                                 </div>
                                 <!--====== End - MOBILE ======-->
 
@@ -166,7 +139,7 @@
 
                                 <div>
 
-                                    <button class="btn btn--e-transparent-brand-b-2" type="submit">SAVE</button>
+                                    <button id="deliveryForm" class="btn btn--e-transparent-brand-b-2" type="submit">SAVE</button>
                                 </div>
                             </div>
                         </form>

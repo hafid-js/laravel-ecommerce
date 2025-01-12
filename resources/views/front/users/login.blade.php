@@ -58,7 +58,7 @@
                                 <span class="gl-text u-s-m-b-30">If you don't have an account with us, please create one.</span>
                                 <div class="u-s-m-b-15">
 
-                                    <a class="l-f-o__create-link btn--e-transparent-brand-b-2" href="signup.html">CREATE AN ACCOUNT</a></div>
+                                    <a class="l-f-o__create-link btn--e-transparent-brand-b-2" href="{{ url('user/register') }}">CREATE AN ACCOUNT</a></div>
 
                                 <h1 class="gl-h1">SIGNIN</h1>
                                 @if(Session::has('success_message'))

@@ -468,5 +468,38 @@ $(document).ready(function () {
        });
 
 
+       // save delivery address
+       $(document).on('click','#deliveryForm', function(){
+        $(".loader").show();
+        var formData = $("#deliveryAddressForm").serialize();
+        $.ajax({
+            url: '/save-delivery-address',
+            type: 'post',
+            data: formData,
+            success: function(resp) {
+                // alert(resp);
+                if(resp.type=="error") {
+                    $(".loader").hide();
+                    $.each(resp.errors, function(i,error){
+                        $("#delivery-"+i).attr('style','color:red');
+                        $('#delivery-'+i).html(error);
+                        setTimeout(function(){
+                            $('#delivery-'+i).css({
+                                'display':'none'
+                            });
+                        },3000);
+                    });
+                } else {
+                    $(".loader").hide();
+                    $("#deliveryAddressForm").trigger('reset');
+                    $("#deliveryAddresses").html(resp.view)
+                }
+            }, error: function(){
+                $(".loader").hide();
+                alert("Error");
+            }
+        })
+       })
+
 
 });

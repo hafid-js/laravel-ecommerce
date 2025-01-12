@@ -5,7 +5,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Mail;
 use App\Models\User;
 use App\Models\Country;
+use App\Models\Cart;
 use Validator;
+use Session;
 use Auth;
 use Hash;
 
@@ -49,6 +51,14 @@ class UserController extends Controller
                     ]);
                 }
 
+                // update user cart with user id
+                if(!empty(Session::get('session_id'))){
+                    $user_id = Auth::user()->id;
+                    $session_id = Session::get('session_id');
+                    Cart::where('session_id',$session_id)->update([
+                        'user_id' => $user_id
+                    ]);
+                }
 
             $redirectUrl = url('cart');
             return response()->json([
