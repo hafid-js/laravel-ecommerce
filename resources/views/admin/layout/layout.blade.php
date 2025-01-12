@@ -91,12 +91,24 @@
     $(function () {
       $("#cmspages").DataTable();
       $("#subadmins").DataTable();
-      $("#categories").DataTable();
-      $("#products").DataTable();
-      $("#brands").DataTable();
-      $("#banners").DataTable();
-      $("#coupons").DataTable();
-      $("#users").DataTable();
+      $("#categories").DataTable({
+        "order": [[0, "desc"]], // or asc
+      });
+      $("#products").DataTable({
+        "order": [[0, "desc"]], // or asc
+      });
+      $("#brands").DataTable({
+        "order": [[0, "desc"]], // or asc
+      });
+      $("#banners").DataTable({
+        "order": [[0, "desc"]], // or asc
+      });
+      $("#coupons").DataTable({
+        "order": [[0, "desc"]], // or asc
+      });
+      $("#users").DataTable({
+        "order": [[0, "desc"]], // or asc
+      });
     });
 
   </script>
