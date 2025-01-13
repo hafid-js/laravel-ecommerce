@@ -93,6 +93,12 @@ Route::namespace('App\Http\Controllers\Front')->group(function() {
 
         // save delivery address
         Route::post('save-delivery-address','AddressController@saveDeliveryAddress');
+
+        // get delivert address
+        Route::post('get-delivery-address','AddressController@getDeliveryAddress');
+
+        // remove delivery address
+        Route::post('remove-delivery-address','AddressController@removeDeliveryAddress');
 });
 
 Route::prefix('/admin')->namespace('App\Http\Controllers\Admin')->group(function() {

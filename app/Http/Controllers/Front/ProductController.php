@@ -471,9 +471,38 @@ class ProductController extends Controller
         }
     }
 
-    public function checkout(){
+    public function checkout(Request $request){
+
         // Get updated cart items
         $getCartItems = getCartItems();
+        if(count($getCartItems) == 0) {
+            $message = "Shopping Cart is empty! Please add produts to Checkout!";
+            return redirect('cart')->with('error_message',$message);
+        }
+
+
+
+        if($request->isMethod('post')){
+            $data = $request->all();
+
+        // check for delivery address
+        $deliveryAddressCount = DeliveryAddress::where('user_id',Auth::user()->id)->count();
+
+        if($deliveryAddressCount==0) {
+            return redirect()->back()->with('error_message','Please add your Delivery Address');
+        }
+
+        // check for payment method
+        if(empty($data['payment_gateway'])) {
+            return redirect()->back()->with('error_message','Please select Payment Method');
+        }
+
+        if(!isset($data['agree'])) {
+            return redirect()->back()->with('error_message','Please agree to T&C!');
+        }
+
+        echo "Proceed to Place Order";
+        }
 
         // get user delivery addresses
         $deliveryAddresses = DeliveryAddress::deliveryAddresses();

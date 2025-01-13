@@ -33,12 +33,20 @@
     <div class="section__content">
         <div class="container">
             <div class="checkout-f">
+                @if(Session::has('error_message'))
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>Error</strong> {{ Session::get('error_message') }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close" style="border: 0px; float:right;">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  @endif
                 <div class="row">
                     <div class="col-lg-6">
                         <div id="deliveryAddresses">
                             @include('front.products.delivery_addresses')
                         </div>
-                        <h1 class="checkout-f__h1">ADD NEW DELIVERY ADDRESS</h1>
+                        <h1 class="checkout-f__h1 deliveryText">ADD NEW DELIVERY ADDRESS</h1>
                         <form class="checkout-f__delivery" id="deliveryAddressForm" action="javascript:;" method="post">@csrf
                             <input type="hidden" name="delivery_id">
                             <div class="u-s-m-b-30">
