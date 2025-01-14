@@ -128,6 +128,7 @@ $(document).ready(function () {
   // delete cart item
   $(document).on("click", ".deleteCartItem", function () {
     var cartid = $(this).data("cartid");
+    var page = $(this).data('page');
     var result = confirm("Are you sure want to delete this cart item?");
     if (result) {
       $.ajax({
@@ -143,6 +144,9 @@ $(document).ready(function () {
           $(".totalCartItems").html(resp.totalCartItems);
           $("#appendCartItems").html(resp.view);
           $("#appendMiniCartItems").html(resp.minicartview);
+          if(page=="Checkout"){
+            window.location.href="/checkout";
+          }
         },
         error: function () {
           alert("Error");

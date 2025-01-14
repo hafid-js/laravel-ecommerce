@@ -15,6 +15,8 @@ use App\Models\User;
 use App\Models\Coupon;
 use App\Models\DeliveryAddress;
 use App\Models\Country;
+use App\Models\Order;
+use App\Models\OrderProduct;
 use Session;
 use DB;
 use Auth;
@@ -491,7 +493,6 @@ class ProductController extends Controller
         if($deliveryAddressCount==0) {
             return redirect()->back()->with('error_message','Please add your Delivery Address');
         }
-
         // check for payment method
         if(empty($data['payment_gateway'])) {
             return redirect()->back()->with('error_message','Please select Payment Method');
@@ -501,8 +502,92 @@ class ProductController extends Controller
             return redirect()->back()->with('error_message','Please agree to T&C!');
         }
 
-        echo "Proceed to Place Order";
+        $deliveryAddressDefaultCount = DeliveryAddress::where('user_id',Auth::user()->id)->where('is_default',1)->count();
+        if($deliveryAddressDefaultCount==0) {
+            return redirect()->back()->with('error_message','Please select your Delivery Address');
+        } else {
+            $deliveryAddress = DeliveryAddress::where('user_id',Auth::user()->id)->where('is_default',1)->first()->toArray();
         }
+
+        // Set payment method as COD and Order Status as New if COD is seleted from user otherwise set Payment Method as Prepaid and order status as pending
+
+        if($data['payment_gateway']=="COD"){
+            $payment_method = "COD";
+            $order_status = "New";
+        } else {
+            $payment_method = "Prepaid";
+            $order_status = "Pending";
+        }
+        DB::beginTransaction();
+
+        // fetch order total price
+        $total_price = 0;
+        foreach($getCartItems as $item) {
+            $getAttributePrice = Product::getAttributePrice($item['product_id'],$item['product_size']);
+            $total_price = $total_price + ($getAttributePrice['final_price'] * $item['product_qty']);
+        }
+
+        // get shipping charges
+        $shipping_charges = 0;
+
+        // calculate grand total
+        $grand_total = $total_price + $shipping_charges - Session::get('couponAmount');
+
+        // insert grand total in session variable
+        Session::put('grand_total',$grand_total);
+
+        // insert order details
+        $order = new Order;
+        $order->user_id = Auth::user()->id;
+        $order->name = $deliveryAddresses['name'];
+        $order->address = $deliveryAddresses['address'];
+        $order->city = $deliveryAddress['city'];
+        $order->state = $deliveryAddress['state'];
+        $order->country = $deliveryAddress['country'];
+        $order->pincode = $deliveryAddress['pincode'];
+        $order->mobile = $deliveryAddress['mobile'];
+        $order->shipping_charges = $shipping_charges;
+        $order->coupon_code = Session::get('couponCode');
+        $order->coupon_amount = Session::get('couponAmount');
+        $order->order_status = $order_status;
+        $order->payment_method = $payment_method;
+        $order->grand_gateway = $data['payment_gateway'];
+        $order->grand_total = $grand_total;
+        $order->save();
+        $oder_id = DB::getPdo()->lastInsertId();
+
+        foreach($getCartItems as $key => $item) {
+            $getProductDetails = Product::getProductDetails($item['product_id']);
+            $getAttributeDetails = Product::getAttributeDetails(
+                $item['product_id'],
+                $item['product_size']);
+            $getAttributePrice = Product::getAttributeDetails(
+                $item['product_id'],
+                $item['product_price']);
+
+            $cartItem = new OrdersProduct;
+            $cartItem->order_id = $order_id;
+            $cartItem->user_id = Auth::user()->id;
+            $cartItem->product_id = $item['product_id'];
+            $cartItem->product_code = $getProductDetails['product_code'];
+            $cartItem->product_name = $getProductDetails['product_name'];
+            $cartItem->product_color = $getProductDetails['product_color'];
+            $cartItem->product_size = $item['product_size'];
+            $cartItem->product_sku = $getAttributeDetails['product_sku'];
+            $cartItem->product_price = $getAttributePrice['final_price'];
+            $cartItem->product_qty = $item['product_qty'];
+            $cartItem->save();
+        }
+
+        // insert order id in session variable
+        Session::Put('order_id',$order_id);
+
+        DB::commit();
+
+        echo "Order done"; die();
+
+
+    }
 
         // get user delivery addresses
         $deliveryAddresses = DeliveryAddress::deliveryAddresses();

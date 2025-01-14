@@ -1,6 +1,9 @@
 
 @extends('front.layout.layout')
 @section('content')
+<?php
+use App\Models\Product;
+?>
 <!--====== App Content ======-->
 <div class="app-content">
 
@@ -159,60 +162,46 @@
                         <div class="o-summary">
                             <div class="o-summary__section u-s-m-b-30">
                                 <div class="o-summary__item-wrap gl-scroll">
+                                    @php $total_price = 0 @endphp
+                                    @foreach($getCartItems as $key => $item)
+                                    @php
+                                    $getAttributePrice = Product::getAttributePrice($item['product_id'],$item['product_size'])
+                                    @endphp
                                     <div class="o-card">
                                         <div class="o-card__flex">
                                             <div class="o-card__img-wrap">
 
-                                                <img class="u-img-fluid" src="images/product/sitemakers-tshirt.png" alt=""></div>
+                                                @if (isset($item['product']['images'][0]['image']) && !empty($item['product']['images'][0]['image']))
+                                                        <a href="{{ url('product/' . $item['product']['id']) }}">
+                                                            <img class="u-img-fluid"
+                                                                src="{{ url('front/images/products/small/' . $item['product']['images'][0]['image']) }}"
+                                                                alt="">
+                                                        </a>
+                                                    @else
+                                                        <img class="u-img-fluid"
+                                                            src="{{ asset('front/images/product/sitemakers-tshirt.png') }}"
+                                                            alt="">
+                                                    @endif</div>
                                             <div class="o-card__info-wrap">
 
                                                 <span class="o-card__name">
 
-                                                    <a href="product-detail.html">Product Name</a></span>
+                                                    <a href="{{ url('product/'.$item['product']['id']) }}">{{ $item['product']['product_name'] }}</a></span>
+                                                    <span class="o-card__quantity">Size: {{ $item['product_size'] }}</span>
 
-                                                <span class="o-card__quantity">Quantity x 1</span>
+                                                <span class="o-card__quantity">Quantity x {{ $item['product_qty'] }}</span>
 
-                                                <span class="o-card__price">₹900</span></div>
+                                                <span class="o-card__price">Rp.{{ $item['product']['final_price'] }}</span></div>
                                         </div>
 
-                                        <a class="o-card__del far fa-trash-alt"></a>
+                                        <a class="o-card__del far fa-trash-alt deleteCartItem" data-cartid="{{ $item['id'] }}" data-page="Checkout"></a>
                                     </div>
-                                    <div class="o-card">
-                                        <div class="o-card__flex">
-                                            <div class="o-card__img-wrap">
+                                    @php
+                                    $total_price = $total_price + ($getAttributePrice['final_price'] * $item['product_qty'])
+                                    @endphp
 
-                                                <img class="u-img-fluid" src="images/product/sitemakers-tshirt.png" alt=""></div>
-                                            <div class="o-card__info-wrap">
+                                    @endforeach
 
-                                                <span class="o-card__name">
-
-                                                    <a href="product-detail.html">Product Name</a></span>
-
-                                                <span class="o-card__quantity">Quantity x 1</span>
-
-                                                <span class="o-card__price">₹900</span></div>
-                                        </div>
-
-                                        <a class="o-card__del far fa-trash-alt"></a>
-                                    </div>
-                                    <div class="o-card">
-                                        <div class="o-card__flex">
-                                            <div class="o-card__img-wrap">
-
-                                                <img class="u-img-fluid" src="images/product/sitemakers-tshirt.png" alt=""></div>
-                                            <div class="o-card__info-wrap">
-
-                                                <span class="o-card__name">
-
-                                                    <a href="product-detail.html">Product Name</a></span>
-
-                                                <span class="o-card__quantity">Quantity x 1</span>
-
-                                                <span class="o-card__price">₹900</span></div>
-                                        </div>
-
-                                        <a class="o-card__del far fa-trash-alt"></a>
-                                    </div>
                                 </div>
                             </div>
                             <div class="o-summary__section u-s-m-b-30">

@@ -14,5 +14,5 @@ class ProductsAttribute extends Model
             'product_id' => $product_id,
             'size' => $size])->first();
             return $productStock->stock;
-    }
+        }
 }
