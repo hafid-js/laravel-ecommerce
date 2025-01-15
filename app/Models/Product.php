@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\ProductsAttribute;
 
 class Product extends Model
 {
@@ -38,7 +39,7 @@ class Product extends Model
         $attributePrice = ProductsAttribute::where(
             [
                 'product_id' => $product_id,
-                'size' => $size
+                'size' => $size,
                 ])->first()->toArray();
         // for getting product discount
         $productDetails = Product::select(['product_discount','category_id','brand_id'])->where('id',$product_id)->first()->toArray();
@@ -77,14 +78,14 @@ class Product extends Model
         return $productStatus->status;
     }
 
-    public function getProductDetails($product_id) {
+    public static function getProductDetails($product_id) {
         $getProductDetails = Product::where('id',$product_id)->first()->toArray();
         return $getProductDetails;
     }
 
 
-    public function getAttributeDetails($product_id, $size) {
-        $getAttributeDetails = ProductAttribute::where([
+    public static function getAttributeDetails($product_id, $size) {
+        $getAttributeDetails = ProductsAttribute::where([
             'product_id' => $product_id,
             'size' => $size
             ])->first()->toArray();

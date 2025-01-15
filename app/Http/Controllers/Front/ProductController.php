@@ -16,7 +16,7 @@ use App\Models\Coupon;
 use App\Models\DeliveryAddress;
 use App\Models\Country;
 use App\Models\Order;
-use App\Models\OrderProduct;
+use App\Models\OrdersProduct;
 use Session;
 use DB;
 use Auth;
@@ -539,8 +539,8 @@ class ProductController extends Controller
         // insert order details
         $order = new Order;
         $order->user_id = Auth::user()->id;
-        $order->name = $deliveryAddresses['name'];
-        $order->address = $deliveryAddresses['address'];
+        $order->name = $deliveryAddress['name'];
+        $order->address = $deliveryAddress['address'];
         $order->city = $deliveryAddress['city'];
         $order->state = $deliveryAddress['state'];
         $order->country = $deliveryAddress['country'];
@@ -551,19 +551,19 @@ class ProductController extends Controller
         $order->coupon_amount = Session::get('couponAmount');
         $order->order_status = $order_status;
         $order->payment_method = $payment_method;
-        $order->grand_gateway = $data['payment_gateway'];
+        $order->payment_gateway = $data['payment_gateway'];
         $order->grand_total = $grand_total;
         $order->save();
-        $oder_id = DB::getPdo()->lastInsertId();
+        $order_id = DB::getPdo()->lastInsertId();
 
         foreach($getCartItems as $key => $item) {
             $getProductDetails = Product::getProductDetails($item['product_id']);
             $getAttributeDetails = Product::getAttributeDetails(
                 $item['product_id'],
                 $item['product_size']);
-            $getAttributePrice = Product::getAttributeDetails(
+            $getAttributePrice = Product::getAttributePrice(
                 $item['product_id'],
-                $item['product_price']);
+                $item['product_size']);
 
             $cartItem = new OrdersProduct;
             $cartItem->order_id = $order_id;
@@ -573,7 +573,7 @@ class ProductController extends Controller
             $cartItem->product_name = $getProductDetails['product_name'];
             $cartItem->product_color = $getProductDetails['product_color'];
             $cartItem->product_size = $item['product_size'];
-            $cartItem->product_sku = $getAttributeDetails['product_sku'];
+            $cartItem->product_sku = $getAttributeDetails['sku'];
             $cartItem->product_price = $getAttributePrice['final_price'];
             $cartItem->product_qty = $item['product_qty'];
             $cartItem->save();

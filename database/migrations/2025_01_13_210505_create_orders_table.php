@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('email');
             $table->float('shipping_charges');
             $table->string('coupon_code');
-            $table->float('coupoon_amont');
+            $table->float('coupon_amount');
             $table->string('order_status');
             $table->string('payment_method');
             $table->string('payment_gateway');

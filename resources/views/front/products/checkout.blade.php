@@ -211,9 +211,26 @@ use App\Models\Product;
 
                                         <span class="ship-b__text">Bill to:</span>
                                         <div class="ship-b__box u-s-m-b-10">
-                                            <p class="ship-b__p">Amit Gupta, 5678 CP New Delhi, Delhi, India (+91) 9700000000</p>
+                                            <p class="ship-b__p">
+                                                {{ Auth::user()->name }},
+                                                @if(!empty(Auth::user()->address))
+                                                {{ Auth::user()->addres }},
+                                                @endif
+                                                @if(!empty(Auth::user()->city))
+                                                {{  Auth::user()->city }},
+                                                @endif
+                                                @if(!empty(Auth::user()->state))
+                                                {{ Auth::user()->state }},
+                                                @endif
+                                                @if(!empty(Auth::user()->country))
+                                                {{ Auth::user()->country }},
+                                                @endif
+                                                @if(!empty(Auth::user()->mobile))
+                                                M: {{ Auth::user()->mobile }}
+                                                @endif
+                                            </p>
 
-                                            <a class="ship-b__edit btn--e-transparent-platinum-b-2" data-modal="modal" data-modal-id="#edit-ship-address">Edit</a>
+                                            <a class="ship-b__edit btn--e-transparent-platinum-b-2" data-modal="modal" data-modal-id="#edit-ship-address" href="{{ url('user/account') }}">Edit</a>
                                         </div>
                                     </div>
                                 </div>
@@ -224,7 +241,7 @@ use App\Models\Product;
                                         <tbody>
                                             <tr>
                                                 <td>SUBTOTAL</td>
-                                                <td>₹2700</td>
+                                                <td>Rp.{{ $total_price }}</td>
                                             </tr>
                                             <tr>
                                                 <td>SHIPPING (+)</td>
@@ -236,11 +253,17 @@ use App\Models\Product;
                                             </tr>
                                             <tr>
                                                 <td>DISCOUNT (-)</td>
-                                                <td>₹0.00</td>
+                                                <td>
+                                                    @if(Session::has('couponAmount'))
+                                                    Rp.{{ Session::get('couponAmount') }}
+                                                    @else
+                                                    Rp.0
+                                                    @endif
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <td>GRAND TOTAL</td>
-                                                <td>₹2700</td>
+                                                <td>Rp.{{ $total_price - Session::get('couponAmount') }}</td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -249,13 +272,13 @@ use App\Models\Product;
                             <div class="o-summary__section u-s-m-b-30">
                                 <div class="o-summary__box">
                                     <h1 class="checkout-f__h1">PAYMENT METHODS</h1>
-                                    <form class="checkout-f__payment">
+                                    <form class="checkout-f__payment" name="checkoutForm" action="{{ url('checkout') }}" method="post">@csrf
                                         <div class="u-s-m-b-10">
 
                                             <!--====== Radio Box ======-->
                                             <div class="radio-box">
 
-                                                <input type="radio" id="cash-on-delivery" name="payment">
+                                                <input type="radio" id="cash-on-delivery" name="payment_gateway" value="COD">
                                                 <div class="radio-box__state radio-box__state--primary">
 
                                                     <label class="radio-box__label" for="cash-on-delivery">Cash on Delivery</label></div>
@@ -269,7 +292,7 @@ use App\Models\Product;
                                             <!--====== Radio Box ======-->
                                             <div class="radio-box">
 
-                                                <input type="radio" id="direct-bank-transfer" name="payment">
+                                                <input type="radio" id="direct-bank-transfer" name="payment_gateway" value="Bank Transfer">
                                                 <div class="radio-box__state radio-box__state--primary">
 
                                                     <label class="radio-box__label" for="direct-bank-transfer">Direct Bank Transfer</label></div>
@@ -283,7 +306,7 @@ use App\Models\Product;
                                             <!--====== Radio Box ======-->
                                             <div class="radio-box">
 
-                                                <input type="radio" id="pay-with-check" name="payment">
+                                                <input type="radio" id="pay-with-check" name="payment_gateway" value="Check">
                                                 <div class="radio-box__state radio-box__state--primary">
 
                                                     <label class="radio-box__label" for="pay-with-check">Pay With Check</label></div>
@@ -298,7 +321,7 @@ use App\Models\Product;
                                             <!--====== Radio Box ======-->
                                             <div class="radio-box">
 
-                                                <input type="radio" id="pay-pal" name="payment">
+                                                <input type="radio" id="pay-pal" name="payment_gateway" value="Paypal">
                                                 <div class="radio-box__state radio-box__state--primary">
 
                                                     <label class="radio-box__label" for="pay-pal">PayPal (Pay With Credit / Debit Card / Paypal Credit)</label></div>
@@ -312,7 +335,7 @@ use App\Models\Product;
                                             <!--====== Check Box ======-->
                                             <div class="check-box">
 
-                                                <input type="checkbox" id="term-and-condition">
+                                                <input type="checkbox" id="term-and-condition" name="agree" value="Yes">
                                                 <div class="check-box__state check-box__state--primary">
 
                                                     <label class="check-box__label" for="term-and-condition">I consent to the</label></div>
