@@ -584,7 +584,7 @@ class ProductController extends Controller
 
         DB::commit();
 
-        echo "Order done"; die();
+        return redirect('thanks');
 
 
     }
@@ -595,5 +595,15 @@ class ProductController extends Controller
         // get all countries
         $countries = Country::where('status',1)->get()->toArray();
         return view('front.products.checkout')->with(compact('getCartItems','deliveryAddresses','countries'));
+    }
+
+    public function thanks() {
+        if(Session::has('order_id')){
+            // empty the user cart
+            Cart::where('user_id',Auth::user()->id)->delete();
+            return view('front.orders.thanks');
+        } else {
+            return redirect('/cart');
+        }
     }
 }

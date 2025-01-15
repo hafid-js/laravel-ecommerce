@@ -99,6 +99,12 @@ Route::namespace('App\Http\Controllers\Front')->group(function() {
 
         // remove delivery address
         Route::post('remove-delivery-address','AddressController@removeDeliveryAddress');
+
+        // order thanks page
+        Route::get('/thanks','ProductController@thanks');
+
+        // my orders
+        Route::get('/user/orders','OrderController@orders');
 });
 
 Route::prefix('/admin')->namespace('App\Http\Controllers\Admin')->group(function() {
