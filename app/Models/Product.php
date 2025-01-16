@@ -91,4 +91,14 @@ class Product extends Model
             ])->first()->toArray();
             return $getAttributeDetails;
     }
+
+    public static function getProductImage($product_id) {
+        $image = "";
+        $productImageCount = ProductsImage::where('product_id',$product_id)->count();
+        if($productImageCount > 0) {
+            $getProductImage = ProductImage::select('image')->where('product_id',$product_id)->orderby('image_sort','DESC')->first();
+            $image = $getProductImage->image;
+        }
+        return $image;
+    }
 }
