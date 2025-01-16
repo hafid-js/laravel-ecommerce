@@ -105,6 +105,9 @@ Route::namespace('App\Http\Controllers\Front')->group(function() {
 
         // my orders
         Route::get('/user/orders','OrderController@orders');
+
+        // order details
+        Route::get('/user/orders/{id}','OrderController@orderDetails');
 });
 
 Route::prefix('/admin')->namespace('App\Http\Controllers\Admin')->group(function() {

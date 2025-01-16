@@ -73,7 +73,7 @@
                                                     <div>
                                                         <div class="dash__link dash__link--brand">
 
-                                                            <a href="order-details.html">VIEW</a></div>
+                                                            <a href="{{ url('/user/orders/'.$order->id) }}">VIEW</a></div>
                                                     </div>
                                                 </div>
                                             </div>
