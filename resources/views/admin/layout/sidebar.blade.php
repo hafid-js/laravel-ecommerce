@@ -190,7 +190,7 @@
                     </ul>
                 </li>
 
-                @if (Session::get('page') == 'orders') @endphp
+                @if (Session::get('page') == 'orders')
             @else
                 @php $active = "" @endphp
             @endif

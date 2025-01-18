@@ -70,32 +70,8 @@
                                                 <td>{{ $order['grand_total'] }}</td>
                                                 <td>{{ $order['order_status'] }}</td>
                                                 <td>{{ $order['payment_method'] }}</td>
-
                                                 <td>
-                                                    {{-- @if ($ordersModule['edit_access'] == 1 || $ordersModule['full_access'] == 1)
-                                                        @if ($order['status'] == 1)
-                                                            <a class="updateOrderStatus" id="order-{{ $order['id'] }}"
-                                                                order_id={{ $order['id'] }} href="javascript:void(0)"><i
-                                                                    class="fas fa-toggle-on" status="Active"></i></a>
-                                                        @else
-                                                            <a class="updateOrderStatus" id="order-{{ $order['id'] }}"
-                                                                order_id={{ $order['id'] }} style="color: grey"
-                                                                href="javascript:void(0)"><i class="fas fa-toggle-off"
-                                                                    status="Inactive"></i></a>
-                                                        @endif
-                                                    @endif
-                                                    @if ($ordersModule['edit_access'] == 1 || $ordersModule['full_access'] == 1)
-                                                        &nbsp; &nbsp;
-                                                        <a href="{{ url('admin/add-edit-order/' . $order['id']) }}"><i
-                                                                class="fas fa-edit"></i></a>
-                                                        &nbsp; &nbsp;
-                                                        @if ($ordersModule['full_access'] == 1)
-                                                            <a class="confirmDelete" title="Delete Order"
-                                                                href="javascript:void(0)" record="order"
-                                                                recordid="{{ $order['id'] }}"><i
-                                                                    class="fas fa-trash"></i></a>
-                                                        @endif
-                                                    @endif --}}
+                                                    <a href="{{ url('admin/orders/'.$order['id']) }}" style="color: #3f6ed3"><i class="fas fa-file"></i></a>
                                                 </td>
                                             </tr>
                                         @endforeach
