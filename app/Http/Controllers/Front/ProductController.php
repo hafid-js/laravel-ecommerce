@@ -17,6 +17,7 @@ use App\Models\DeliveryAddress;
 use App\Models\Country;
 use App\Models\Order;
 use App\Models\OrdersProduct;
+use Illuminate\Support\Facades\Mail;
 use Session;
 use DB;
 use Auth;
@@ -584,7 +585,26 @@ class ProductController extends Controller
 
         DB::commit();
 
-        return redirect('thanks');
+        if($data['payment_gateway'] == 'COD') {
+            // send order email
+
+            $orderDetails = Order::with('orders_products','user')->where('id',$order_id)->first()->toArray();
+
+            // semd order email
+            $email = Auth::user()->email;
+            $messageData = [
+                'email' => $email,
+                'name' => Auth::user()->name,
+                'order_id' => $order_id,
+                'orderDetails' => $orderDetails
+            ];
+            Mail::send('emails.order',$messageData, function($message) use($email){
+                $message->to($email)->subject('Order Placed - SiteMakers');
+            });
+            return redirect('/thanks');
+        } else {
+            echo "Prepaid methods coming soon"; die();
+        }
 
 
     }

@@ -212,7 +212,7 @@ use App\Models\Product;
                                         <span class="ship-b__text">Bill to:</span>
                                         <div class="ship-b__box u-s-m-b-10">
                                             <p class="ship-b__p">
-                                                {{ Auth::user()->name }},
+                                                {{ Auth::user()->name }}
                                                 @if(!empty(Auth::user()->address))
                                                 {{ Auth::user()->addres }},
                                                 @endif
