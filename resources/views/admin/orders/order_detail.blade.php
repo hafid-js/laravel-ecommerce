@@ -23,6 +23,14 @@
         <!-- Main content -->
         <!-- Main content -->
     <section class="content">
+        @if (Session::has('success_message'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>Success:</strong> {{ Session::get('success_message') }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    @endif
       <div class="container-fluid">
         <div class="row">
           <div class="col-md-6">
@@ -196,8 +204,21 @@
                   <div class="card-body">
                     <table class="table table-bordered">
                       <tbody>
-                         <td>Select Status</td>
-                         <td><button>Update</button></td>
+                        <tr>
+                            <td colspan="2">
+                                <form action="{{ url('admin/update-order-status') }}" method="POST">@csrf
+                                    <input type="hidden" name="order_id" value="{{ $orderDetails['id'] }}">
+                                    <select name="order_status">
+                                        <option value="">Select</option>
+                                        @foreach($orderStatuses as $status)
+                                        <option value="{{ $status['name'] }}">{{ $status['name'] }}</option>
+                                        @endforeach
+                                    </select>
+                                    <button type="submit">Update</button>
+                                </form>
+                            </td>
+                        </tr>
+
 
                       </tbody>
                     </table>

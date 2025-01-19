@@ -108,6 +108,7 @@ Route::namespace('App\Http\Controllers\Front')->group(function() {
 
         // order details
         Route::get('/user/orders/{id}','OrderController@orderDetails');
+
 });
 
 Route::prefix('/admin')->namespace('App\Http\Controllers\Admin')->group(function() {
@@ -182,6 +183,9 @@ Route::prefix('/admin')->namespace('App\Http\Controllers\Admin')->group(function
         // Orders
         Route::get('orders','OrderController@orders');
         Route::get('orders/{id}','OrderController@orderDetails');
+
+        // update order status
+        Route::post('update-order-status','OrderController@updateOrderStatus');
     });
 
 });

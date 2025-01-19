@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Order;
+use App\Models\OrderStatus;
 use Session;
 
 class OrderController extends Controller
@@ -17,7 +18,22 @@ class OrderController extends Controller
 
     public function orderDetails($id){
         $orderDetails = Order::with('orders_products','user')->where('id',$id)->first()->toArray();
+        $orderStatuses = OrderStatus::where('status',1)->get()->toArray();
+        // dd($orderStatuses);
+        return view('admin.orders.order_detail')->with(compact('orderDetails','orderStatuses'));
+    }
 
-        return view('admin.orders.order_detail')->with(compact('orderDetails'));
+    public function updateOrderStatus(Request $request) {
+        if($request->isMethod('post')){
+            $data = $request->all();
+
+            Order::where(
+                'id',$data['order_id']
+                )->update([
+                'order_status' => $data['order_status']
+            ]);
+            $message = "Order Status has been updated successfully!";
+            return redirect()->back()->with('success_message',$message);
+        }
     }
 }
