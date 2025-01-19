@@ -391,4 +391,17 @@ $(document).on("click", ".updateUserStatus", function () {
         $("#couponField").hide();
     });
 
+    // show courier name and tracking number in case of shipped order status
+    $("#courier_name").hide();
+    $("#tracking_number").hide();
+    $("#order_status").on("change", function() {
+        if(this.value=="Shipped"){
+            $("#courier_name").show();
+            $("#tracking_number").show();
+        } else {
+            $("#courier_name").hide();
+            $("#tracking_number").hide();
+        }
+    });
+
 });
