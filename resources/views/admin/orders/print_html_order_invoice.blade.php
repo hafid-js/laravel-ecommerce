@@ -50,9 +50,15 @@
                                                         Phone: 082322875211| Email: info@hafidtech.com
                                                     </td>
                                                 </tr>
+
                                                 <tr>
                                                     <td style="font-size: 14px; line-height: 18px; color: #666666; padding-bottom: 25px;">
                                                         <strong>Order Number:</strong> {{ $orderDetails['id'] }} | <strong>Order Date:</strong> {{ date('F j, Y, g:i a', strtotime($orderDetails['created_at'])) }}
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td align="center" style="font-size: 14px; line-height: 18px; color: #666666; padding-bottom: 25px;">
+                                                       <?php echo DNS1D::getBarcodeHTML($orderDetails['id'], 'C39'); ?>
                                                     </td>
                                                 </tr>
                                             </tbody>
