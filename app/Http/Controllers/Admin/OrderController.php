@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Order;
 use App\Models\OrderStatus;
+use App\Models\OrdersLog;
 use Session;
 
 class OrderController extends Controller
@@ -17,7 +18,7 @@ class OrderController extends Controller
     }
 
     public function orderDetails($id){
-        $orderDetails = Order::with('orders_products','user')->where('id',$id)->first()->toArray();
+        $orderDetails = Order::with('orders_products','user','log')->where('id',$id)->first()->toArray();
         $orderStatuses = OrderStatus::where('status',1)->get()->toArray();
         // dd($orderStatuses);
         return view('admin.orders.order_detail')->with(compact('orderDetails','orderStatuses'));
@@ -32,6 +33,12 @@ class OrderController extends Controller
                 )->update([
                 'order_status' => $data['order_status']
             ]);
+
+            // insert order status in order logs
+            $log = new OrdersLog;
+            $log->order_id = $data['order_id'];
+            $log->order_status = $data['order_status'];
+            $log->save();
             $message = "Order Status has been updated successfully!";
             return redirect()->back()->with('success_message',$message);
         }

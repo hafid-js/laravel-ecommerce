@@ -15,4 +15,8 @@ class Order extends Model
     public function user() {
         return $this->belongsTo('App\Models\User','user_id');
     }
+
+    public function log(){
+        return $this->hasMany('App\Models\OrdersLog','order_id')->orderBy('id','Desc');
+    }
 }

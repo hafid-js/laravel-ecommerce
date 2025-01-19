@@ -216,6 +216,11 @@
                                     </select>
                                     <button type="submit">Update</button>
                                 </form>
+                                @foreach($orderDetails['log'] as $log)
+                                    <br><strong>{{ $log['order_status'] }}</strong></br>
+                                    {{ date('F j, Y, g:i a', strtotime($log['created_at'])) }}
+                                    <hr color="#666666">
+                                @endforeach
                             </td>
                         </tr>
 
