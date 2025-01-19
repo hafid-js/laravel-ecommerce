@@ -71,7 +71,11 @@
                                                 <td>{{ $order['order_status'] }}</td>
                                                 <td>{{ $order['payment_method'] }}</td>
                                                 <td>
-                                                    <a href="{{ url('admin/orders/'.$order['id']) }}" style="color: #3f6ed3"><i class="fas fa-file"></i></a>
+                                                    <a title="View Order Details" href="{{ url('admin/orders/'.$order['id']) }}" style="color: #3f6ed3"><i class="fas fa-file"></i></a>
+                                                    @if($order['order_status'] == "Shipped" || $order['order_status'] == "Delivered")
+                                                    &nbsp;&nbsp;
+                                                    <a target="_blank" title="Print Order Invoice" href="{{ url('admin/print-order-invoice/'.$order['id']) }}" style="color: #3f6ed3"><i class="fas fa-print"></i></a>
+                                                    @endif
                                                 </td>
                                             </tr>
                                         @endforeach

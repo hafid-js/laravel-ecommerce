@@ -186,6 +186,9 @@ Route::prefix('/admin')->namespace('App\Http\Controllers\Admin')->group(function
 
         // update order status
         Route::post('update-order-status','OrderController@updateOrderStatus');
+
+        // print html order invoice
+        Route::get('print-order-invoice/{id}','OrderController@printHTMLOrderInvoice');
     });
 
 });

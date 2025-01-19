@@ -94,7 +94,7 @@
                                                         </div>
                                                         <div class="col-lg-4 u-s-m-b-30">
                                                             <div class="timeline-step">
-                                                                <div @if($orderDetails['order_status'] == "Shipped") class="timeline-l-i timeline-l-i--finish" @else class="timeline-l-i" @endif>
+                                                                <div @if($orderDetails['order_status'] == "Shipped" || $orderDetails['order_status'] == "Delivered") class="timeline-l-i timeline-l-i--finish" @else class="timeline-l-i" @endif>
 
                                                                     <span class="timeline-circle"></span></div>
 
@@ -210,8 +210,27 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <br>
+                                    <h1 class="dash__h1 u-s-m-b-30">Order Logs / Tracking Details</h1>
+                                    <div class="dash__box dash__box--shadow dash__box--radius dash__box--bg-white u-s-m-b-30">
+                                        <div class="dash__pad-2">
+                                            @foreach($orderDetails['log'] as $log)
+                                            <span style="height: 10px;"></span>
+                                                <strong>{{ $log['order_status'] }}</strong><br>
+                                                @if($log['order_status'] == "Shipped")
+                                                    @if(!empty($orderDetails['courier_name']))
+                                                        Courier Name: {{ $orderDetails['courier_name'] }}<br>
+                                                    @endif
+                                                    @if(!empty($orderDetails['tracking_number']))
+                                                        Tracking Number: {{ $orderDetails['tracking_number'] }}<br>
+                                                    @endif
+                                                @endif
+                                                    {{ date('F j, Y, g:i a', strtotime($log['created_at'])) }} <hr color="#f9f9f9">
+                                            @endforeach
+                                             </div>
+                                        </div>
+                                     </div>
                                 </div>
-                            </div>
                         </div>
                     </div>
                 </div>
