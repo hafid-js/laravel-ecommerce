@@ -52,7 +52,7 @@
                                             <th>Order Amount</th>
                                             <th>Order Status</th>
                                             <th>Payment Method</th>
-                                            <th>Actions</th>
+                                            <th style="width: 9%;">Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -74,7 +74,9 @@
                                                     <a title="View Order Details" href="{{ url('admin/orders/'.$order['id']) }}" style="color: #3f6ed3"><i class="fas fa-file"></i></a>
                                                     @if($order['order_status'] == "Shipped" || $order['order_status'] == "Delivered")
                                                     &nbsp;&nbsp;
-                                                    <a target="_blank" title="Print Order Invoice" href="{{ url('admin/print-order-invoice/'.$order['id']) }}" style="color: #3f6ed3"><i class="fas fa-print"></i></a>
+                                                    <a target="_blank" title="Print HTML Order Invoice" href="{{ url('admin/print-order-invoice/'.$order['id']) }}" style="color: #3f6ed3"><i class="fas fa-print"></i></a>
+                                                    &nbsp;&nbsp;
+                                                    <a target="_blank" title="Print PDF Order Invoice" href="{{ url('admin/print-pdf-order-invoice/'.$order['id']) }}" style="color: #3f6ed3"><i class="fas fa-file-pdf"></i></a>
                                                     @endif
                                                 </td>
                                             </tr>

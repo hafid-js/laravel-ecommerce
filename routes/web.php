@@ -189,6 +189,9 @@ Route::prefix('/admin')->namespace('App\Http\Controllers\Admin')->group(function
 
         // print html order invoice
         Route::get('print-order-invoice/{id}','OrderController@printHTMLOrderInvoice');
+
+        // print pdf order invoice
+        Route::get('print-pdf-order-invoice/{id}','OrderController@printPDFOrderInvoice');
     });
 
 });
