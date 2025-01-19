@@ -585,9 +585,9 @@ class ProductController extends Controller
 
         DB::commit();
 
-        if($data['payment_gateway'] == 'COD') {
-            // send order email
+        if($data['payment_gateway'] == "COD") {
 
+            // send order email
             $orderDetails = Order::with('orders_products','user')->where('id',$order_id)->first()->toArray();
 
             // semd order email

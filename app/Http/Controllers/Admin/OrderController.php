@@ -7,7 +7,9 @@ use Illuminate\Http\Request;
 use App\Models\Order;
 use App\Models\OrderStatus;
 use App\Models\OrdersLog;
+use Illuminate\Support\Facades\Mail;
 use Session;
+use Auth;
 
 class OrderController extends Controller
 {
@@ -40,6 +42,25 @@ class OrderController extends Controller
                     'courier_name' => $data['courier_name'],
                     'tracking_number' => $data['tracking_number']
                 ]);
+
+             // send order shipped email to customer with tracking details
+            $orderDetails = Order::with('orders_products','user')->where('id',$data['order_id'])->first()->toArray();
+
+            // send order shipped email
+            $email = $orderDetails['user']['email'];
+            $messageData = [
+                'email' => $email,
+                'name' => $orderDetails['user']['name'],
+                'order_id' => $data['order_id'],
+                'order_status' => $data['order_status'],
+                'courier_name' => $data['courier_name'],
+                'tracking_number' => $data['tracking_number'],
+                'orderDetails' => $orderDetails
+            ];
+            Mail::send('emails.shipped_order',$messageData, function($message) use($email){
+                $message->to($email)->subject('Order Placed - SiteMakers');
+            });
+
             }
 
             // insert order status in order logs
@@ -47,6 +68,7 @@ class OrderController extends Controller
             $log->order_id = $data['order_id'];
             $log->order_status = $data['order_status'];
             $log->save();
+
             $message = "Order Status has been updated successfully!";
             return redirect()->back()->with('success_message',$message);
         }
