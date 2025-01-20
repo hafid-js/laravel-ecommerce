@@ -356,6 +356,39 @@ $(document).on("click", ".updateUserStatus", function () {
         });
     });
 
+    // update shipping status
+    $(document).on("click", ".updateShippingStatus", function () {
+        var status = $(this).children("i").attr("status");
+        var shipping_id = $(this).attr("shipping_id");
+        // alert(shipping_id);
+
+        $.ajax({
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+            },
+            type: "post",
+            url: "/admin/update-shipping-status",
+            data: {
+                status: status,
+                shipping_id: shipping_id,
+            },
+            success: function (resp) {
+                if (resp["status"] == 0) {
+                    $("#shipping-" + shipping_id).html(
+                        "<i class='fas fa-toggle-off' style='color:grey' status='Inactive'></i>"
+                    );
+                } else if (resp["status"] == 1) {
+                    $("#shipping-" + shipping_id).html(
+                        "<i class='fas fa-toggle-on' status='Active'></i>"
+                    );
+                }
+            },
+            error: function () {
+                alert("Error");
+            },
+        });
+    });
+
 
     // Add Product Attribute Script
     var maxField = 10; //Input fields increment limitation

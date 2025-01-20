@@ -324,7 +324,7 @@ use App\Models\Product;
                                                 <input type="radio" id="pay-pal" name="payment_gateway" value="Paypal">
                                                 <div class="radio-box__state radio-box__state--primary">
 
-                                                    <label class="radio-box__label" for="pay-pal">PayPal (Pay With Credit / Debit Card / Paypal Credit)</label></div>
+                                                    <label class="radio-box__label" for="pay-pal">PayPal (Pay With Credit / Debit Card / Paypal Wallet)</label></div>
                                             </div>
                                             <!--====== End - Radio Box ======-->
 

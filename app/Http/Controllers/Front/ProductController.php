@@ -397,6 +397,18 @@ class ProductController extends Controller
                  $error_message = "The coupon is expired!";
                 }
 
+                // check if coupon is for Single or Multiple Times
+                if($couponDetails->coupon_type == "Single Time"){
+                    // check in orders if coupon is already availed by the user
+                    $couponCount = Order::where([
+                        'coupon_code' => $data['code'],
+                        'user_id' => Auth::user()->id
+                    ])->count();
+                    if($couponCount >= 1) {
+                        $error_message = "This coupon code is already availed by you!";
+                    }
+                }
+
 
                 // get all selected categories from coupon
                 $catArr = explode(",",$couponDetails->categories);
@@ -587,10 +599,10 @@ class ProductController extends Controller
 
         if($data['payment_gateway'] == "COD") {
 
-            // send order email
+            // get user detail
             $orderDetails = Order::with('orders_products','user')->where('id',$order_id)->first()->toArray();
 
-            // semd order email
+            // send order email
             $email = Auth::user()->email;
             $messageData = [
                 'email' => $email,
@@ -602,7 +614,9 @@ class ProductController extends Controller
                 $message->to($email)->subject('Order Placed - SiteMakers');
             });
             return redirect('/thanks');
-        } else {
+        } if($data['payment_gateway'] == "Paypal") {
+            // paypal - redirect user to paypal page after saving order
+            return redirect('paypal');
             echo "Prepaid methods coming soon"; die();
         }
 

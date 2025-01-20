@@ -41,7 +41,7 @@
 
                             <!-- /.card-header -->
                             <div class="card-body">
-                                <table id="cmspages" class="table table-bordered table-striped">
+                                <table id="orders" class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
                                             <th>Order ID</th>

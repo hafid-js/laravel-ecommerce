@@ -151,6 +151,9 @@ class CouponsController extends Controller
         }
 
         $coupon->coupon_option = $data['coupon_option'];
+        if($id == "") {
+            $coupon->coupon_code = $coupon_code;
+        }
         $coupon->coupon_code = $coupon_code;
         $coupon->categories = $categories;
         $coupon->brands = $brands;

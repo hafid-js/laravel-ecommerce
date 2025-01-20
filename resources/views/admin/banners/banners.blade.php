@@ -45,7 +45,7 @@
 
                             <!-- /.card-header -->
                             <div class="card-body">
-                                <table id="cmspages" class="table table-bordered table-striped">
+                                <table id="banners" class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
                                             <th>ID</th>

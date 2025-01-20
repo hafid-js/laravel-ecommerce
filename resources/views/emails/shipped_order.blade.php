@@ -217,6 +217,48 @@
                                 </tr>
                                 <!-- End calculation Section -->
 
+                                <tr>
+                                    <td style="padding-top: 30px;">
+                                        <table width="560" align="center" cellpadding="0" cellspacing="0" border="0" class="devicewidthinner" style="border-bottom: 1px solid #eeeeee; text-align: center;">
+                                            <tbody>
+                                                <tr>
+                                                    <td style="font-size: 14px; line-height: 18px; color: #666666;">
+                                                       Download Order Invoice
+                                                       <a href="{{ url('download-order-pdf-invoice/'.$order_id) }}">
+                                                        {{ url('download-order-pdf-invoice/'.$order_id) }}
+                                                    </a> <br>
+                                                    (Copy & Paste to open if link does not work)
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="font-size: 14px; line-height: 18px; color: #666666;">
+                                                       &nbsp;&nbsp;
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="font-size: 14px; line-height: 18px; color: #666666;">
+                                                       For any queries, you can contact us at
+                                                       <a href="mailto:info@hafidtech.com">info@hafidtech.com</a>
+                                                    </a> <br>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="font-size: 14px; line-height: 18px; color: #666666;">
+                                                       &nbsp;&nbsp;
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="font-size: 14px; line-height: 18px; color: #666666;">
+                                                       Regards,
+                                                        <br> Team Hafid Tech
+                                                    </td>
+                                                </tr>
+
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+
                             </tbody>
                         </table>
                     </td>

@@ -17,7 +17,7 @@
                                 <a href="index.html">Home</a></li>
                             <li class="is-marked">
 
-                                <a href="about.html">Thanks</a></li>
+                                <a href="about.html">Payment Fail</a></li>
                         </ul>
                     </div>
                 </div>
@@ -38,10 +38,10 @@
                         <div class="about">
                             <div class="about__container">
                                 <div class="about__info">
-                                    <h2 class="about__h2">YOUR ORDER HAS BEEN PLACED SUCCESSFULLY!</h2>
+                                    <h2 class="about__h2">YOUR ORDER HAS BEEN CANCELLED!</h2>
                                     <div class="about__p-wrap">
                                         <p class="about__p">
-                                            Your Order ID is {{ Session::get('order_id') }} and grand Total is IDR {{ Session::get('grand_total') }}
+                                            Your Payment has been failed. Please try again and contact us for any queries.
                                         </p>
                                     </div>
 

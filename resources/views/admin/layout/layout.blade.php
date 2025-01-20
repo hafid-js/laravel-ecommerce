@@ -112,6 +112,9 @@
       $("#orders").DataTable({
         "order": [[0, "desc"]], // or asc
       });
+      $("#shipping").DataTable({
+        "order": [[0, "desc"]], // or asc
+      });
     });
 
   </script>

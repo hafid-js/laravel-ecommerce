@@ -6,12 +6,12 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">Coupons</h1>
+                        <h1 class="m-0">Shipping Charges</h1>
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active">Coupons</li>
+                            <li class="breadcrumb-item active">Shipping Charges</li>
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -34,62 +34,47 @@
                             </div>
                         @endif
                         <div class="card">
-                            @if ($couponsModule['edit_access'] == 1 || $couponsModule['full_access'] == 1)
+                            @if ($shippingModule['edit_access'] == 1 || $shippingModule['full_access'] == 1)
                                 <div class="card-header">
-                                    <h3 class="card-title">Coupons</h3>
-                                    <a href="{{ url('admin/add-edit-coupon') }}"
-                                        style="max-width: 150px; float: right; display: inline-block;"
-                                        class="btn btn-block btn-primary"><i class="fas fa-plus"></i> Add Coupons</a>
+                                    <h3 class="card-title">Shipping Charges</h3>
                                 </div>
                             @endif
 
                             <!-- /.card-header -->
                             <div class="card-body">
-                                <table id="coupons" class="table table-bordered table-striped">
+                                <table id="cmspages" class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
                                             <th>ID</th>
-                                            <th>Code</th>
-                                            <th>Coupon Type</th>
-                                            <th>Amount</th>
-                                            <th>Expiry Date</th>
-                                            <th>Action</th>
+                                            <th>Country<h>
+                                            <th>Rate</th>
+                                            <th>Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($coupons as $coupon)
+                                        @foreach ($shipping_charges as $shipping)
                                             <tr>
-                                                <td>{{ $coupon['id'] }}</td>
-                                                <td>{{ $coupon['coupon_code'] }}</td>
-                                                <td>{{ $coupon['coupon_type'] }}</td>
-                                                <td>{{ $coupon['amount'] }}
-                                                    @if($coupon['amount'] == "Percentage") % @else INR @endif
-                                                </td>
-                                                <td>{{ date('F j, Y, g:i a', strtotime($coupon['expiry_date'])) }}</td>
+                                                <td>{{ $shipping['id'] }}</td>
+                                                <td>{{ $shipping['country'] }}</td>
+                                                <td>{{ $shipping['rate'] }}</td>
                                                 <td>
-                                                    @if ($couponsModule['edit_access'] == 1 || $couponsModule['full_access'] == 1)
-                                                        @if ($coupon['status'] == 1)
-                                                            <a class="updateCouponStatus" id="coupon-{{ $coupon['id'] }}"
-                                                                coupon_id={{ $coupon['id'] }} href="javascript:void(0)"><i
+                                                    @if ($shippingModule['edit_access'] == 1 || $shippingModule['full_access'] == 1)
+                                                        @if ($shipping['status'] == 1)
+                                                            <a class="updateShippingStatus" id="shipping-{{ $shipping['id'] }}"
+                                                                shipping_id={{ $shipping['id'] }} href="javascript:void(0)"><i
                                                                     class="fas fa-toggle-on" status="Active"></i></a>
                                                         @else
-                                                            <a class="updateCouponsStatus" id="coupon-{{ $coupon['id'] }}"
-                                                                coupon_id={{ $coupon['id'] }} style="color: grey"
+                                                            <a class="updateShippingStatus" id="shipping-{{ $shipping['id'] }}"
+                                                                shipping_id={{ $shipping['id'] }} style="color: grey"
                                                                 href="javascript:void(0)"><i class="fas fa-toggle-off"
                                                                     status="Inactive"></i></a>
                                                         @endif
                                                     @endif
-                                                    @if ($couponsModule['edit_access'] == 1 || $couponsModule['full_access'] == 1)
+                                                    @if ($shippingModule['edit_access'] == 1 || $shippingModule['full_access'] == 1)
                                                         &nbsp; &nbsp;
-                                                        <a href="{{ url('admin/add-edit-coupon/' . $coupon['id']) }}"><i
+                                                        <a href="{{ url('admin/add-edit-shipping/' . $shipping['id']) }}"><i
                                                                 class="fas fa-edit"></i></a>
                                                         &nbsp; &nbsp;
-                                                        @if ($couponsModule['full_access'] == 1)
-                                                            <a class="confirmDelete" title="Delete Coupons"
-                                                                href="javascript:void(0)" record="coupon"
-                                                                recordid="{{ $coupon['id'] }}"><i
-                                                                    class="fas fa-trash"></i></a>
-                                                        @endif
                                                     @endif
                                                 </td>
                                             </tr>

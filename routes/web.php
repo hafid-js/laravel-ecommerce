@@ -109,10 +109,19 @@ Route::namespace('App\Http\Controllers\Front')->group(function() {
         // order details
         Route::get('/user/orders/{id}','OrderController@orderDetails');
 
+        // paypal
+        Route::get('/paypal','PaypalController@paypal');
+        Route::post('pay','PaypalController@pay')->name('payment');
+        Route::get('success','PaypalController@success');
+        Route::get('error','PaypalController@error');
+
 });
+
+Route::get('download-order-pdf-invoice/{id}','App\Http\Controllers\Admin\OrderController@printPDFOrderInvoice');
 
 Route::prefix('/admin')->namespace('App\Http\Controllers\Admin')->group(function() {
     Route::match(['get', 'post'], 'login', 'AdminController@login');
+
     Route::group(['middleware' => ['admin']], function() {
         Route::get('dashboard', 'AdminController@dashboard');
         Route::match(['get', 'post'],'update-password','AdminController@updatePassword');
@@ -192,6 +201,10 @@ Route::prefix('/admin')->namespace('App\Http\Controllers\Admin')->group(function
 
         // print pdf order invoice
         Route::get('print-pdf-order-invoice/{id}','OrderController@printPDFOrderInvoice');
+
+        // Shipping Charges
+        Route::get('shipping-charges','ShippingController@shippingCharges');
+        Route::post('/update-shipping-status','ShippingController@updateShippingStatus');
     });
 
 });

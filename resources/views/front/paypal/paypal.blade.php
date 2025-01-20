@@ -17,7 +17,7 @@
                                 <a href="index.html">Home</a></li>
                             <li class="is-marked">
 
-                                <a href="about.html">Thanks</a></li>
+                                <a href="#">Payment</a></li>
                         </ul>
                     </div>
                 </div>
@@ -41,11 +41,20 @@
                                     <h2 class="about__h2">YOUR ORDER HAS BEEN PLACED SUCCESSFULLY!</h2>
                                     <div class="about__p-wrap">
                                         <p class="about__p">
-                                            Your Order ID is {{ Session::get('order_id') }} and grand Total is IDR {{ Session::get('grand_total') }}
+                                           Your Order ID is {{ Session::get('order_id') }} and Grand Total is IDR {{  Session::get('grand_total') }} ({{ round(Session::get('grand_total')/83,2) }} IDR)
+                                        </p>
+                                        <p>
+                                            Please make payment to confirm your order
+                                        </p>
+                                        <p>
+                                            <form action="{{ route('payment') }}" method="post">@csrf
+                                                <input type="hidden" name="amount" value="{{ round(Session::get('grand_total')/83,2) }}">
+                                                <input type="image" src="https://www.paypalobjects.com/webstatic/en_AU/i/buttons/btn_paywith_primary_l.png" alt="Pay Now">
+                                            </form>
                                         </p>
                                     </div>
 
-                                    <a class="about__link btn--e-secondary" href="{{ url('/') }}" target="_blank">Continue Shopping</a>
+                                    {{-- <a class="about__link btn--e-secondary" href="{{ url('/') }}" target="_blank">Continue Shopping</a> --}}
                                 </div>
                             </div>
                         </div>
@@ -194,10 +203,3 @@
 <!--====== End - Main App ======-->
 
 @endsection
-
-<?php
-Session::forget('grand_total');
-Session::forget('order_id');
-Session::forget('couponCode');
-Session::forget('couponAmount');
-?>
