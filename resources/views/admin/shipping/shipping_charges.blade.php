@@ -72,7 +72,7 @@
                                                     @endif
                                                     @if ($shippingModule['edit_access'] == 1 || $shippingModule['full_access'] == 1)
                                                         &nbsp; &nbsp;
-                                                        <a href="{{ url('admin/add-edit-shipping/' . $shipping['id']) }}"><i
+                                                        <a href="{{ url('admin/edit-shipping-charges/' . $shipping['id']) }}"><i
                                                                 class="fas fa-edit"></i></a>
                                                         &nbsp; &nbsp;
                                                     @endif
