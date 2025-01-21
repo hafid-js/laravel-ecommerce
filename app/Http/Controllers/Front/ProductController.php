@@ -590,6 +590,20 @@ class ProductController extends Controller
             $cartItem->product_price = $getAttributePrice['final_price'];
             $cartItem->product_qty = $item['product_qty'];
             $cartItem->save();
+
+            if($data['payment_gateway'] == "COD") {
+            // Reduce Stock Scripts Start
+            $getProductStock = ProductsAttribute::productStock(
+                $item['product_id'],
+                $item['product_size']
+            );
+            $newStock = $getProductStock - $item['product_qty'];
+            ProductAttribute::where([
+                'product_id' => $item['product_id'],
+                'product_sie' => $item['product_size']
+            ])->update([
+                'stock' => $newStock]);
+            }
         }
 
         // insert order id in session variable

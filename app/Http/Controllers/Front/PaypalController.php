@@ -80,6 +80,22 @@ class PaypalController extends Controller
                  // get user detail
                 $orderDetails = Order::with('orders_products','user')->where('id',$order_id)->first()->toArray();
 
+                foreach($orderDetails['orders_products'] as $key => $item) {
+                     // Reduce Stock Scripts Start
+                    $getProductStock = ProductsAttribute::productStock(
+                        $item['product_id'],
+                        $item['product_size']
+                    );
+                    $newStock = $getProductStock - $item['product_qty'];
+                    ProductAttribute::where([
+                        'product_id' => $item['product_id'],
+                        'product_sie' => $item['product_size']
+                    ])->update([
+                        'stock' => $newStock]);
+                    }
+
+
+
                 // semd order email
                 $email = Auth::user()->email;
                 $messageData = [
