@@ -51,6 +51,7 @@
         </div>
     </div>
 @endforeach
+@if(empty($_GET['query']))
 <div class="u-s-p-y-60">
     <ul class="shop-p__pagination pagination">
         <?php
@@ -101,3 +102,4 @@
     </ul>
     <!--====== End - Pagination ======-->
 </div>
+@endif

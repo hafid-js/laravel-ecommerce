@@ -13,7 +13,12 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-3 col-md-12">
+
+                        @if(empty($_GET['query']))
                         @include('front.products.filters')
+                        @else
+                        @include('front.products.filters_search')
+                        @endif
                     </div>
                     <div class="col-lg-9 col-md-12">
                         <div class="shop-p">
@@ -25,10 +30,16 @@
 
                                         {{-- <a class="gl-tag btn--e-brand-shadow" href="#">T-Shirts</a> --}}
 
+                                        @if(isset($_GET['query']) && !empty($_GET['query']))
+                                        {{ $_GET['query'] }}
+                                        @else
                                         <?php echo $categoryDetails['breadcrumbs']; ?>
+                                        @endif
 
                                     </div>
                                 </div>
+                                @if(isset($_GET['query']) && !empty($_GET['query']))
+                                @else
                                 <div class="shop-p__tool-style">
                                     <div class="tool-style__group u-s-m-b-8">
 
@@ -39,6 +50,7 @@
                                     <form name="sortProducts" id="sortProducts">
                                         <input type="hidden" name="url" id="url" value="{{ $url }}">
                                         <div class="tool-style__form-wrap">
+
                                             <div class="u-s-m-b-8"><select class="select-box select-box--transparent-b-2 getsort" name="sort" id="sort">
                                                     <option selected>Sort By: Newest Items</option>
                                                     <option value="product_latest"
@@ -66,6 +78,7 @@
                                         </div>
                                     </form>
                                 </div>
+                                @endif
                             </div>
                             <div class="shop-p__collection">
                                 <div class="row is-grid-active" id="appendProducts">

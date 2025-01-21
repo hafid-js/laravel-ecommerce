@@ -115,6 +115,9 @@ Route::namespace('App\Http\Controllers\Front')->group(function() {
         Route::get('success','PaypalController@success');
         Route::get('error','PaypalController@error');
 
+        // search products
+        Route::get('search-products','ProductController@listing');
+
 });
 
 Route::get('download-order-pdf-invoice/{id}','App\Http\Controllers\Admin\OrderController@printPDFOrderInvoice');

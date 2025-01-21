@@ -54,6 +54,7 @@ class ProductController extends Controller
                 }
             }
 
+
             // update query for colors filter
             if(isset($request['color']) && !empty($request['color'])){
                 $colors = explode('~', $request['color']);
@@ -96,10 +97,25 @@ class ProductController extends Controller
                     'view' => (String) View::make('front.products.ajax_products_listing')->with(
                         compact('categoryDetails','categoryProducts','url'))
                 ]);
+
             } else {
                 return view('front.products.listing')->with(compact('categoryDetails','categoryProducts','url'));
             }
-        } {
+
+        } else if(isset($_GET['query']) && !empty($_GET['query'])) {
+            $search = $_GET['query'];
+
+            // get search query products
+            $categoryProducts = Product::with(['brand','images'])->where(function($query)use($search){
+                $query->where('product_name','like','%'.$search.'%')
+                ->orWhere('product_code','like','%'.$search.'%')
+                ->orWhere('product_color','like','%'.$search.'%')
+                ->orWhere('description','like','%'.$search.'%');
+            })->where('status',1);
+            $categoryProducts = $categoryProducts->get();
+
+            return view('front.products.listing')->with(compact('categoryProducts'));
+        } else {
             abort(404);
         }
     }
