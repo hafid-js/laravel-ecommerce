@@ -543,6 +543,12 @@ class ProductController extends Controller
         if($data['payment_gateway']=="COD"){
             $payment_method = "COD";
             $order_status = "New";
+        } else if($data['payment_gateway']=="Bank Transfer"){
+            $payment_method = "Prepaid";
+            $order_status = "Pending";
+        } else if($data['payment_gateway']=="Check"){
+            $payment_method = "Prepaid";
+            $order_status = "Pending";
         } else {
             $payment_method = "Prepaid";
             $order_status = "Pending";
@@ -607,16 +613,16 @@ class ProductController extends Controller
             $cartItem->product_qty = $item['product_qty'];
             $cartItem->save();
 
-            if($data['payment_gateway'] == "COD") {
+            if($data['payment_gateway'] == "COD" || $data['payment_gateway']=="Bank Transfer" || $data['payment_gateway']=="Check") {
             // Reduce Stock Scripts Start
             $getProductStock = ProductsAttribute::productStock(
                 $item['product_id'],
                 $item['product_size']
             );
             $newStock = $getProductStock - $item['product_qty'];
-            ProductAttribute::where([
+            ProductsAttribute::where([
                 'product_id' => $item['product_id'],
-                'product_sie' => $item['product_size']
+                'size' => $item['product_size']
             ])->update([
                 'stock' => $newStock]);
             }
@@ -627,7 +633,7 @@ class ProductController extends Controller
 
         DB::commit();
 
-        if($data['payment_gateway'] == "COD") {
+        if($data['payment_gateway'] == "COD" || $data['payment_gateway']=="Bank Transfer" || $data['payment_gateway']=="Check") {
 
             // get user detail
             $orderDetails = Order::with('orders_products','user')->where('id',$order_id)->first()->toArray();
@@ -643,7 +649,14 @@ class ProductController extends Controller
             Mail::send('emails.order',$messageData, function($message) use($email){
                 $message->to($email)->subject('Order Placed - SiteMakers');
             });
-            return redirect('/thanks');
+            if($data['payment_gateway'] == "COD") {
+                return redirect('/thanks');
+            } else if($data['payment_gateway']=="Bank Transfer"){
+                return redirect('/thanks?order=bank');
+            } else if($data['payment_gateway']=="Check"){
+                return redirect('/thanks?order=check');
+            }
+
         } if($data['payment_gateway'] == "Paypal") {
             // paypal - redirect user to paypal page after saving order
             return redirect('paypal');

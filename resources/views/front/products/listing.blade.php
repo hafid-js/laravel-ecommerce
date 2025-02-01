@@ -24,7 +24,6 @@
                         <div class="shop-p">
                             <div class="shop-p__toolbar u-s-m-b-30">
                                 <div class="shop-p__meta-wrap u-s-m-b-60">
-
                                     <span class="shop-p__meta-text-1">FOUND {{ count($categoryProducts) }} RESULTS</span>
                                     <div class="shop-p__meta-text-2">
 

@@ -45,6 +45,27 @@
                                         </p>
                                     </div>
 
+                                    @if(!empty($_GET['order']) && $_GET['order'] == "check")
+                                    <div class="about__p-wrap">
+                                        <p class="about__p">Please send your Check of amount IND {{ Session::get('grand_total') }} to below Address: <br> HafidTech.com <br>
+                                            Bruno, Purworejo <br>
+                                            Jawa Tengah <br>
+                                            Indonesia <br>
+                                            Check Name : HafidTech <br>
+
+                                        </p>
+                                    </div>
+                                    @endif
+                                    @if(!empty($_GET['order']) && $_GET['order'] == "bank")
+                                    <div class="about__p-wrap">
+                                        <p class="about__p">Please transfer amount IND {{ Session::get('grand_total') }} to below Bank: <br>
+                                            Account Holder Name: HafidTech <br>
+                                            Bank Name: BCA <br>
+                                            IFSC Code: 60551217669 <br>
+                                        </p>
+                                    </div>
+                                    @endif
+
                                     <a class="about__link btn--e-secondary" href="{{ url('/') }}" target="_blank">Continue Shopping</a>
                                 </div>
                             </div>
